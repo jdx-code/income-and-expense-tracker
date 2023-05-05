@@ -4,7 +4,8 @@
   "description": "An income-expense tracker app built to record and keep track of various incomes and expenses of a small size business.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "cross-env NODE_ENV=production node app",
+    "dev": "cross-env NODE_ENV=development nodemon app"
   },
   "repository": {
     "type": "git",
