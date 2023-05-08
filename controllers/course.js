@@ -5,7 +5,7 @@ module.exports = {
         try{
             const course = await Course.find()
             res.render('course/course', {
-                course,
+                course: course,                
             })
         } catch (err) {
             console.error(err)
@@ -19,7 +19,7 @@ module.exports = {
                 courseDuration: req.body.duration 
             })
             console.log('Course added successfully!')
-            res.render('course/course')
+            res.redirect('/course')
         } catch (err){
             console.error(err)
             res.render('error/500')
