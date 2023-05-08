@@ -8,14 +8,29 @@
 </head>
 <body>
     <h1>Add Course </h1>
-    <form>
+    <form action="/course/add" method="POST">
         <label>Course Name : </label>
-        <input type="text" value="">
+        <input type="text" name="course" value="">
 
-        <label>Course Name : </label>
-        <input type="text" value="">
+        <label>Course Duration : </label>
+        <input type="text" name="duration" value="">
         
         <button type="submit">Add Course</button>
     </form>
+
+    <h1>View Courses</h1>
+    <% let courseArr = Object.values(course) %>
+    <ul>
+        <% courseArr.forEach(e => { %>
+            <li>
+                <span id="coursename">
+                    <%= e.courseName %>
+                </span>
+                <span id="courseduration">
+                    <%= e.courseDuration %> months
+                </span>
+                <% }) %>
+            </li>
+    </ul>
 </body>
 </html>
