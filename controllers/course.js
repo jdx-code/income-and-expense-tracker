@@ -4,7 +4,7 @@ module.exports = {
     getIndex: async (req, res) => {
         try{
             const course = await Course.find()
-            res.render('course/course', {
+            res.render('admin/ccet/courses/index', {
                 course: course,                
             })
         } catch (err) {
@@ -19,7 +19,7 @@ module.exports = {
                 courseDuration: req.body.duration 
             })
             console.log('Course added successfully!')
-            res.redirect('/course')
+            res.redirect('/courses')
         } catch (err){
             console.error(err)
             res.render('error/500')
