@@ -33,6 +33,17 @@ module.exports = {
         }
     },
 
+    deleteCourse: async(req, res) => {
+        try{
+            await Course.findOneAndDelete({ courseName: req.body.courseToBeDeleted })
+            console.log('Deleted course')            
+            res.redirect('/ccet/course-management')
+        } catch (err){
+            console.error(err)
+            res.render('error/500')
+        }
+    },
+
     getStudentMng: (req, res) => {
         res.render('admin/ccet/students/index')
     },
