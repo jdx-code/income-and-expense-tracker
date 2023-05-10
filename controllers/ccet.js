@@ -33,7 +33,7 @@ module.exports = {
         }
     },
 
-    deleteCourse: async(req, res) => {
+    deleteCourse: async (req, res) => {
         try{
             await Course.findOneAndDelete({ courseName: req.body.courseToBeDeleted })
             console.log('Deleted course')            
@@ -44,9 +44,26 @@ module.exports = {
         }
     },
 
-    getStudentMng: (req, res) => {
-        res.render('admin/ccet/students/index')
+    getStudentMng: async (req, res) => {
+        try{
+            const courses = await Course.find()
+            res.render('admin/ccet/students/index', {
+                courses
+            })
+        } catch (err)         {
+            console.error(err)
+            res.render('error/500')
+        }
     },
+
+    addStudent: async (req, res) => {        
+        try{
+            await students
+        } catch(err) {
+            console.error(err)
+        }
+    },
+
     getFeesMng: (req, res) => {
         res.render('admin/ccet/fees/index')
     }

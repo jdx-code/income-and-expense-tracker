@@ -7,6 +7,63 @@
     <title>Document</title>
 </head>
 <body>
+
     <h1>Student Management</h1>
+    <h2>Add New Student</h2>
+    <form action="/ccet/add-student" method="POST">
+        <label>
+            Student Name
+        </label>
+        <input type="text" name="studentName">
+
+        <label>
+            Last Exam Passed
+        </label>
+        <select name="lastExamPassed">
+            <option value="hslc">HSLC</option>
+            <option value="hs">HS</option>
+            <option value="graduation">Graduation</option>
+            <option value="post graduation">Post Graduation</option>
+        </select>
+        <label>
+            Course enrolled
+        </label>
+        
+        <select name="courseEnrolled">
+            <% courses.forEach(course => { %>
+                <option value="<%= course.courseName %>">
+                    <%= course.courseName %>
+                </option>            
+            <% }) %>
+        </select>
+        
+        
+        <button type="submit">Submit</button>
+    </form>
+    <hr>
+    <h3>Enrolled Students</h3>
+    <form>
+        <label>
+            Course
+        </label>
+        <select>
+            <option value="">DCA</option>
+            <option value="">ADCA</option>
+            <option value="">PGDCA</option>            
+            <option value="">Tally with GST</option>            
+        </select>
+        <label>
+            Session
+        </label>
+        <select>
+            <option value="">2021</option>
+            <option value="">2022</option>
+            <option value="">2023</option>                        
+        </select>
+        <button type="submit">Filter Search</button>
+    </form>
+    
+
+    
 </body>
 </html>

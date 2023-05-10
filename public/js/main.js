@@ -13,17 +13,19 @@ async function deleteCourse() {
     const courseName = this.parentNode.parentNode.childNodes[1].childNodes[1].innerText;
 
     try{
-        const res = await fetch('../ccet/delete-course', {
+        const res = await fetch('../delete-course', {
             method: 'delete',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 'courseToBeDeleted': courseName
             })                      
         })    
-        alert('Course deleted..')
+        if(res){
+            alert('Course deleted..')
+        }         
         location.reload()
     } catch (err) {
-        console.error(err)
+        console.error(err)        
     }
     
 }
