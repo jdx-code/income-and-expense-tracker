@@ -1,4 +1,5 @@
 const Course = require('../models/Course')
+const Student = require('../models/Student')
 
 module.exports = {
     getIndex: (req, res) => {
@@ -58,7 +59,9 @@ module.exports = {
 
     addStudent: async (req, res) => {        
         try{
-            await students
+            await Student.create(req.body)
+            console.log('Student data added')
+            res.redirect('/ccet/student-management')
         } catch(err) {
             console.error(err)
         }

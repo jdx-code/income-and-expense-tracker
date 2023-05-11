@@ -31,7 +31,7 @@
         
         <select name="courseEnrolled">
             <% courses.forEach(course => { %>
-                <option value="<%= course.courseName %>">
+                <option value="<%= course._id %>">
                     <%= course.courseName %>
                 </option>            
             <% }) %>
