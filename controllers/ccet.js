@@ -48,8 +48,12 @@ module.exports = {
     getStudentMng: async (req, res) => {
         try{
             const courses = await Course.find()
+            const students = await Student.find()
+                .populate('courseEnrolled')
+
             res.render('admin/ccet/students/index', {
-                courses
+                courses,
+                students
             })
         } catch (err)         {
             console.error(err)

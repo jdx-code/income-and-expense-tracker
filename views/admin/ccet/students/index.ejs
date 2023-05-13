@@ -64,6 +64,25 @@
     </form>
     
 
+    <table>
+        <% students.forEach(student => { %>
+        <tr>
+            <td>
+                <%= student.studentName %>
+            </td>
+            <td>
+                <%= student.lastExamPassed %>
+            </td>
+            <td>
+                <%= student.courseEnrolled.courseName %>
+            </td>
+            <td>
+                <%= student.enrollmentDate %>
+            </td>
+        </tr>
+        <% }) %>
+    </table>
+
     
 </body>
 </html>
