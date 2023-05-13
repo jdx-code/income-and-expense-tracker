@@ -8,9 +8,31 @@
 </head>
 <body>
     <h1>Fees Management</h1>
-    <ul>
-        <li>Student ID</li>      
-        <li>Paid for Month</li>
-    </ul>
+
+    <h3>Add Fees Record</h3>
+    <form action="" method="POST">
+        <label>
+            Course : 
+        </label>
+        <select name="courseName">
+            <% courses.forEach(course => { %>
+            <option value="<%= course.courseName %>"><%= course.courseName %></option>
+            <% }) %>
+        </select>
+        <label>
+            Session
+        </label>
+        <select name="courseSession">            
+            <option value="2021">2021</option>            
+            <option value="2022">2022</option>
+            <option value="2023">2023</option>
+        </select>
+        <label>
+            Student ID/ Name 
+        </label>
+        <input type="text" name="studentName">
+        <button type="submit">Check Record</button>
+    </form>
+    
 </body>
 </html>

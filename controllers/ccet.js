@@ -25,10 +25,11 @@ module.exports = {
         try{
             await Course.create({
                 courseName: req.body.course, 
-                courseDuration: req.body.duration 
+                courseDuration: req.body.duration, 
+                courseFees: req.body.fees
             })
             console.log('Course Added')
-            res.redirect('/ccet/course-management')
+            res.redirect('/ccet/course-management/')
         } catch (err) {
             console.error(err)
             res.render('error/500')
@@ -85,10 +86,21 @@ module.exports = {
             res.redirect('/ccet/student-management')
         } catch(err) {
             console.error(err)
+            res.render('error/500')
         }
     },
 
-    getFeesMng: (req, res) => {
+    getFeesMng: async (req, res) => {
+        try{
+            const courses = await Course.find()
+
+            res.render('admin/ccet/fees/index', {
+                courses
+            })
+        } catch(err){
+            console.error(err)
+            res.render('error/500')
+        }
         res.render('admin/ccet/fees/index')
     }
 }

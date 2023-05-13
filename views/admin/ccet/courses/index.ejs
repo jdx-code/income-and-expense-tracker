@@ -16,6 +16,9 @@
 
         <label>Course Duration : </label>
         <input type="text" name="duration" value="">
+
+        <label>Course Fees : </label>
+        <input type="text" name="fees" value="">
         
         <button type="submit">Add Course</button>
     </form>
@@ -30,6 +33,7 @@
             <tr>
                 <th>Course name</th>
                 <th>Duration</th>
+                <th>Fees</th>
                 <th>Action</th>
                 <th>Action</th>
             </tr>
@@ -44,6 +48,11 @@
                 <td>
                     <span id="courseduration">
                         <%= e.courseDuration %> months
+                    </span>
+                </td>
+                <td>
+                    <span id="coursefees">
+                        <%= e.courseFees %>
                     </span>
                 </td>
                 <td>

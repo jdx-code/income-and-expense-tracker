@@ -9,6 +9,10 @@ const CourseSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    courseFees: {
+        type: Number,
+        required: true,
+    },
 })
 
 module.exports = mongoose.model('Course', CourseSchema)
