@@ -1,3 +1,4 @@
+const { request } = require('express')
 const Course = require('../models/Course')
 const Student = require('../models/Student')
 
@@ -53,6 +54,22 @@ module.exports = {
 
             res.render('admin/ccet/students/index', {
                 courses,
+                students
+            })
+        } catch (err)         {
+            console.error(err)
+            res.render('error/500')
+        }
+    },
+
+    getStudentMngFiltered: async (req, res) => {              
+        try{  
+            const courses = await Course.find()          
+            const students = await Student.find({ courseEnrolled : req.body.courseName })
+                .populate('courseEnrolled')
+                
+            res.render('admin/ccet/students/index', {  
+                courses,              
                 students
             })
         } catch (err)         {

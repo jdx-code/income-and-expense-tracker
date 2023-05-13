@@ -9,6 +9,7 @@ router.post('/add-course', ccetController.addCourse)
 router.delete('/delete-course', ccetController.deleteCourse)
 
 router.get('/student-management', ccetController.getStudentMng)
+router.post('/student-management', ccetController.getStudentMngFiltered)
 router.post('/add-student', ccetController.addStudent)
 
 router.get('/fees-management', ccetController.getFeesMng)

@@ -8,50 +8,16 @@
 </head>
 <body>
 
-    <h1>Student Management</h1>
-    <h2>Add New Student</h2>
-    <form action="/ccet/add-student" method="POST">
-        <label>
-            Student Name
-        </label>
-        <input type="text" name="studentName">
-
-        <label>
-            Last Exam Passed
-        </label>
-        <select name="lastExamPassed">
-            <option value="hslc">HSLC</option>
-            <option value="hs">HS</option>
-            <option value="graduation">Graduation</option>
-            <option value="post graduation">Post Graduation</option>
-        </select>
-        <label>
-            Course enrolled
-        </label>
-        
-        <select name="courseEnrolled">
-            <% courses.forEach(course => { %>
-                <option value="<%= course._id %>">
-                    <%= course.courseName %>
-                </option>            
-            <% }) %>
-        </select>
-        
-        
-        <button type="submit">Submit</button>
-    </form>
-    <hr>
     <h3>Enrolled Students</h3>
     <form action="" method="POST">
         <label>
             Course
         </label>
         <select name="courseName">
-            <% courses.forEach(course => { %>
-                <option value="<%= course._id %>">
-                    <%= course.courseName %>
-                </option>            
-            <% }) %>            
+            <option value="DCA (Diploma in Computer Application)">DCA</option>
+            <option value="ADCA">ADCA</option>
+            <option value="PGDCA (Post Graduate Diploma in Computer Application)">PGDCA</option>            
+            <option value="Graphics Designing">Graphics Designing</option>            
         </select>
         <label>
             Session
