@@ -40,7 +40,7 @@ module.exports = {
         try{
             await Course.findOneAndDelete({ courseName: req.body.courseToBeDeleted })
             console.log('Deleted course')            
-            res.redirect('/ccet/course-management')
+            res.redirect('/ccet/course-management/')
         } catch (err){
             console.error(err)
             res.render('error/500')
@@ -81,7 +81,17 @@ module.exports = {
 
     addStudent: async (req, res) => {        
         try{
-            await Student.create(req.body)
+            const studentName = req.body.studentName
+            const lastExamPassed = req.body.lastExamPassed
+            const courseEnrolled = req.body.courseEnrolled
+            const status = 1
+
+            await Student.create({
+                studentName,
+                lastExamPassed,
+                courseEnrolled,
+                status,
+            })
             console.log('Student data added')
             res.redirect('/ccet/student-management')
         } catch(err) {
@@ -93,9 +103,27 @@ module.exports = {
     getFeesMng: async (req, res) => {
         try{
             const courses = await Course.find()
-
+            const students = await Student.find({ courseEnrolled : req.body.courseName })
+                .populate('courseEnrolled')
             res.render('admin/ccet/fees/index', {
-                courses
+                courses,
+                students
+            })
+        } catch(err){
+            console.error(err)
+            res.render('error/500')
+        }
+        res.render('admin/ccet/fees/index')
+    },
+
+    getFeesMngFiltered: async (req, res) => {
+        try{
+            const courses = await Course.find()
+            const students = await Student.find({ courseEnrolled : req.body.courseName })
+                .populate('courseEnrolled')
+            res.render('admin/ccet/fees/index', {
+                courses,
+                students
             })
         } catch(err){
             console.error(err)

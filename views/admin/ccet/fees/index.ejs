@@ -9,14 +9,16 @@
 <body>
     <h1>Fees Management</h1>
 
-    <h3>Add Fees Record</h3>
+    <h3>Search by filters</h3>
     <form action="" method="POST">
         <label>
             Course : 
         </label>
         <select name="courseName">
             <% courses.forEach(course => { %>
-            <option value="<%= course.courseName %>"><%= course.courseName %></option>
+                <option value="<%= course._id %>">
+                    <%= course.courseName %>
+                </option>
             <% }) %>
         </select>
         <label>
@@ -32,7 +34,12 @@
         </label>
         <input type="text" name="studentName">
         <button type="submit">Check Record</button>
-    </form>
+    </form>   
+
+    <h3>Student</h3>
     
+    <% students.forEach(student => { %>
+        <p><%= student.studentName  %></p>
+    <% }) %>
 </body>
 </html>

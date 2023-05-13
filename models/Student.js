@@ -16,7 +16,10 @@ const StudentSchema = new mongoose.Schema({
     enrollmentDate: {
         type: Date,
         default: Date.now,
-    },    
+    },
+    status:{
+        type: Number,        
+    }    
 })
 
 module.exports = mongoose.model('Student', StudentSchema)
