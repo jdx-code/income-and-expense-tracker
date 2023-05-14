@@ -9,12 +9,20 @@ const FeeSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Course',
     },
-    amountPaid: {
+    admissionFeesAmount: {
+        type: Number,        
+    },
+    monthlyFeesAmount: {
         type: Number,
         required: true,
+    },
+    examFeesAmount: {
+        type: Number,
     },
     paymentDate: {
         type: Date,
         default: Date.now,
     },    
 })
+
+module.exports = mongoose.model('Fee', FeeSchema)

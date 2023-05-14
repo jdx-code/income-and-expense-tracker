@@ -1,6 +1,7 @@
 const { request } = require('express')
 const Course = require('../models/Course')
 const Student = require('../models/Student')
+const Fee = require('../models/Fee')
 
 module.exports = {
     getIndex: (req, res) => {
@@ -92,6 +93,20 @@ module.exports = {
                 courseEnrolled,
                 status,
             })
+
+            const student = await Student.find({ studentName: studentName })      
+            
+            // console.log(student)
+            const studentId = student[0]._id
+
+            await Fee.create({
+                studentInfo: studentId,
+                courseInfo: courseEnrolled,
+                admissionFeesAmount: 1000,
+                monthlyFeesAmount: 0,
+                examFeesAmount: 0,
+            })
+
             console.log('Student data added')
             res.redirect('/ccet/student-management')
         } catch(err) {
@@ -132,3 +147,4 @@ module.exports = {
         res.render('admin/ccet/fees/index')
     }
 }
+
