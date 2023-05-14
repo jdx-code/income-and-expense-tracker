@@ -11,9 +11,9 @@ const FeeSchema = new mongoose.Schema({
     },
     admissionFeesAmount: {
         type: Number,        
-    },
-    monthlyFeesAmount: {
-        type: Number,
+    },    
+    totalFeesPaid: {
+        type: Array,
         required: true,
     },
     examFeesAmount: {

@@ -114,42 +114,41 @@ module.exports = {
 
     addStudent: async (req, res) => {        
         try{
-          const studentName = req.body.studentName
-          const lastExamPassed = req.body.lastExamPassed
-          const courseEnrolled = req.body.courseEnrolled
-          const status = 1
-      
-          const newStudent = await Student.create({
+            const studentName = req.body.studentName
+            const lastExamPassed = req.body.lastExamPassed
+            const courseEnrolled = req.body.courseEnrolled
+            const status = 1
+
+            const newStudent = await Student.create({
             studentName,
             lastExamPassed,
             courseEnrolled,
             status,
-          })
-      
-          const newStudentId = newStudent._id
-      
-          const newFee = await Fee.create({
+            })
+
+            const newStudentId = newStudent._id
+
+            const newFee = await Fee.create({
             studentInfo: newStudentId,
             courseInfo: courseEnrolled,
             admissionFeesAmount: 1000,
-            monthlyFeesAmount: 0,
+            totalFeesPaid: [0],
             examFeesAmount: 0,
-          })
-      
-          const updatedStudent = await Student.findByIdAndUpdate(
+            })
+
+            const updatedStudent = await Student.findByIdAndUpdate(
             newStudentId,
             { fee: newFee._id },
             { new: true }
-          ).populate('fee')
-      
-          console.log('Student data added')
-          res.redirect('/ccet/student-management')
+            ).populate('fee')
+
+            console.log('Student data added')
+            res.redirect('/ccet/student-management')
         } catch(err) {
-          console.error(err)
-          res.render('error/500')
+            console.error(err)
+            res.render('error/500')
         }
-      },
-      
+    },      
 
     getFeesMng: async (req, res) => {
         try{
@@ -168,30 +167,7 @@ module.exports = {
             res.render('error/500')
         }
         res.render('admin/ccet/fees/index')
-    },
-
-    // getFeesMngFiltered: async (req, res) => {
-    //     try{
-    //         const courses = await Course.find()
-    //         const students = await Student.find({ courseEnrolled : req.body.courseName })
-    //             .populate('courseEnrolled')
-
-    //         // const fees = await Fee.find({  })
-
-    //         // for(let i in students){
-    //         //     console.log(students[i]._id)
-    //         // }
-            
-    //         res.render('admin/ccet/fees/index', {
-    //             courses,
-    //             students
-    //         })
-    //     } catch(err){
-    //         console.error(err)
-    //         res.render('error/500')
-    //     }
-    //     res.render('admin/ccet/fees/index')
-    // }
+    }, 
 
     getFeesMngFiltered: async (req, res) => {
         try {
@@ -199,7 +175,7 @@ module.exports = {
             const students = await Student.find({ courseEnrolled: req.body.courseId })
                 .populate('courseEnrolled')
                 .populate('fee');
-                            
+
             // for (let i = 0; i < students.length; i++) {
             //     const studentId = students[i]._id;
             //     const fee = await Fee.findOne({ studentInfo: studentId });
