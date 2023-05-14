@@ -14,7 +14,7 @@
         <label>
             Course : 
         </label>
-        <select name="courseName">
+        <select name="courseId">
             <% courses.forEach(course => { %>
                 <option value="<%= course._id %>">
                     <%= course.courseName %>
@@ -37,9 +37,42 @@
     </form>   
 
     <h3>Student</h3>
-    
-    <% students.forEach(student => { %>
-        <p><%= student.studentName  %></p>
-    <% }) %>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Student name
+                </th>
+                <th>
+                    Course Enrolled
+                </th>
+                <th>
+                    Fees paid on admission (excl.)
+                </th>
+                <th>
+                    Course fees paid
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% students.forEach(student => { %>
+                <tr>
+                    <td>
+                        <%= student.studentName %>
+                    </td>
+                    <td>
+                        <%= student.courseEnrolled.courseName %>
+                    </td>
+                    <td>
+                        <%= student.fee.admissionFeesAmount %>
+                    </td>
+                    <td>
+                        <%= student.fee.monthlyFeesAmount %> / <%= student.courseEnrolled.courseFees%>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>        
+    </table>
 </body>
 </html>

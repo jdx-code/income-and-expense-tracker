@@ -19,6 +19,10 @@ const StudentSchema = new mongoose.Schema({
     },
     status:{
         type: Number,        
+    },
+    fee: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Fee'
     }    
 })
 
