@@ -87,20 +87,22 @@ module.exports = {
             const courseEnrolled = req.body.courseEnrolled
             const status = 1
 
-            await Student.create({
+            const newStudent = await Student.create({
                 studentName,
                 lastExamPassed,
                 courseEnrolled,
                 status,
             })
 
-            const student = await Student.find({ studentName: studentName })      
+            // const student = await Student.find({ studentName: studentName })      
             
             // console.log(student)
-            const studentId = student[0]._id
+            // const studentId = student[0]._id
+
+            const newStudentId = newStudent._id
 
             await Fee.create({
-                studentInfo: studentId,
+                studentInfo: newStudentId,
                 courseInfo: courseEnrolled,
                 admissionFeesAmount: 1000,
                 monthlyFeesAmount: 0,
