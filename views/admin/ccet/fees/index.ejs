@@ -71,7 +71,9 @@
                         <%= student.fee.totalFeesPaid %> / <%= student.courseEnrolled.courseFees%>
                     </td>
                     <td>
-                        <button type="submit">Record New Payment</button>
+                        <a href="<%= student._id %>">
+                            <button type="submit">Record New Payment</button>
+                        </a>                        
                     </td>
                 </tr>
             <% }) %>

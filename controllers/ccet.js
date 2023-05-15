@@ -180,9 +180,7 @@ module.exports = {
             //     const studentId = students[i]._id;
             //     const fee = await Fee.findOne({ studentInfo: studentId });
             //     students[i].fee = fee;
-            // }
-
-            console.log(students)
+            // }            
     
             res.render('admin/ccet/fees/index', {
                 courses,
@@ -192,9 +190,22 @@ module.exports = {
             console.error(err);
             res.render('error/500');
         }
-    }
+    },
+
+    getFeesMngById: async (req, res) => {
+        // console.log(req.params.id)
+        try{            
+            const students = await Student.find({ _id: req.params.id })
+            
+            res.render('admin/ccet/fees/index', {
+                courses,
+                students,            
+            })
+        } catch(err){
+            console.error(err)
+            res.render('error/500')
+        }        
+    }, 
     
-
-
 }
 
