@@ -237,7 +237,9 @@ module.exports = {
             { $push: { totalFeesPaid: Number(req.body.amountReceived) } }
           );
           
-          res.redirect('/');
+          res.render('admin/ccet/')
+
+          getFeesMng()
         } catch (err) {
           console.error(err);
           res.render('error/500');
