@@ -196,9 +196,9 @@ module.exports = {
         // console.log(req.params.id)
         try{            
             const students = await Student.find({ _id: req.params.id })
+                .populate('courseEnrolled')
             
-            res.render('admin/ccet/fees/index', {
-                courses,
+            res.render('admin/ccet/fees/recordPayment', {                
                 students,            
             })
         } catch(err){
@@ -206,6 +206,44 @@ module.exports = {
             res.render('error/500')
         }        
     }, 
+
+    // addFees: async (req, res) => {
+    //     // console.log(req.body.amountReceived)
+    //     try{            
+    //         const fees = await Fee.find({ studentInfo: req.body.studentId })
+    //             .populate('studentInfo')     
+            
+    //         const feesId = fees[0]._id                
+
+    //         await Fee.findByIdAndUpdate(
+    //             feesId, 
+    //             { fees: [...fees.totalFeesPaid, Number(req.body.amountReceived)] }
+    //         )
+            
+    //         res.redirect('/')
+
+    //     } catch(err){
+    //         console.error(err)
+    //         res.render('error/500')
+    //     }        
+    // }, 
+
+    addFees: async (req, res) => {
+        try {
+          const fees = await Fee.find({ studentInfo: req.body.studentId }).populate('studentInfo');
+          const fee = fees[0];
+          const updatedFees = await Fee.findByIdAndUpdate(
+            fee._id,
+            { $push: { totalFeesPaid: Number(req.body.amountReceived) } }
+          );
+          
+          res.redirect('/');
+        } catch (err) {
+          console.error(err);
+          res.render('error/500');
+        }        
+      }
+      
     
 }
 

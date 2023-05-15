@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <% students.forEach(student => { %>
+        <form action="/ccet/add-fees" method="POST">
+            <label>
+                Student Name
+            </label>
+            <input type="text" name="studentName" value="<%= student.studentName %>">
+            <input type="text" name="studentId" value="<%= student._id %>">
+            <label>
+                Course Enrolled
+            </label>
+            <input type="text" name="courseEnrolled" value="<%= student.courseEnrolled.courseName %>">
+            <label>
+                Amount Received
+            </label>
+            <input type="text" name="amountReceived" value="">
+            <button type="submit">Save</button>            
+        </form>
+    <% }) %>
+</body>
+</html>

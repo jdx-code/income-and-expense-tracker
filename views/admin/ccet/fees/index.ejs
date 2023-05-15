@@ -68,7 +68,11 @@
                         <%= student.fee.admissionFeesAmount %>
                     </td>
                     <td>
-                        <%= student.fee.totalFeesPaid %> / <%= student.courseEnrolled.courseFees%>
+                        <% if (Array.isArray(student.fee.totalFeesPaid)) { %>
+                            <%= Object.values(student.fee.totalFeesPaid).reduce((acc, val) => acc + val, 0) %>
+                          <% } else { %>
+                            <p>Object</p>
+                          <% } %>
                     </td>
                     <td>
                         <a href="<%= student._id %>">
