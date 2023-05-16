@@ -236,10 +236,17 @@ module.exports = {
             fee._id,
             { $push: { totalFeesPaid: Number(req.body.amountReceived) } }
           );
-          
-          res.render('admin/ccet/')
 
-          getFeesMng()
+          const courses = await Course.find();
+          const students = await Student.find({ courseEnrolled: fee.courseInfo })
+            .populate('courseEnrolled')            
+            .populate('fee');
+
+            res.render('admin/ccet/fees/index', {
+                courses,
+                students,            
+            })
+         
         } catch (err) {
           console.error(err);
           res.render('error/500');
