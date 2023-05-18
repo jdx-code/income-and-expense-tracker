@@ -190,13 +190,14 @@ module.exports = {
             console.error(err);
             res.render('error/500');
         }
-    },
+    },    
 
     getFeesMngById: async (req, res) => {
         // console.log(req.params.id)
         try{            
             const students = await Student.find({ _id: req.params.id })
                 .populate('courseEnrolled')
+                .populate('fee')
             
             res.render('admin/ccet/fees/recordPayment', {                
                 students,            
@@ -238,21 +239,19 @@ module.exports = {
           );
 
           const courses = await Course.find();
-          const students = await Student.find({ courseEnrolled: fee.courseInfo })
+          const students = await Student.find({ _id: fee.studentInfo })
             .populate('courseEnrolled')            
-            .populate('fee');
+            .populate('fee')            
 
-            res.render('admin/ccet/fees/index', {
-                courses,
-                students,            
+            res.render('admin/ccet/fees/recordPayment', {                                
+                students,                                          
             })
          
         } catch (err) {
           console.error(err);
           res.render('error/500');
         }        
-      }
-      
+      }      
     
 }
 

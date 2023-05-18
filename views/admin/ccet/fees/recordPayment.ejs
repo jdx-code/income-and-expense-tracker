@@ -25,5 +25,27 @@
             <button type="submit">Save</button>            
         </form>
     <% }) %>
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Course Enrolled</th>
+                <th>Total Fees Received</th>
+            </tr>
+            <tr>
+                <% students.forEach(student => { %>
+                <td><%= student.studentName %></td>
+                <td><%= student.courseEnrolled.courseName %></td>
+                <td><% if (Array.isArray(student.fee.totalFeesPaid)) { %>
+                    <%= Object.values(student.fee.totalFeesPaid).reduce((acc, val) => acc + val, 0) %>
+                  <% } else { %>
+                    <p>Object</p>
+                  <% } %> %></td>
+                <% }) %>
+            </tr>
+        </thead>
+    </table>
 </body>
 </html>
