@@ -15,6 +15,7 @@ router.post('/add-student', ccetController.addStudent)
 router.get('/fees-management', ccetController.getFeesMng)
 router.post('/fees-management', ccetController.getFeesMngFiltered)
 router.get('/fees-management/:id', ccetController.getFeesMngById)
+router.get('/fees-management/fees-history/:id', ccetController.getFeesHistory)
 router.post('/add-fees', ccetController.addFees)
 
 
