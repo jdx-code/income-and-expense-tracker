@@ -8,10 +8,18 @@
 </head>
 <body>
     <h1>Fees History</h1>
-    <ol>
-        <% students.forEach((student) => { %>
-            <li> <%= student.fee.totalFeesPaid %></li>
+    <table>
+        <% students.forEach(student => { %>
+
+            <% student.fee.totalFeesPaid.forEach((item, index) => { %>
+                <tr>
+                    <td><%= index %></td>
+                    <td><%= item %></td>
+                </tr>                
+            <% }) %>        
+
         <% }) %>
-    </ol>
+    </table>
+
 </body>
 </html>
