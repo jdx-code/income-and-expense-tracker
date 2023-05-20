@@ -13,8 +13,10 @@
 
             <% student.fee.totalFeesPaid.forEach((item, index) => { %>
                 <tr>
-                    <td><%= index %></td>
+                    <% if(index>0){ %>
+                    <td>Installment <%= index %></td>
                     <td><%= item %></td>
+                    <% } %>
                 </tr>                
             <% }) %>        
 

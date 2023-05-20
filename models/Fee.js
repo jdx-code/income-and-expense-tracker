@@ -19,10 +19,13 @@ const FeeSchema = new mongoose.Schema({
     examFeesAmount: {
         type: Number,
     },
-    paymentDate: {
+    lastPaymentDate: {
         type: Date,
         default: Date.now,
-    },    
+    }, 
+    installmentDate: {
+        type: Array,        
+    }   
 })
 
 module.exports = mongoose.model('Fee', FeeSchema)
