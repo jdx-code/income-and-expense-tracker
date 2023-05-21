@@ -24,8 +24,8 @@ const FeeSchema = new mongoose.Schema({
         default: Date.now,
     }, 
     installmentDate: {
-        type: Array,        
-    }   
+        type: Array,            // newly added
+    }                                                                                                                                                                   
 })
 
 module.exports = mongoose.model('Fee', FeeSchema)
