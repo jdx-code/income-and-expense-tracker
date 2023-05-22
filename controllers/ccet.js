@@ -8,6 +8,7 @@ module.exports = {
         res.render('admin/ccet/index.ejs')
     },
 
+    // Get course information
     getCourseMng: async (req, res) => {
         try{
             const courses = await Course.find()
@@ -21,6 +22,7 @@ module.exports = {
         }
     },
 
+    // Add course 
     addCourse: async(req, res) => {
         console.log(req.body.course)
         try{
@@ -37,6 +39,7 @@ module.exports = {
         }
     },
 
+    // Delete course
     deleteCourse: async (req, res) => {
         try{
             await Course.findOneAndDelete({ courseName: req.body.courseToBeDeleted })
@@ -48,6 +51,7 @@ module.exports = {
         }
     },
 
+    // Get student information
     getStudentMng: async (req, res) => {
         try{
             const courses = await Course.find()
@@ -64,6 +68,7 @@ module.exports = {
         }
     },
 
+    // Get students data by filtered data (for ex: filter by `course`)
     getStudentMngFiltered: async (req, res) => {              
         try{  
             const courses = await Course.find()          
@@ -80,38 +85,7 @@ module.exports = {
         }
     },
 
-    // addStudent: async (req, res) => {        
-    //     try{
-    //         const studentName = req.body.studentName
-    //         const lastExamPassed = req.body.lastExamPassed
-    //         const courseEnrolled = req.body.courseEnrolled
-    //         const status = 1
-
-    //         const newStudent = await Student.create({
-    //             studentName,
-    //             lastExamPassed,
-    //             courseEnrolled,
-    //             status,
-    //         })            
-
-    //         const newStudentId = newStudent._id
-
-    //         await Fee.create({
-    //             studentInfo: newStudentId,
-    //             courseInfo: courseEnrolled,
-    //             admissionFeesAmount: 1000,
-    //             monthlyFeesAmount: 0,
-    //             examFeesAmount: 0,
-    //         })
-
-    //         console.log('Student data added')
-    //         res.redirect('/ccet/student-management')
-    //     } catch(err) {
-    //         console.error(err)
-    //         res.render('error/500')
-    //     }
-    // },
-
+    // Add student data 
     addStudent: async (req, res) => {        
         try{
             const studentName = req.body.studentName
@@ -150,6 +124,7 @@ module.exports = {
         }
     },      
 
+    // Get fees data
     getFeesMng: async (req, res) => {
         try{
             const courses = await Course.find()
@@ -169,6 +144,7 @@ module.exports = {
         res.render('admin/ccet/fees/index')
     }, 
 
+    // Get fees data by filtered data (for ex: filter by `course`)
     getFeesMngFiltered: async (req, res) => {
         try {
             const courses = await Course.find();
@@ -192,6 +168,7 @@ module.exports = {
         }
     },    
 
+    // Get fees information of a particular student by student_id
     getFeesMngById: async (req, res) => {
         // console.log(req.params.id)
         try{            
@@ -206,30 +183,9 @@ module.exports = {
             console.error(err)
             res.render('error/500')
         }        
-    }, 
+    },    
 
-    // addFees: async (req, res) => {
-    //     // console.log(req.body.amountReceived)
-    //     try{            
-    //         const fees = await Fee.find({ studentInfo: req.body.studentId })
-    //             .populate('studentInfo')     
-            
-    //         const feesId = fees[0]._id                
-
-    //         await Fee.findByIdAndUpdate(
-    //             feesId, 
-    //             { fees: [...fees.totalFeesPaid, Number(req.body.amountReceived)] }
-    //         )
-            
-    //         res.redirect('/')
-
-    //     } catch(err){
-    //         console.error(err)
-    //         res.render('error/500')
-    //     }        
-    // }, 
-
-
+    // Get fees details of a student
     getFeesHistory: async (req, res) => {
         try{            
             const students = await Student.find({ _id: req.params.id })
@@ -245,7 +201,7 @@ module.exports = {
         }        
       },      
 
-
+    // Add fees 
     addFees: async (req, res) => {
         try {
           const fees = await Fee.find({ studentInfo: req.body.studentId }).populate('studentInfo');
@@ -268,7 +224,6 @@ module.exports = {
           console.error(err);
           res.render('error/500');
         }        
-      }      
-    
+    }          
 }
 
