@@ -22,6 +22,15 @@ module.exports = {
         }
     },
 
+    getCourseById: (req, res) => {
+        try{
+            console.log('Working on update by course id ')
+        } catch(err) {
+            console.error(err)
+            res.render('error/500')
+        }
+    },
+
     // Add course 
     addCourse: async(req, res) => {
         console.log(req.body.course)

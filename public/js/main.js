@@ -1,7 +1,7 @@
 // Selects all delete buttons
 const deleteBtn = document.querySelectorAll('.deleteBtn')
 
-// loops through all the buttons and finds the button that has been clicked
+// loops through all the buttons in deleteBtn array and finds the button that has been clicked
 Array.from(deleteBtn).forEach(btn => {
     btn.addEventListener('click', deleteCourse)
 })
@@ -26,6 +26,5 @@ async function deleteCourse() {
         location.reload()
     } catch (err) {
         console.error(err)        
-    }
-    
+    }    
 }

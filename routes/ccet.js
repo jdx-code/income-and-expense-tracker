@@ -5,6 +5,7 @@ const ccetController = require('../controllers/ccet')
 router.get('/', ccetController.getIndex)
 
 router.get('/course-management', ccetController.getCourseMng)
+router.get('/course-management/:id', ccetController.getCourseById)
 router.post('/add-course', ccetController.addCourse)
 router.delete('/delete-course', ccetController.deleteCourse)
 
