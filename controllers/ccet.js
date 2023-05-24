@@ -159,13 +159,7 @@ module.exports = {
             const courses = await Course.find();
             const students = await Student.find({ courseEnrolled: req.body.courseId })
                 .populate('courseEnrolled')
-                .populate('fee');
-
-            // for (let i = 0; i < students.length; i++) {
-            //     const studentId = students[i]._id;
-            //     const fee = await Fee.findOne({ studentInfo: studentId });
-            //     students[i].fee = fee;
-            // }            
+                .populate('fee');                     
     
             res.render('admin/ccet/fees/index', {
                 courses,
