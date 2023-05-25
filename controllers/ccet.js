@@ -22,10 +22,32 @@ module.exports = {
         }
     },
 
-    getCourseById: (req, res) => {
-        try{
-            console.log('Working on update by course id ')
+    // Get particular course info by Id
+    getCourseById: async (req, res) => {
+        try{            
+            const course = await Course.findById({ _id: req.params.id })
+
+            res.render('admin/ccet/courses/editCourse', {
+                course,
+            })
+
         } catch(err) {
+            console.error(err)
+            res.render('error/500')
+        }
+    },
+
+    // Edit selected course info
+    editCourse: async (req, res) => {
+        const courseId = req.body.courseId
+        try{
+            await Course.findByIdAndUpdate(courseId, {
+                courseName : req.body.courseName,
+                courseDuration : req.body.courseDuration,
+                courseFees : req.body.courseFees,
+            })
+            res.redirect('/ccet/course-management')
+        } catch (err) {
             console.error(err)
             res.render('error/500')
         }

@@ -7,6 +7,7 @@ router.get('/', ccetController.getIndex)
 router.get('/course-management', ccetController.getCourseMng)
 router.get('/course-management/:id', ccetController.getCourseById)
 router.post('/add-course', ccetController.addCourse)
+router.post('/edit-course', ccetController.editCourse)
 router.delete('/delete-course', ccetController.deleteCourse)
 
 router.get('/student-management', ccetController.getStudentMng)
