@@ -26,7 +26,7 @@ module.exports = {
     getCourseById: async (req, res) => {
         try{            
             const course = await Course.findById({ _id: req.params.id })
-
+            
             res.render('admin/ccet/courses/editCourse', {
                 course,
             })
@@ -38,15 +38,21 @@ module.exports = {
     },
 
     // Edit selected course info
-    editCourse: async (req, res) => {
-        const courseId = req.body.courseId
-        try{
-            await Course.findByIdAndUpdate(courseId, {
-                courseName : req.body.courseName,
-                courseDuration : req.body.courseDuration,
-                courseFees : req.body.courseFees,
-            })
-            res.redirect('/ccet/course-management')
+    editCourse: async (req, res) => {        
+        try{          
+               let course = await Course.findById(req.params.id)               
+
+               if(!course){
+                    return res.render('error/404')
+               } else {
+                    course = await Course.findOneAndUpdate({ _id : req.params.id }, req.body, {
+                        new : true,
+                        runValidators : true,
+                    })
+
+                    res.redirect('/ccet/course-management')
+               }
+
         } catch (err) {
             console.error(err)
             res.render('error/500')
