@@ -8,12 +8,13 @@ module.exports = {
         res.render('admin/ccet/index.ejs')
     },
 
+    // To work on this controller function again..
     // Get course information
     getCourseMng: async (req, res) => {
         try{
             const courses = await Course.find()
             res.render('admin/ccet/courses/index', {
-                courses
+                courses,
             })
 
         } catch (err) {
