@@ -7,8 +7,7 @@ module.exports = {
     getIndex: (req, res) => {
         res.render('admin/ccet/index.ejs')
     },
-
-    // To work on this controller function again..
+    
     // Get course information
     getCourseMng: async (req, res) => {
         try{

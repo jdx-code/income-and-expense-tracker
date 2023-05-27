@@ -20,6 +20,4 @@ router.get('/fees-management/:id', ccetController.getFeesMngById)
 router.get('/fees-management/fees-history/:id', ccetController.getFeesHistory)
 router.post('/add-fees', ccetController.addFees)
 
-
-
 module.exports = router
