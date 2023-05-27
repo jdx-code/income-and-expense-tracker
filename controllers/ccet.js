@@ -1,4 +1,6 @@
 const { request } = require('express')
+const cloudinary = require("../utils/cloudinary");
+const upload = require("../utils/multer");
 const Course = require('../models/Course')
 const Student = require('../models/Student')
 const Fee = require('../models/Fee')
@@ -123,43 +125,101 @@ module.exports = {
     },
 
     // Add student data 
-    addStudent: async (req, res) => {        
-        try{
-            const studentName = req.body.studentName
-            const lastExamPassed = req.body.lastExamPassed
-            const courseEnrolled = req.body.courseEnrolled
-            const status = 1
+    // addStudent: async (req, res) => {        
+    //     try{
+    //         const studentName = req.body.studentName
+    //         const lastExamPassed = req.body.lastExamPassed
+    //         const courseEnrolled = req.body.courseEnrolled
+    //         const status = 1
 
-            const newStudent = await Student.create({
-            studentName,
-            lastExamPassed,
-            courseEnrolled,
-            status,
-            })
+    //         const newStudent = await Student.create({
+    //         studentName,
+    //         lastExamPassed,
+    //         courseEnrolled,
+    //         status,
+    //         })
 
-            const newStudentId = newStudent._id
+    //         const newStudentId = newStudent._id
 
-            const newFee = await Fee.create({
-            studentInfo: newStudentId,
-            courseInfo: courseEnrolled,
-            admissionFeesAmount: 1000,
-            totalFeesPaid: [0],
-            examFeesAmount: 0,
-            })
+    //         const newFee = await Fee.create({
+    //         studentInfo: newStudentId,
+    //         courseInfo: courseEnrolled,
+    //         admissionFeesAmount: 1000,
+    //         totalFeesPaid: [0],
+    //         examFeesAmount: 0,
+    //         })
 
-            const updatedStudent = await Student.findByIdAndUpdate(
-            newStudentId,
-            { fee: newFee._id },
-            { new: true }
-            ).populate('fee')
+    //         const updatedStudent = await Student.findByIdAndUpdate(
+    //         newStudentId,
+    //         { fee: newFee._id },
+    //         { new: true }
+    //         ).populate('fee')
 
-            console.log('Student data added')
-            res.redirect('/ccet/student-management')
-        } catch(err) {
-            console.error(err)
-            res.render('error/500')
+    //         console.log('Student data added')
+    //         res.redirect('/ccet/student-management')
+    //     } catch(err) {
+    //         console.error(err)
+    //         res.render('error/500')
+    //     }
+    // },      
+
+    addStudent: async (req, res) => {
+        try {
+          upload.single('image')(req, res, async (err) => {
+            if (err) {
+              console.error(err);
+              res.render('error/500');
+            } else {
+              try {
+                const studentName = req.body.studentName;
+                const lastExamPassed = req.body.lastExamPassed;
+                const courseEnrolled = req.body.courseEnrolled;
+                const status = 1;      
+                
+                // Upload the file to Cloudinary
+                const result = await cloudinary.uploader.upload(req.file.path);
+                const imageUrl = result.secure_url;
+      
+                const newStudent = await Student.create({
+                  studentName,
+                  lastExamPassed,
+                  courseEnrolled,
+                  status,
+                  imageUrl // Save the Cloudinary image URL in the student document
+                });
+      
+                const newStudentId = newStudent._id;
+      
+                const newFee = await Fee.create({
+                  studentInfo: newStudentId,
+                  courseInfo: courseEnrolled,
+                  admissionFeesAmount: 1000,
+                  totalFeesPaid: [0],
+                  examFeesAmount: 0,
+                  admission_form_img: imageUrl,
+                });
+
+                console.log(newFee)
+      
+                const updatedStudent = await Student.findByIdAndUpdate(
+                  newStudentId,
+                  { fee: newFee._id },
+                  { new: true }
+                ).populate('fee');
+      
+                console.log('Student data added');
+                res.redirect('/ccet/student-management');
+              } catch (err) {
+                console.error(err);
+                res.render('error/500');
+              }
+            }
+          });
+        } catch (err) {
+          console.error(err);
+          res.render('error/500');
         }
-    },      
+      },
 
     // Get fees data
     getFeesMng: async (req, res) => {

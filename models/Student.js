@@ -23,6 +23,12 @@ const StudentSchema = new mongoose.Schema({
     fee: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Fee'
+    },
+    admission_form_img: {
+        type: String,
+    },
+    cloudinary_id: {
+        type: String,
     }    
 })
 
