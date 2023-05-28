@@ -185,7 +185,7 @@ module.exports = {
                   lastExamPassed,
                   courseEnrolled,
                   status,
-                  imageUrl // Save the Cloudinary image URL in the student document
+                  admission_form_img: imageUrl, // Save the Cloudinary image URL in the student document
                 });
       
                 const newStudentId = newStudent._id;
@@ -195,15 +195,14 @@ module.exports = {
                   courseInfo: courseEnrolled,
                   admissionFeesAmount: 1000,
                   totalFeesPaid: [0],
-                  examFeesAmount: 0,
-                  admission_form_img: imageUrl,
+                  examFeesAmount: 0,                  
                 });
 
                 console.log(newFee)
       
                 const updatedStudent = await Student.findByIdAndUpdate(
                   newStudentId,
-                  { fee: newFee._id },
+                  { fee: newFee._id,  },
                   { new: true }
                 ).populate('fee');
       
