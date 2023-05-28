@@ -8,7 +8,6 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-console.log(cloudinary.config().api_key); // Access the API key
 module.exports = cloudinary;
 
 

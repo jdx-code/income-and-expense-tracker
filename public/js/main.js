@@ -28,3 +28,16 @@ async function deleteCourse() {
         console.error(err)        
     }    
 }
+
+// Selects all delete buttons
+const toggleImgBtn = document.querySelectorAll('.toggleImgBtn')
+
+// loops through all the buttons in deleteBtn array and finds the button that has been clicked
+Array.from(toggleImgBtn).forEach(btn => {
+    btn.addEventListener('click', toggleImgView)
+})
+
+function toggleImgView() {
+    const student = this.parentNode.parentNode.childNodes[1].innerText;
+    console.log(student)
+}
