@@ -1,6 +1,7 @@
 const { request } = require('express')
 const cloudinary = require("../utils/cloudinary");
 const upload = require("../utils/multer");
+const moment = require("moment")
 const Course = require('../models/Course')
 const Student = require('../models/Student')
 const Fee = require('../models/Fee')
@@ -97,10 +98,17 @@ module.exports = {
             const students = await Student.find()
                 .populate('courseEnrolled')
 
+            const enrollDateArr = []
+            students.forEach(student => {                
+                enrollDateArr.push(moment(student.enrollmentDate).format("DD-MM-YYYY"))
+            })
+
             res.render('admin/ccet/students/index', {
                 courses,
-                students
+                students,
+                enrollDateArr,
             })
+
         } catch (err){
             console.error(err)
             res.render('error/500')
@@ -198,6 +206,7 @@ module.exports = {
                   studentName,
                   lastExamPassed,
                   courseEnrolled,
+                  enrollmentDate: moment().format("MMM Do YY"),
                   status,
                   admission_form_img: imageUrl, // Save the Cloudinary image URL in the student document
                 });

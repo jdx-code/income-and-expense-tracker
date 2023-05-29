@@ -43,11 +43,11 @@ function toggleImgView() {
     
     if (student.style.display !== 'block') {
         student.style.display = 'block'                
-        this.innerHTML = 'Hide Application Form'
+        this.innerHTML = 'Hide Preview'
         
     } else {
         student.style.display = 'none'          
-        this.innerHTML = 'View Application Form'              
+        this.innerHTML = 'Show Preview'              
     }    
       
     console.log(student)

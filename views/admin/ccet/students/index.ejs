@@ -91,8 +91,9 @@
     </form>
     
 
-    <table>
+    <table>        
         <% students.forEach(student => { %>
+            <% enrollDateArr.forEach(enrollDate => { %>
         <tr>
             <td style="display:none">                
                 <%= student._id %>                
@@ -106,22 +107,23 @@
             <td>
                 <%= student.courseEnrolled.courseName %>
             </td>
-            <td>
-                <%= student.enrollmentDate %>
+            <td>                
+                <%= enrollDate %>                
             </td>
             <td>             
                 <a target="_blank" href="/ccet/student-management/<%= student._id %>">                    
-                    <button type="submit">View Full Details</button>
+                    <button type="submit">View Admission Form</button>
                 </a>   
                 
             </td>
             <td>                
-                <button class="toggleImgBtn">View Application Form</button>
+                <button class="toggleImgBtn">Show Preview</button>
             </td>
             <td class="application-form-img">
                 <img src="<%= student.admission_form_img %>" width="200" height="200">
             </td>
         </tr>
+            <% }) %>
         <% }) %>
     </table>
 
