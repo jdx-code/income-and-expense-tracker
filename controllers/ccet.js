@@ -101,7 +101,21 @@ module.exports = {
                 courses,
                 students
             })
-        } catch (err)         {
+        } catch (err){
+            console.error(err)
+            res.render('error/500')
+        }
+    },
+
+    getStudentMngById: async (req, res) => {
+        try{
+            const studentInfo = await Student.findById({ _id: req.params.id })
+                .populate('courseEnrolled')
+
+            res.render('admin/ccet/students/studentInfo', {
+                studentInfo,
+            })
+        } catch(err){
             console.error(err)
             res.render('error/500')
         }

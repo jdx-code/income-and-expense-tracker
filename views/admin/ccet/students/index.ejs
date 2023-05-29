@@ -94,7 +94,7 @@
     <table>
         <% students.forEach(student => { %>
         <tr>
-            <td>                
+            <td style="display:none">                
                 <%= student._id %>                
             </td>
             <td>
@@ -108,6 +108,12 @@
             </td>
             <td>
                 <%= student.enrollmentDate %>
+            </td>
+            <td>             
+                <a target="_blank" href="/ccet/student-management/<%= student._id %>">                    
+                    <button type="submit">View Full Details</button>
+                </a>   
+                
             </td>
             <td>                
                 <button class="toggleImgBtn">View Application Form</button>

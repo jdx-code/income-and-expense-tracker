@@ -11,6 +11,7 @@ router.put('/edit-course/:id', ccetController.editCourse)
 router.delete('/delete-course', ccetController.deleteCourse)
 
 router.get('/student-management', ccetController.getStudentMng)
+router.get('/student-management/:id', ccetController.getStudentMngById)
 router.post('/student-management', ccetController.getStudentMngFiltered)
 router.post('/add-student', ccetController.addStudent)
 
