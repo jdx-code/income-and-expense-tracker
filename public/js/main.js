@@ -38,6 +38,17 @@ Array.from(toggleImgBtn).forEach(btn => {
 })
 
 function toggleImgView() {
-    const student = this.parentNode.parentNode.childNodes[1].innerText;
+
+    const student = this.parentNode.nextSibling.parentNode.lastElementChild    
+    
+    if (student.style.display !== 'block') {
+        student.style.display = 'block'                
+        this.innerHTML = 'Hide Application Form'
+        
+    } else {
+        student.style.display = 'none'          
+        this.innerHTML = 'View Application Form'              
+    }    
+      
     console.log(student)
 }

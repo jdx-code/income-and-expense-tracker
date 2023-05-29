@@ -94,6 +94,9 @@
     <table>
         <% students.forEach(student => { %>
         <tr>
+            <td>                
+                <%= student._id %>                
+            </td>
             <td>
                 <%= student.studentName %>
             </td>
@@ -109,8 +112,8 @@
             <td>                
                 <button class="toggleImgBtn">View Application Form</button>
             </td>
-            <td>
-                <img id="application-form-img" src="<%= student.admission_form_img %>" width="200" height="200">
+            <td class="application-form-img">
+                <img src="<%= student.admission_form_img %>" width="200" height="200">
             </td>
         </tr>
         <% }) %>
