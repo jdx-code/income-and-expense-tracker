@@ -4,128 +4,132 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../../css/styles.css">    
+    <link rel="stylesheet" href="../../../../dist/output.css">    
     <title>Document</title>
 </head>
 <body>
+    <div class="mx-2">
+        <div>
+            <h1>Student Management</h1>
+            <h2>Add New Student</h2>
+            <form action="/ccet/add-student" method="POST" enctype="multipart/form-data">
+                <table>
+                    <tr>
+                        <td>
+                            <label>
+                                Student Name
+                            </label>                    
+                        </td>
+                        <td>
+                            <input type="text" name="studentName">
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td>
+                            <label>
+                                Last Exam Passed
+                            </label>                    
+                        </td>
+                        <td>
+                            <select name="lastExamPassed">
+                                <option value="hslc">HSLC</option>
+                                <option value="hs">HS</option>
+                                <option value="graduation">Graduation</option>
+                                <option value="post graduation">Post Graduation</option>
+                            </select>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td>
+                            <label>
+                                Course enrolled
+                            </label>
+                        </td>
+                        <td>
+                            <select name="courseEnrolled">
+                                <% courses.forEach(course => { %>
+                                    <option value="<%= course._id %>">
+                                        <%= course.courseName %>
+                                    </option>            
+                                <% }) %>
+                            </select>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td>
+                            <label>Upload Admission Form  </label>
+                        </td>
+                        <td>
+                            <input type="file" name="image" value="">
+                        </td>
+                    </tr>
+                </table>
 
-    <h1>Student Management</h1>
-    <h2>Add New Student</h2>
-    <form action="/ccet/add-student" method="POST" enctype="multipart/form-data">
-        <table>
-            <tr>
-                <td>
-                    <label>
-                        Student Name
-                    </label>                    
-                </td>
-                <td>
-                    <input type="text" name="studentName">
-                </td>
-            </tr>   
-            <tr>
-                <td>
-                    <label>
-                        Last Exam Passed
-                    </label>                    
-                </td>
-                <td>
-                    <select name="lastExamPassed">
-                        <option value="hslc">HSLC</option>
-                        <option value="hs">HS</option>
-                        <option value="graduation">Graduation</option>
-                        <option value="post graduation">Post Graduation</option>
-                    </select>
-                </td>
-            </tr>   
-            <tr>
-                <td>
-                    <label>
-                        Course enrolled
-                    </label>
-                </td>
-                <td>
-                    <select name="courseEnrolled">
-                        <% courses.forEach(course => { %>
-                            <option value="<%= course._id %>">
-                                <%= course.courseName %>
-                            </option>            
-                        <% }) %>
-                    </select>
-                </td>
-            </tr>   
-            <tr>
-                <td>
-                    <label>Upload Admission Form  </label>
-                </td>
-                <td>
-                    <input type="file" name="image" value="">
-                </td>
-            </tr>
-        </table>
-
-        <button type="submit">Submit</button>
-    </form>
-    <hr>
-    <h3>Enrolled Students</h3>
-    <form action="" method="POST">
-        <label>
-            Course
-        </label>
-        <select name="courseName">
-            <% courses.forEach(course => { %>
-                <option value="<%= course._id %>">
-                    <%= course.courseName %>
-                </option>            
-            <% }) %>            
-        </select>
-        <label>
-            Session
-        </label>
-        <select name="session">
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>                        
-        </select>
-        <button type="submit">Filter Search</button>
-    </form>
-    
-
-    <table>               
-        <% updatedStudents.forEach(student => { %>
+                <button type="submit">Submit</button>
+            </form>
+            <hr>
+            <h3>Enrolled Students</h3>
+            <form action="" method="POST">
+                <label>
+                    Course
+                </label>
+                <select name="courseName">
+                    <% courses.forEach(course => { %>
+                        <option value="<%= course._id %>">
+                            <%= course.courseName %>
+                        </option>            
+                    <% }) %>            
+                </select>
+                <label>
+                    Session
+                </label>
+                <select name="session">
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>                        
+                </select>
+                <button type="submit">Filter Search</button>
+            </form>
             
-        <tr>
-            <td style="display:none">                
-                <%= student._id %>                
-            </td>
-            <td>
-                <%= student.studentName %>
-            </td>
-            <td>
-                <%= student.lastExamPassed %>
-            </td>
-            <td>
-                <%= student.courseEnrolled.courseName %>
-            </td>
-            <td>                
-                <%= student.enrollmentDate %>                
-            </td>
-            <td>             
-                <a target="_blank" href="/ccet/student-management/<%= student._id %>">                    
-                    <button type="submit">View Admission Form</button>
-                </a>   
-                
-            </td>
-            <td>                
-                <button class="toggleImgBtn">Show Preview</button>
-            </td>
-            <td class="application-form-img">
-                <img src="<%= student.admission_form_img %>" width="200" height="200">
-            </td>
-        </tr>        
-        <% }) %>
-    </table>
 
+            <table>               
+                <% updatedStudents.forEach(student => { %>
+                    
+                <tr>
+                    <td style="display:none">                
+                        <%= student._id %>                
+                    </td>
+                    <td>
+                        <%= student.studentName %>
+                    </td>
+                    <td>
+                        <%= student.lastExamPassed %>
+                    </td>
+                    <td>
+                        <%= student.courseEnrolled.courseName %>
+                    </td>
+                    <td>                
+                        <%= student.enrollmentDate %>                
+                    </td>
+                    <td>             
+                        <a target="_blank" href="/ccet/student-management/<%= student._id %>">                    
+                            <button type="submit">View Admission Form</button>
+                        </a>   
+                        
+                    </td>
+                    <td>                
+                        <button class="toggleImgBtn">Show Preview</button>
+                    </td>
+                    <td class="application-form-img">
+                        <img src="<%= student.admission_form_img %>" width="200" height="200">
+                    </td>
+                </tr>        
+                <% }) %>
+            </table>
+
+        </div>        
+    </div>
+    
     <script src="../../../../js/main.js"></script>
     
 </body>
