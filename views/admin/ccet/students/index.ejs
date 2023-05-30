@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="../../../../dist/output.css">    
     <title>Document</title>
 </head>
-<body class="bg-red-500">
+<body class="bg-red-200">
+    <%- include('../../../partials/header.ejs') %>
     <div class="mx-2">
         <div>
             <h1>Student Management</h1>
@@ -93,7 +94,7 @@
             
 
             <table>               
-                <% updatedStudents.forEach(student => { %>
+                <% students.forEach(student => { %>
                     
                 <tr>
                     <td style="display:none">                
@@ -130,6 +131,7 @@
         </div>        
     </div>
     
+    <%- include('../../../partials/footer.ejs') %>
     <script src="../../../../js/main.js"></script>
     
 </body>

@@ -7,7 +7,7 @@
     "start": "cross-env NODE_ENV=production node app",
     "dev:css": "postcss public/css/styles.css -o public/dist/output.css --watch",
     "dev:server": "cross-env NODE_ENV=development nodemon app",
-    "dev": "npm run dev:css & npm run dev:server"
+    "dev": "npm run dev:css & npm run dev:server" 
   },
   "repository": {
     "type": "git",

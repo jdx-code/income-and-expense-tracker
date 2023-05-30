@@ -95,24 +95,17 @@ module.exports = {
     getStudentMng: async (req, res) => {
         try{
             const courses = await Course.find()
-            const students = await Student.find()
+            const studentsArr = await Student.find()
                 .populate('courseEnrolled')
 
-            // const enrollDateArr = []
-            // students.forEach(student => {                
-            //     enrollDateArr.push(moment(student.enrollmentDate).format("DD-MM-YYYY"))
-            // })
-
-            // console.log(enrollDateArr);
-
-            const updatedStudents = students.map(student => ({
+            const students = studentsArr.map(student => ({
                 ...student.toObject(),
                 enrollmentDate: moment(student.enrollmentDate).format("DD-MM-YYYY")
             }));            
 
             res.render('admin/ccet/students/index', {
                 courses,
-                updatedStudents,                
+                students,                
             })
 
         } catch (err){
