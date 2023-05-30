@@ -98,15 +98,21 @@ module.exports = {
             const students = await Student.find()
                 .populate('courseEnrolled')
 
-            const enrollDateArr = []
-            students.forEach(student => {                
-                enrollDateArr.push(moment(student.enrollmentDate).format("DD-MM-YYYY"))
-            })
+            // const enrollDateArr = []
+            // students.forEach(student => {                
+            //     enrollDateArr.push(moment(student.enrollmentDate).format("DD-MM-YYYY"))
+            // })
+
+            // console.log(enrollDateArr);
+
+            const updatedStudents = students.map(student => ({
+                ...student.toObject(),
+                enrollmentDate: moment(student.enrollmentDate).format("DD-MM-YYYY")
+            }));            
 
             res.render('admin/ccet/students/index', {
                 courses,
-                students,
-                enrollDateArr,
+                updatedStudents,                
             })
 
         } catch (err){
