@@ -4,11 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../../dist/output.css">    
     <title>Document</title>
 </head>
 <body>
-    <a href="course-management/">Course Management</a>
-    <a href="student-management/">Student Management</a>
-    <a href="fees-management/">Fees Management</a>
+    <%- include('../../partials/sidenav.ejs') %>
+                
+    <div class="fixed top-0 left-64 w-full h-full bg-blue-200">
+        <a href="">Add Student</a>
+        <a href="">View Students</a>
+        <a href="">Manage Students</a>
+        <a href="">View Application Forms</a>
+    </div>
+
+    <script src="../../../../js/main.js"></script>
+    
 </body>
 </html>

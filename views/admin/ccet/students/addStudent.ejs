@@ -1,0 +1,58 @@
+<h2>Add New Student</h2>
+    <div class="hidden sm:block">
+        <form action="/ccet/add-student" method="POST" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>
+                        <label>
+                            Student Name
+                        </label>                    
+                    </td>
+                    <td>
+                        <input type="text" name="studentName">
+                    </td>
+                </tr>   
+                <tr>
+                    <td>
+                        <label>
+                            Last Exam Passed
+                        </label>                    
+                    </td>
+                    <td>
+                        <select name="lastExamPassed">
+                            <option value="hslc">HSLC</option>
+                            <option value="hs">HS</option>
+                            <option value="graduation">Graduation</option>
+                            <option value="post graduation">Post Graduation</option>
+                        </select>
+                    </td>
+                </tr>   
+                <tr>
+                    <td>
+                        <label>
+                            Course enrolled
+                        </label>
+                    </td>
+                    <td>
+                        <select name="courseEnrolled">
+                            <% courses.forEach(course => { %>
+                                <option value="<%= course._id %>">
+                                    <%= course.courseName %>
+                                </option>            
+                            <% }) %>
+                        </select>
+                    </td>
+                </tr>   
+                <tr>
+                    <td>
+                        <label>Upload Admission Form  </label>
+                    </td>
+                    <td>
+                        <input type="file" name="image" value="">
+                    </td>
+                </tr>
+            </table>
+    
+            <button type="submit">Submit</button>
+        </form>
+    </div>
