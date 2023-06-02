@@ -6,10 +6,12 @@ router.get('/', ccetController.getIndex)
 
 // router.get('/student-management', ccetController.getStudentMng)
 router.get('/student-management/add', ccetController.getStudentAddForm)
-router.get('/student-management/view', ccetController.getStudentViewStudents)
 // router.get('/student-management/:id', ccetController.getStudentMngById)
 // router.post('/student-management', ccetController.getStudentMngFiltered)
 router.post('/add-student', ccetController.addStudent)
+router.get('/student-management/view', ccetController.getStudentViewStudents)
+router.post('/student-management/filter-view', ccetController.getStudentFilterView)
+
 
 router.get('/fees-management', ccetController.getFeesMng)
 router.get('/fees-management/add', ccetController.getFeesAddForm)

@@ -108,6 +108,7 @@ module.exports = {
             const courses = await Course.find()
             const studentsArr = await Student.find()
                 .populate('courseEnrolled')
+                .sort({ enrollmentDate: "descending" })
 
             const students = studentsArr.map(student => ({
                 ...student.toObject(),
@@ -120,6 +121,27 @@ module.exports = {
             })
 
         } catch(err){
+            console.error(err)
+            res.render('error/500')
+        }
+    },
+
+    getStudentFilterView: async (req, res) => {
+        try{  
+            const courses = await Course.find()          
+            const studentsArr = await Student.find({ courseEnrolled : req.body.courseName })
+                .populate('courseEnrolled')
+                
+            const students = studentsArr.map(student => ({
+                ...student.toObject(),
+                enrollmentDate: moment(student.enrollmentDate).format("DD-MM-YYYY")
+            }));
+            
+            res.render('admin/ccet/students/viewStudents', {  
+                courses,              
+                students
+            })
+        } catch(err) {
             console.error(err)
             res.render('error/500')
         }
@@ -243,8 +265,7 @@ module.exports = {
                 const newStudent = await Student.create({
                   studentName,
                   lastExamPassed,
-                  courseEnrolled,
-                  enrollmentDate: moment().format("MMM Do YY"),
+                  courseEnrolled,                  
                   status,
                   admission_form_img: imageUrl, // Save the Cloudinary image URL in the student document
                 });
@@ -268,7 +289,7 @@ module.exports = {
                 ).populate('fee');
       
                 console.log('Student data added');
-                res.redirect('/ccet/student-management');
+                res.redirect('/ccet/student-management/view');
               } catch (err) {
                 console.error(err);
                 res.render('error/500');
@@ -285,8 +306,9 @@ module.exports = {
     getFeesMng: async (req, res) => {
         try{
             const courses = await Course.find()
-            const students = await Student.find({ courseEnrolled : req.body.courseName })
+            const students = await Student.find({ courseEnrolled : req.body.courseName })                
                 .populate('courseEnrolled')
+                
 
             console.log(students)                
 
