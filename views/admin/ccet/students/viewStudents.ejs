@@ -1,81 +1,100 @@
-<div>
-    <form action="" method="POST">
-        <label>
-            Course
-        </label>
-        <select name="courseName">
-            <% courses.forEach(course => { %>
-                <option value="<%= course._id %>">
-                    <%= course.courseName %>
-                </option>            
-            <% }) %>            
-        </select>
-        <label>
-            Session
-        </label>
-        <select name="session">
-            <option value="2021">2021</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>                        
-        </select>
-        <button type="submit">Filter Search</button>
-    </form>    
-
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left text-blue-100 dark:text-blue-100">
-            <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    Name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Education
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Course Enrolled
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Date of admission
-                </th>
-                <th scope="col" class="px-6 py-3">Form</th>
-                <!-- <th scope="col" class="px-6 py-3">Preview</th>
-                <th scope="col" class="px-6 py-3">Image</th> -->
-            </tr>            
-        </thead>               
-        <tbody>
-        <% students.forEach(student => { %>
-                    
-            <tr class="bg-blue-500 border-b border-blue-400">
-                <td style="display:none" class="px-6 py-4">                
-                    <%= student._id %>                
-                </td>
-                <td class="px-6 py-4">
-                    <%= student.studentName %>
-                </td>
-                <td class="px-6 py-4">
-                    <%= student.lastExamPassed %>
-                </td>
-                <td class="px-6 py-4">
-                    <%= student.courseEnrolled.courseName %>
-                </td>
-                <td class="px-6 py-4">                
-                    <%= student.enrollmentDate %>                
-                </td>
-                <td class="px-6 py-4">             
-                    <a target="_blank" href="/ccet/student-management/<%= student._id %>">                    
-                        <button type="submit">View Admission Form</button>
-                    </a>   
-                    
-                </td>
-                <!-- <td class="px-6 py-4">                
-                    <button class="toggleImgBtn">Show Preview</button>
-                </td>
-                <td class="application-form-img px-6 py-4">
-                    <img src="<%= student.admission_form_img %>" width="200" height="200">
-                </td> -->
-            </tr>        
-        </tbody>
-        <% }) %>
-        </table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../../dist/output.css">    
+    <title>Document</title>
+</head>
+<body>
+    <%- include('../../../partials/sidenav.ejs') %>
+                
+    <div class="fixed top-0 left-64 w-full h-full bg-blue-200">
+        <div>
+            <form action="" method="POST">
+                <label>
+                    Course
+                </label>
+                <select name="courseName">
+                    <% courses.forEach(course => { %>
+                        <option value="<%= course._id %>">
+                            <%= course.courseName %>
+                        </option>            
+                    <% }) %>            
+                </select>
+                <label>
+                    Session
+                </label>
+                <select name="session">
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>                        
+                </select>
+                <button type="submit">Filter Search</button>
+            </form>    
+        
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left text-blue-100 dark:text-blue-100">
+                    <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Name
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Education
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Course Enrolled
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Date of admission
+                        </th>
+                        <th scope="col" class="px-6 py-3">Form</th>
+                        <!-- <th scope="col" class="px-6 py-3">Preview</th>
+                        <th scope="col" class="px-6 py-3">Image</th> -->
+                    </tr>            
+                </thead>               
+                <tbody>
+                <% students.forEach(student => { %>
+                            
+                    <tr class="bg-blue-500 border-b border-blue-400">
+                        <td style="display:none" class="px-6 py-4">                
+                            <%= student._id %>                
+                        </td>
+                        <td class="px-6 py-4">
+                            <%= student.studentName %>
+                        </td>
+                        <td class="px-6 py-4">
+                            <%= student.lastExamPassed %>
+                        </td>
+                        <td class="px-6 py-4">
+                            <%= student.courseEnrolled.courseName %>
+                        </td>
+                        <td class="px-6 py-4">                
+                            <%= student.enrollmentDate %>                
+                        </td>
+                        <td class="px-6 py-4">             
+                            <a target="_blank" href="/ccet/student-management/<%= student._id %>">                    
+                                <button type="submit">View Admission Form</button>
+                            </a>   
+                            
+                        </td>
+                        <!-- <td class="px-6 py-4">                
+                            <button class="toggleImgBtn">Show Preview</button>
+                        </td>
+                        <td class="application-form-img px-6 py-4">
+                            <img src="<%= student.admission_form_img %>" width="200" height="200">
+                        </td> -->
+                    </tr>        
+                </tbody>
+                <% }) %>
+                </table>
+            </div>
+        </div>
     </div>
-</div>
+
+    <script src="../../../../js/main.js"></script>
+    
+</body>
+</html>

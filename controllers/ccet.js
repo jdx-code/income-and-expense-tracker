@@ -25,42 +25,42 @@ module.exports = {
         }
     },
 
-    // Get particular course info by Id
-    getCourseById: async (req, res) => {
-        try{            
-            const course = await Course.findById({ _id: req.params.id })
+    // // Get particular course info by Id
+    // getCourseById: async (req, res) => {
+    //     try{            
+    //         const course = await Course.findById({ _id: req.params.id })
             
-            res.render('admin/ccet/courses/editCourse', {
-                course,
-            })
+    //         res.render('admin/ccet/courses/editCourse', {
+    //             course,
+    //         })
 
-        } catch(err) {
-            console.error(err)
-            res.render('error/500')
-        }
-    },
+    //     } catch(err) {
+    //         console.error(err)
+    //         res.render('error/500')
+    //     }
+    // },
 
-    // Edit selected course info
-    editCourse: async (req, res) => {        
-        try{          
-               let course = await Course.findById(req.params.id)               
+    // // Edit selected course info
+    // editCourse: async (req, res) => {        
+    //     try{          
+    //            let course = await Course.findById(req.params.id)               
 
-               if(!course){
-                    return res.render('error/404')
-               } else {
-                    course = await Course.findOneAndUpdate({ _id : req.params.id }, req.body, {
-                        new : true,
-                        runValidators : true,
-                    })
+    //            if(!course){
+    //                 return res.render('error/404')
+    //            } else {
+    //                 course = await Course.findOneAndUpdate({ _id : req.params.id }, req.body, {
+    //                     new : true,
+    //                     runValidators : true,
+    //                 })
 
-                    res.redirect('/ccet/course-management')
-               }
+    //                 res.redirect('/ccet/course-management')
+    //            }
 
-        } catch (err) {
-            console.error(err)
-            res.render('error/500')
-        }
-    },
+    //     } catch (err) {
+    //         console.error(err)
+    //         res.render('error/500')
+    //     }
+    // },
 
     // Add course 
     addCourse: async(req, res) => {
@@ -79,20 +79,31 @@ module.exports = {
         }
     },
 
-    // Delete course
-    deleteCourse: async (req, res) => {
+    // // Delete course
+    // deleteCourse: async (req, res) => {
+    //     try{
+    //         await Course.findOneAndDelete({ courseName: req.body.courseToBeDeleted })
+    //         console.log('Deleted course')            
+    //         res.redirect('/ccet/course-management/')
+    //     } catch (err){
+    //         console.error(err)
+    //         res.render('error/500')
+    //     }
+    // },
+
+    getStudentAddForm: async (req, res) => {
         try{
-            await Course.findOneAndDelete({ courseName: req.body.courseToBeDeleted })
-            console.log('Deleted course')            
-            res.redirect('/ccet/course-management/')
-        } catch (err){
+            const courses = await Course.find()
+            res.render('admin/ccet/students/addStudent', {
+                courses,
+            })
+        } catch(err) {
             console.error(err)
-            res.render('error/500')
-        }
+            res.render('error/404')
+        }        
     },
 
-    // Get student information
-    getStudentMng: async (req, res) => {
+    getStudentViewStudents: async (req, res) => {
         try{
             const courses = await Course.find()
             const studentsArr = await Student.find()
@@ -103,91 +114,114 @@ module.exports = {
                 enrollmentDate: moment(student.enrollmentDate).format("DD-MM-YYYY")
             }));            
 
-            res.render('admin/ccet/students/index', {
+            res.render('admin/ccet/students/viewStudents', {
                 courses,
                 students,                
             })
 
-        } catch (err){
-            console.error(err)
-            res.render('error/500')
-        }
-    },
-
-    getStudentMngById: async (req, res) => {
-        try{
-            const studentInfo = await Student.findById({ _id: req.params.id })
-                .populate('courseEnrolled')
-
-            res.render('admin/ccet/students/studentInfo', {
-                studentInfo,
-            })
         } catch(err){
             console.error(err)
             res.render('error/500')
         }
     },
 
-    // Get students data by filtered data (for ex: filter by `course`)
-    getStudentMngFiltered: async (req, res) => {              
-        try{  
-            const courses = await Course.find()          
-            const studentsArr = await Student.find({ courseEnrolled : req.body.courseName })
-                .populate('courseEnrolled')
-                
-            const students = studentsArr.map(student => ({
-                ...student.toObject(),
-                enrollmentDate: moment(student.enrollmentDate).format("DD-MM-YYYY")
-            }));
-            
-            res.render('admin/ccet/students/index', {  
-                courses,              
-                students
-            })
-        } catch (err)         {
-            console.error(err)
-            res.render('error/500')
-        }
-    },
-
-    // Add student data 
-    // addStudent: async (req, res) => {        
+    // // Get student information
+    // getStudentMng: async (req, res) => {
     //     try{
-    //         const studentName = req.body.studentName
-    //         const lastExamPassed = req.body.lastExamPassed
-    //         const courseEnrolled = req.body.courseEnrolled
-    //         const status = 1
+    //         const courses = await Course.find()
+    //         const studentsArr = await Student.find()
+    //             .populate('courseEnrolled')
 
-    //         const newStudent = await Student.create({
-    //         studentName,
-    //         lastExamPassed,
-    //         courseEnrolled,
-    //         status,
+    //         const students = studentsArr.map(student => ({
+    //             ...student.toObject(),
+    //             enrollmentDate: moment(student.enrollmentDate).format("DD-MM-YYYY")
+    //         }));            
+
+    //         res.render('admin/ccet/students/index', {
+    //             courses,
+    //             students,                
     //         })
 
-    //         const newStudentId = newStudent._id
-
-    //         const newFee = await Fee.create({
-    //         studentInfo: newStudentId,
-    //         courseInfo: courseEnrolled,
-    //         admissionFeesAmount: 1000,
-    //         totalFeesPaid: [0],
-    //         examFeesAmount: 0,
-    //         })
-
-    //         const updatedStudent = await Student.findByIdAndUpdate(
-    //         newStudentId,
-    //         { fee: newFee._id },
-    //         { new: true }
-    //         ).populate('fee')
-
-    //         console.log('Student data added')
-    //         res.redirect('/ccet/student-management')
-    //     } catch(err) {
+    //     } catch (err){
     //         console.error(err)
     //         res.render('error/500')
     //     }
-    // },      
+    // },
+
+    // getStudentMngById: async (req, res) => {
+    //     try{
+    //         const studentInfo = await Student.findById({ _id: req.params.id })
+    //             .populate('courseEnrolled')
+
+    //         res.render('admin/ccet/students/studentInfo', {
+    //             studentInfo,
+    //         })
+    //     } catch(err){
+    //         console.error(err)
+    //         res.render('error/500')
+    //     }
+    // },
+
+    // // Get students data by filtered data (for ex: filter by `course`)
+    // getStudentMngFiltered: async (req, res) => {              
+    //     try{  
+    //         const courses = await Course.find()          
+    //         const studentsArr = await Student.find({ courseEnrolled : req.body.courseName })
+    //             .populate('courseEnrolled')
+                
+    //         const students = studentsArr.map(student => ({
+    //             ...student.toObject(),
+    //             enrollmentDate: moment(student.enrollmentDate).format("DD-MM-YYYY")
+    //         }));
+            
+    //         res.render('admin/ccet/students/index', {  
+    //             courses,              
+    //             students
+    //         })
+    //     } catch (err)         {
+    //         console.error(err)
+    //         res.render('error/500')
+    //     }
+    // },
+
+    // // Add student data 
+    // // addStudent: async (req, res) => {        
+    // //     try{
+    // //         const studentName = req.body.studentName
+    // //         const lastExamPassed = req.body.lastExamPassed
+    // //         const courseEnrolled = req.body.courseEnrolled
+    // //         const status = 1
+
+    // //         const newStudent = await Student.create({
+    // //         studentName,
+    // //         lastExamPassed,
+    // //         courseEnrolled,
+    // //         status,
+    // //         })
+
+    // //         const newStudentId = newStudent._id
+
+    // //         const newFee = await Fee.create({
+    // //         studentInfo: newStudentId,
+    // //         courseInfo: courseEnrolled,
+    // //         admissionFeesAmount: 1000,
+    // //         totalFeesPaid: [0],
+    // //         examFeesAmount: 0,
+    // //         })
+
+    // //         const updatedStudent = await Student.findByIdAndUpdate(
+    // //         newStudentId,
+    // //         { fee: newFee._id },
+    // //         { new: true }
+    // //         ).populate('fee')
+
+    // //         console.log('Student data added')
+    // //         res.redirect('/ccet/student-management')
+    // //     } catch(err) {
+    // //         console.error(err)
+    // //         res.render('error/500')
+    // //     }
+    // // },      
 
     addStudent: async (req, res) => {
         try {
@@ -263,9 +297,26 @@ module.exports = {
         } catch(err){
             console.error(err)
             res.render('error/500')
+        }        
+    },
+
+    getFeesAddForm: async (req, res) => {
+        try{
+            const courses = await Course.find()
+            const students = await Student.find()
+                .populate('courseEnrolled')
+
+            console.log(students)                
+
+            res.render('admin/ccet/fees/addFees', {
+                courses,
+                students,            
+            })
+        } catch(err){
+            console.error(err)
+            res.render('error/500')
         }
-        res.render('admin/ccet/fees/index')
-    }, 
+    },
 
     // Get fees data by filtered data (for ex: filter by `course`)
     getFeesMngFiltered: async (req, res) => {
@@ -285,62 +336,62 @@ module.exports = {
         }
     },    
 
-    // Get fees information of a particular student by student_id
-    getFeesMngById: async (req, res) => {
-        // console.log(req.params.id)
-        try{            
-            const students = await Student.find({ _id: req.params.id })
-                .populate('courseEnrolled')
-                .populate('fee')
+    // // Get fees information of a particular student by student_id
+    // getFeesMngById: async (req, res) => {
+    //     // console.log(req.params.id)
+    //     try{            
+    //         const students = await Student.find({ _id: req.params.id })
+    //             .populate('courseEnrolled')
+    //             .populate('fee')
             
-            res.render('admin/ccet/fees/recordPayment', {                
-                students,            
-            })
-        } catch(err){
-            console.error(err)
-            res.render('error/500')
-        }        
-    },    
+    //         res.render('admin/ccet/fees/recordPayment', {                
+    //             students,            
+    //         })
+    //     } catch(err){
+    //         console.error(err)
+    //         res.render('error/500')
+    //     }        
+    // },    
 
-    // Get fees details of a student
-    getFeesHistory: async (req, res) => {
-        try{            
-            const students = await Student.find({ _id: req.params.id })
-                .populate('courseEnrolled')
-                .populate('fee')
+    // // Get fees details of a student
+    // getFeesHistory: async (req, res) => {
+    //     try{            
+    //         const students = await Student.find({ _id: req.params.id })
+    //             .populate('courseEnrolled')
+    //             .populate('fee')
             
-            res.render('admin/ccet/fees/viewFeesHistory', {                
-                students,            
-            })
-        } catch (err) {
-          console.error(err);
-          res.render('error/500');
-        }        
-      },      
+    //         res.render('admin/ccet/fees/viewFeesHistory', {                
+    //             students,            
+    //         })
+    //     } catch (err) {
+    //       console.error(err);
+    //       res.render('error/500');
+    //     }        
+    //   },      
 
-    // Add fees 
-    addFees: async (req, res) => {
-        try {
-          const fees = await Fee.find({ studentInfo: req.body.studentId }).populate('studentInfo');
-          const fee = fees[0];
-          const updatedFees = await Fee.findByIdAndUpdate(
-            fee._id,
-            { $push: { totalFeesPaid: Number(req.body.amountReceived) } }
-          );
+    // // Add fees 
+    // addFees: async (req, res) => {
+    //     try {
+    //       const fees = await Fee.find({ studentInfo: req.body.studentId }).populate('studentInfo');
+    //       const fee = fees[0];
+    //       const updatedFees = await Fee.findByIdAndUpdate(
+    //         fee._id,
+    //         { $push: { totalFeesPaid: Number(req.body.amountReceived) } }
+    //       );
 
-          const courses = await Course.find();
-          const students = await Student.find({ _id: fee.studentInfo })
-            .populate('courseEnrolled')            
-            .populate('fee')            
+    //       const courses = await Course.find();
+    //       const students = await Student.find({ _id: fee.studentInfo })
+    //         .populate('courseEnrolled')            
+    //         .populate('fee')            
 
-            res.render('admin/ccet/fees/recordPayment', {                                
-                students,                                          
-            })
+    //         res.render('admin/ccet/fees/recordPayment', {                                
+    //             students,                                          
+    //         })
          
-        } catch (err) {
-          console.error(err);
-          res.render('error/500');
-        }        
-    }          
+    //     } catch (err) {
+    //       console.error(err);
+    //       res.render('error/500');
+    //     }        
+    // }          
 }
 
