@@ -4,48 +4,61 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../../dist/output.css">  
     <title>Document</title>
 </head>
+       
 <body>
-    <% students.forEach(student => { %>
-        <form action="/ccet/add-fees" method="POST">
-            <label>
-                Student Name
-            </label>
-            <input type="text" name="studentName" value="<%= student.studentName %>">
-            <input type="text" name="studentId" value="<%= student._id %>">
-            <label>
-                Course Enrolled
-            </label>
-            <input type="text" name="courseEnrolled" value="<%= student.courseEnrolled.courseName %>">
-            <label>
-                Amount Received
-            </label>
-            <input type="text" name="amountReceived" value="">
-            <button type="submit">Save</button>            
-        </form>
-    <% }) %>
+    <%- include('../../../partials/sidenav.ejs') %>
+    
+    <div class="fixed top-0 left-64 w-full h-full bg-blue-200">
+        <h3>Search by filters</h3>
+        
+        <% students.forEach(student => { %>
+            <form action="/ccet/add-fees" method="POST">
+                <label>
+                    Student Name
+                </label>
+                <input type="text" name="studentName" value="<%= student.studentName %>">
+                <input type="text" name="studentId" value="<%= student._id %>">
+                <label>
+                    Course Enrolled
+                </label>
+                <input type="text" name="courseEnrolled" value="<%= student.courseEnrolled.courseName %>">
+                <label>
+                    Amount Received
+                </label>
+                <input type="text" name="amountReceived" value="">
+                <button type="submit">Save</button>            
+            </form>
+        <% }) %>
+    
+    
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Course Enrolled</th>
+                    <th>Total Fees Received</th>
+                </tr>
+                <tr>
+                    <% students.forEach(student => { %>
+                    <td><%= student.studentName %></td>
+                    <td><%= student.courseEnrolled.courseName %></td>
+                    <td><% if (Array.isArray(student.fee.totalFeesPaid)) { %>
+                        <%= Object.values(student.fee.totalFeesPaid).reduce((acc, val) => acc + val, 0) %>
+                      <% } else { %>
+                        <p>Object</p>
+                      <% } %> %></td>
+                    <% }) %>
+                </tr>
+            </thead>
+        </table>
 
-
-    <table>
-        <thead>
-            <tr>
-                <th>Student Name</th>
-                <th>Course Enrolled</th>
-                <th>Total Fees Received</th>
-            </tr>
-            <tr>
-                <% students.forEach(student => { %>
-                <td><%= student.studentName %></td>
-                <td><%= student.courseEnrolled.courseName %></td>
-                <td><% if (Array.isArray(student.fee.totalFeesPaid)) { %>
-                    <%= Object.values(student.fee.totalFeesPaid).reduce((acc, val) => acc + val, 0) %>
-                  <% } else { %>
-                    <p>Object</p>
-                  <% } %> %></td>
-                <% }) %>
-            </tr>
-        </thead>
-    </table>
+    </div>
+    
 </body>
+
 </html>
+
+
