@@ -4,24 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../../dist/output.css">  
     <title>Document</title>
 </head>
+       
 <body>
-    <h1>Fees History</h1>
-    <table>
-        <% students.forEach(student => { %>
+    <%- include('../../../partials/sidenav.ejs') %>
+    
+    <div class="fixed top-0 left-64 w-full h-full bg-blue-200">
+        <table>
+            <% students.forEach(student => { %>
 
-            <% student.fee.totalFeesPaid.forEach((item, index) => { %>
-                <tr>
-                    <% if(index>0){ %>
-                    <td>Installment <%= index %></td>
-                    <td><%= item %></td>
-                    <% } %>
-                </tr>                
-            <% }) %>        
+                <% student.fee.totalFeesPaid.forEach((item, index) => { %>
+                    <tr>
+                        <% if(index>0){ %>
+                        <td>Installment <%= index %></td>
+                        <td><%= item %></td>
+                        <% } %>
+                    </tr>                
+                <% }) %>        
 
-        <% }) %>
-    </table>
-
+            <% }) %>
+        </table>
+    </div>    
 </body>
 </html>
