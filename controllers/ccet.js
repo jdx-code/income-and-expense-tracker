@@ -6,6 +6,8 @@ const Course = require('../models/Course')
 const Student = require('../models/Student')
 const Fee = require('../models/Fee')
 
+const ITEMS_PER_PAGE = 10; // Number of students per page
+
 module.exports = {
     getIndex: (req, res) => {
         res.render('admin/ccet/index.ejs')
@@ -105,20 +107,44 @@ module.exports = {
 
     getStudentViewStudents: async (req, res) => {
         try{
-            const courses = await Course.find()
-            const studentsArr = await Student.find()
-                .populate('courseEnrolled')
-                .sort({ enrollmentDate: "descending" })
+            // const courses = await Course.find()
+            // const studentsArr = await Student.find()
+            //     .populate('courseEnrolled')
+            //     .sort({ enrollmentDate: "descending" })
 
-            const students = studentsArr.map(student => ({
-                ...student.toObject(),
-                enrollmentDate: moment(student.enrollmentDate).format("DD-MM-YYYY")
-            }));            
+            // const students = studentsArr.map(student => ({
+            //     ...student.toObject(),
+            //     enrollmentDate: moment(student.enrollmentDate).format("DD-MM-YYYY")
+            // }));            
+
+            // res.render('admin/ccet/students/viewStudents', {
+            //     courses,
+            //     students,                
+            // })
+
+            const courses = await Course.find();
+            const currentPage = parseInt(req.query.page) || 1; // Current page number
+
+            const totalStudents = await Student.countDocuments();
+            const totalPages = Math.ceil(totalStudents / ITEMS_PER_PAGE);
+
+            const students = await Student.find()
+            .populate('courseEnrolled')
+            .sort({ enrollmentDate: 'descending' })
+            .skip((currentPage - 1) * ITEMS_PER_PAGE)
+            .limit(ITEMS_PER_PAGE);
+
+            const formattedStudents = students.map(student => ({
+            ...student.toObject(),
+            enrollmentDate: moment(student.enrollmentDate).format('DD-MM-YYYY')
+            }));
 
             res.render('admin/ccet/students/viewStudents', {
-                courses,
-                students,                
-            })
+            courses,
+            students: formattedStudents,
+            currentPage,
+            totalPages
+            });
 
         } catch(err){
             console.error(err)
@@ -128,19 +154,52 @@ module.exports = {
 
     getStudentFilterView: async (req, res) => {
         try{  
-            const courses = await Course.find()          
-            const studentsArr = await Student.find({ courseEnrolled : req.body.courseName })
-                .populate('courseEnrolled')
+            // const courses = await Course.find()          
+            // const studentsArr = await Student.find({ courseEnrolled : req.body.courseName })
+            //     .populate('courseEnrolled')
                 
-            const students = studentsArr.map(student => ({
-                ...student.toObject(),
-                enrollmentDate: moment(student.enrollmentDate).format("DD-MM-YYYY")
-            }));
+            // const students = studentsArr.map(student => ({
+            //     ...student.toObject(),
+            //     enrollmentDate: moment(student.enrollmentDate).format("DD-MM-YYYY")
+            // }));
             
-            res.render('admin/ccet/students/viewStudents', {  
-                courses,              
-                students
-            })
+            // res.render('admin/ccet/students/viewStudents', {  
+            //     courses,              
+            //     students
+            // })
+
+            const courses = await Course.find();
+            const { courseName, session } = req.body;
+
+            let filterOptions = {};
+            if (courseName) {
+            filterOptions.courseEnrolled = courseName;
+            }
+            // Add more filter conditions if needed (e.g., session)
+
+            const perPage = 10;
+            const page = parseInt(req.query.page) || 1;
+
+            const studentsArr = await Student.find(filterOptions)
+            .populate('courseEnrolled')
+            .sort({ enrollmentDate: 'descending' })
+            .skip((page - 1) * perPage)
+            .limit(perPage);
+
+            const totalStudents = await Student.countDocuments(filterOptions);
+            const totalPages = Math.ceil(totalStudents / perPage);
+
+            const students = studentsArr.map(student => ({
+            ...student.toObject(),
+            enrollmentDate: moment(student.enrollmentDate).format('DD-MM-YYYY'),
+            }));
+
+            res.render('admin/ccet/students/viewStudents', {
+            courses,
+            students,
+            currentPage: page,
+            totalPages,
+            });
         } catch(err) {
             console.error(err)
             res.render('error/500')
