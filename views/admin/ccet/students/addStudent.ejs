@@ -1,8 +1,13 @@
-<%- include('../../../partials/adminTemplate.ejs') %>
+
                 
-    <div class="fixed top-0 left-64 w-full h-full bg-white">
-        <h2>Add New Student</h2>
-        <div class="hidden sm:block">
+<div class="flex h-screen">    
+    <div class="w-64 bg-[#4d44b5]">        
+        <%- include('../../../partials/adminTemplate.ejs') %>
+    </div>
+
+    <div class="flex-1 flex items-center bg-yellow-400">
+        <div class="w-[85%] p-8 flex flex-col items-center">
+            <h2>Add New Student</h2>
             <form action="/ccet/add-student" method="POST" enctype="multipart/form-data">
                 <table>
                     <tr>
@@ -12,7 +17,7 @@
                             </label>                    
                         </td>
                         <td>
-                            <input type="text" name="studentName">
+                            <input type="text" name="studentName" class="my-2">
                         </td>
                     </tr>   
                     <tr>
@@ -22,7 +27,7 @@
                             </label>                    
                         </td>
                         <td>
-                            <select name="lastExamPassed">
+                            <select name="lastExamPassed" class="my-2">
                                 <option value="hslc">HSLC</option>
                                 <option value="hs">HS</option>
                                 <option value="graduation">Graduation</option>
@@ -37,7 +42,7 @@
                             </label>
                         </td>
                         <td>
-                            <select name="courseEnrolled">
+                            <select name="courseEnrolled" class="my-2">
                                 <% courses.forEach(course => { %>
                                     <option value="<%= course._id %>">
                                         <%= course.courseName %>
@@ -51,15 +56,25 @@
                             <label>Upload Admission Form  </label>
                         </td>
                         <td>
-                            <input type="file" name="image" value="">
+                            <input type="file" name="image" value="" class="my-2">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td>
+                            <button type="submit" class="rounded-sm bg-blue-400 hover:bg-blue-700 text-gray-800 hover:text-gray-100 p-2">Submit</button>
                         </td>
                     </tr>
                 </table>
         
-                <button type="submit">Submit</button>
+                
+                
             </form>
         </div>
     </div>
+</div>
 
     <script src="../../../../js/main.js"></script>
     
