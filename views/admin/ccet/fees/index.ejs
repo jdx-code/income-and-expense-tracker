@@ -10,6 +10,7 @@
                     Course : 
                 </label>
                 <select name="courseId">
+                    <option value=""> Select Course</option>
                     <% courses.forEach(course => { %>
                         <option value="<%= course._id %>">
                             <%= course.courseName %>
@@ -20,6 +21,7 @@
                     Session
                 </label>
                 <select name="courseSession">            
+                    <option value=""> Select Session</option>
                     <option value="2021">2021</option>            
                     <option value="2022">2022</option>
                     <option value="2023">2023</option>
@@ -31,7 +33,7 @@
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Check Record</button>
             </form> 
         </div>
-
+        <% if(students && students.length > 0) { %>
         <div class="flex-1 relative overflow-x-auto shadow-md sm:rounded-lg">            
             <table class="w-full text-sm text-left text-blue-600 dark:text-blue-100">
                 <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
@@ -91,8 +93,69 @@
                 </tbody>        
             </table>
         </div>
-        
+        <% } else { %>
+            <div class="flex-1 relative overflow-x-auto shadow-md sm:rounded-lg">            
+                <table class="w-full text-sm text-left text-blue-600 dark:text-blue-100">
+                    <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Student name
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Course Enrolled
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Amount Paid
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Payment Date
+                            </th>                            
+                        </tr>
+                    </thead>
+    
+                    <tbody>
+                        <% students.forEach(student => { %>
+                            <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">
+                                <td class="px-6 py-4">
+                                    <%= student.studentName %>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <%= student.courseEnrolled.courseName %>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <%= student.fee.admissionFeesAmount %>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <%= student.fee.admissionFeesAmount %>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <%= student.fee.lastPaymentDate %>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <a href="/ccet/fees-management/fees-history/<%= student._id %>">
+                                        <button type="submit">view Fees History</button>
+                                    </a>                        
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>        
+                </table>
+            </div>
+        <% } %>
     </div>
+
+    <!-- Pagination links goes here -->
+    <nav class="flex items-center justify-center m-8" aria-label="Page navigation">
+        <% if (currentPage > 1) { %>
+        <a class="mr-2 px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" href="/ccet/student-management/view?page=<%= currentPage - 1 %>">Previous</a>
+        <% } %>
+        <% for (let i = 1; i <= totalPages; i++) { %>
+        <a class="mr-2 px-3 py-2 bg-blue-200 text-blue-800 rounded hover:bg-blue-500 hover:text-white <% if (i === currentPage) { %>bg-blue-500 text-white<% } %>" href="/ccet/student-management/view?page=<%= i %>"><%= i %></a>
+        <% } %>
+        <% if (currentPage < totalPages) { %>
+        <a class="mr-2 px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" href="/ccet/student-management/view?page=<%= currentPage + 1 %>">Next</a>
+        <% } %>
+    </nav>
 
 </div>
 
