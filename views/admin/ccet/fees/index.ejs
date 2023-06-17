@@ -1,86 +1,102 @@
-<%- include('../../../partials/adminTemplate.ejs') %>
-
-    <div class="fixed top-0 left-64 w-full h-full bg-white">
-        <h3>Search by filters</h3>
-        <form action="/ccet/fees-management" method="POST">
-            <label>
-                Course : 
-            </label>
-            <select name="courseId">
-                <% courses.forEach(course => { %>
-                    <option value="<%= course._id %>">
-                        <%= course.courseName %>
-                    </option>
-                <% }) %>
-            </select>
-            <label>
-                Session
-            </label>
-            <select name="courseSession">            
-                <option value="2021">2021</option>            
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-            </select>
-            <label>
-                Student ID/ Name 
-            </label>
-            <input type="text" name="studentName">
-            <button type="submit">Check Record</button>
-        </form>   
-
-        <h3>Student</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        Student name
-                    </th>
-                    <th>
-                        Course Enrolled
-                    </th>
-                    <th>
-                        Fees paid on admission (excl.)
-                    </th>
-                    <th>
-                        Course fees paid
-                    </th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <% students.forEach(student => { %>
-                    <tr>
-                        <td>
-                            <%= student.studentName %>
-                        </td>
-                        <td>
-                            <%= student.courseEnrolled.courseName %>
-                        </td>
-                        <td>
-                            <%= student.fee.admissionFeesAmount %>
-                        </td>
-                        <td>
-                            <% if (Array.isArray(student.fee.totalFeesPaid)) { %>
-                                <%= Object.values(student.fee.totalFeesPaid).reduce((acc, val) => acc + val, 0) %>
-                            <% } else { %>
-                                <p>Object</p>
-                            <% } %>
-                        </td>
-                        <td>
-                            <a href="/ccet/fees-management/<%= student._id %>">
-                                <button type="submit">Record Payment</button>
-                            </a>                        
-                        </td>
-                        <td>
-                            <a href="/ccet/fees-management/fees-history/<%= student._id %>">
-                                <button type="submit">view Fees History</button>
-                            </a>                        
-                        </td>
-                    </tr>
-                <% }) %>
-            </tbody>        
-        </table>
+<div class="flex h-screen">
+    <div class="w-64 bg-[#4d44b5]">
+        <%- include('../../../partials/adminTemplate.ejs') %>
     </div>
+
+    <div class="flex-1 flex flex-col p-4">
+        <div class="flex bg-white justify-end p-4">
+            <form action="/ccet/fees-management" method="POST">
+                <label>
+                    Course : 
+                </label>
+                <select name="courseId">
+                    <% courses.forEach(course => { %>
+                        <option value="<%= course._id %>">
+                            <%= course.courseName %>
+                        </option>
+                    <% }) %>
+                </select>
+                <label>
+                    Session
+                </label>
+                <select name="courseSession">            
+                    <option value="2021">2021</option>            
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                </select>
+                <label>
+                    Student ID/ Name 
+                </label>
+                <input type="text" name="studentName">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Check Record</button>
+            </form> 
+        </div>
+
+        <div class="flex-1 relative overflow-x-auto shadow-md sm:rounded-lg">            
+            <table class="w-full text-sm text-left text-blue-600 dark:text-blue-100">
+                <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Student name
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Course Enrolled
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Fees paid on admission (excl.)
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Course fees paid
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Action
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% students.forEach(student => { %>
+                        <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">
+                            <td class="px-6 py-4">
+                                <%= student.studentName %>
+                            </td>
+                            <td class="px-6 py-4">
+                                <%= student.courseEnrolled.courseName %>
+                            </td>
+                            <td class="px-6 py-4">
+                                <%= student.fee.admissionFeesAmount %>
+                            </td>
+                            <td class="px-6 py-4">
+                                <% if (Array.isArray(student.fee.totalFeesPaid)) { %>
+                                    <%= Object.values(student.fee.totalFeesPaid).reduce((acc, val) => acc + val, 0) %>
+                                <% } else { %>
+                                    <p>Object</p>
+                                <% } %>
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="/ccet/fees-management/<%= student._id %>">
+                                    <button type="submit">Record Payment</button>
+                                </a>                        
+                            </td>
+                            <td class="px-6 py-4">
+                                <a href="/ccet/fees-management/fees-history/<%= student._id %>">
+                                    <button type="submit">view Fees History</button>
+                                </a>                        
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>        
+            </table>
+        </div>
+        
+    </div>
+
+</div>
+
+    
     
 </body>
 
