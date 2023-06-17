@@ -1,36 +1,42 @@
-<div class="flex h-screen">    
-    <div class="w-64 bg-[#4d44b5]">        
+<div class="flex h-screen">
+    <div class="w-64 bg-[#4d44b5]">
         <%- include('../../../partials/adminTemplate.ejs') %>
     </div>
 
-    <div class="flex-1 flex bg-white">
-        <div class="w-[99%] p-8 flex flex-col">            
-            <form action="/ccet/student-management/filter-view" method="POST">
-                <label>
-                    Course
-                </label>
-                <select name="courseName">
-                        <option value=""> Select Course </option>
-                    <% courses.forEach(course => { %>
+    <div class="flex-1 flex flex-col p-4">
+        <div class="flex bg-white justify-end p-4">
+            <form class="flex gap-4" action="/ccet/student-management/filter-view" method="POST">
+                
+                <label class="flex items-center">
+                    <span class="mr-2">Filter your search</span>
+                    <select name="courseName">
+                        <option value="">Select Course</option>
+                        <% courses.forEach(course => { %>
                         <option value="<%= course._id %>">
                             <%= course.courseName %>
-                        </option>            
-                    <% }) %>            
-                </select>
-                <label>
-                    Session
+                        </option>
+                        <% }) %>
+                    </select>
                 </label>
-                <select name="session">
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
-                    <option value="2023">2023</option>                        
-                </select>
-                <button type="submit">Filter Search</button>
-            </form>    
-        
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-left text-blue-600 dark:text-blue-100">
-                    <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
+
+                <div>
+                    <select name="session">
+                        <option value="2021">Select Session</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                    </select>
+                </div>
+
+                <div>
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="flex-1 relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left text-blue-600 dark:text-blue-100">
+                <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             Name
@@ -44,15 +50,13 @@
                         <th scope="col" class="px-6 py-3">
                             Date of admission
                         </th>
-                        <th scope="col" class="px-6 py-3">Form</th>
-                        <!-- <th scope="col" class="px-6 py-3">Preview</th>
-                        <th scope="col" class="px-6 py-3">Image</th> -->
+                        <th scope="col" class="px-6 py-3">Form</th>                        
                     </tr>            
                 </thead>               
                 <tbody>
                 <% students.forEach(student => { %>
                             
-                    <tr class="bg-blue-100 text-gray-700 border-b border-blue-400 hover:bg-blue-200 hover:text-gray-800">
+                    <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">
                         <td style="display:none" class="px-6 py-4">                
                             <%= student._id %>                
                         </td>
@@ -74,36 +78,29 @@
                             </a>   
                             
                         </td>
-                        <!-- <td class="px-6 py-4">                
-                            <button class="toggleImgBtn">Show Preview</button>
-                        </td>
-                        <td class="application-form-img px-6 py-4">
-                            <img src="<%= student.admission_form_img %>" width="200" height="200">
-                        </td> -->
+                        
                     </tr>        
                 </tbody>
                 <% }) %>
-                </table>
-            </div>
-
-            <!-- Add this code where you want to display the pagination links -->
-            <nav class="flex items-center justify-center m-8" aria-label="Page navigation">
-                <% if (currentPage > 1) { %>
-                <a class="mr-2 px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" href="/ccet/student-management/view?page=<%= currentPage - 1 %>">Previous</a>
-                <% } %>
-                <% for (let i = 1; i <= totalPages; i++) { %>
-                <a class="mr-2 px-3 py-2 bg-blue-200 text-blue-800 rounded hover:bg-blue-500 hover:text-white <% if (i === currentPage) { %>bg-blue-500 text-white<% } %>" href="/ccet/student-management/view?page=<%= i %>"><%= i %></a>
-                <% } %>
-                <% if (currentPage < totalPages) { %>
-                <a class="mr-2 px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" href="/ccet/student-management/view?page=<%= currentPage + 1 %>">Next</a>
-                <% } %>
-            </nav>
+            </table>
         </div>
+        
+        <!-- Pagination links goes here -->
+        <nav class="flex items-center justify-center m-8" aria-label="Page navigation">
+            <% if (currentPage > 1) { %>
+            <a class="mr-2 px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" href="/ccet/student-management/view?page=<%= currentPage - 1 %>">Previous</a>
+            <% } %>
+            <% for (let i = 1; i <= totalPages; i++) { %>
+            <a class="mr-2 px-3 py-2 bg-blue-200 text-blue-800 rounded hover:bg-blue-500 hover:text-white <% if (i === currentPage) { %>bg-blue-500 text-white<% } %>" href="/ccet/student-management/view?page=<%= i %>"><%= i %></a>
+            <% } %>
+            <% if (currentPage < totalPages) { %>
+            <a class="mr-2 px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" href="/ccet/student-management/view?page=<%= currentPage + 1 %>">Next</a>
+            <% } %>
+        </nav>
     </div>
 </div>
 
-    <script src="../../../../js/main.js"></script>
+<script src="../../../../js/main.js"></script>
     
 </body>
 </html>
-

@@ -1,84 +1,104 @@
-<%- include('../../../partials/adminTemplate.ejs') %>
-    
-    <div class="fixed top-0 left-64 w-full h-full bg-white">
-        <h1>Course Management</h1>
-        <h1>Add Course </h1>
-        <form action="/ccet/add-course" method="POST">
-            <table>
-                <tr>
-                    <td>
-                        <label>Course Name : </label>
-                    </td>
-                    <td>
-                        <input type="text" name="course" value="">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Course Duration : </label>
-                    </td>
-                    <td>
-                        <input type="text" name="duration" value="">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>Course Fees : </label>
-                    </td>
-                    <td>
-                        <input type="text" name="fees" value="">
-                    </td>
-                </tr>            
-            </table>        
-            <button type="submit">Add Course</button>
-        </form>
-
-        <h1>View Courses</h1>
-        <% if(!courses) { %>
-            <p>Something went wrong..</p>
-        <% } else { %>
-        <% let courseArr = Object.values(courses) %>
-        <table>
-            <thead>
-                <tr>
-                    <th>Course name</th>
-                    <th>Duration</th>
-                    <th>Fees</th>
-                    <th>Action</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <% courseArr.forEach(e => { %>
-                <tr>                
-                    <td>
-                        <span id="coursename">
-                            <%= e.courseName %>
-                        </span>
-                    </td>
-                    <td>
-                        <span id="courseduration">
-                            <%= e.courseDuration %> months
-                        </span>
-                    </td>
-                    <td>
-                        <span id="coursefees">
-                            <%= e.courseFees %>
-                        </span>
-                    </td>
-                    <td>                    
-                        <a href="/ccet/course-management/<%= e._id %>">
-                            <button type="submit">Update</button>
-                        </a> 
-                    </td>
-                    <td>
-                        <button class="deleteBtn">Delete</button>
-                    </td>                
-                    
-                    <% }) %>
-                </tr>
-        </ul>
-        <% } %>       
+<div class="flex h-screen">
+    <div class="w-64 bg-[#4d44b5]">
+        <%- include('../../../partials/adminTemplate.ejs') %>
     </div>
     
+    <div class="flex-1 flex flex-col p-4">
+        <div>
+            <h1 class="bg-gradient-to-r from-indigo-400 mb-4 p-2 text-white">New Course</h1>            
+            <form action="/ccet/add-course" method="POST">
+                <table>
+                    <tr>
+                        <td>
+                            <label>Course Name : </label>
+                        </td>
+                        <td>
+                            <input type="text" name="course" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Course Duration : </label>
+                        </td>
+                        <td>
+                            <input type="text" name="duration" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Course Fees : </label>
+                        </td>
+                        <td>
+                            <input type="text" name="fees" value="">
+                        </td>
+                    </tr>            
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Add Course</button>
+                        </td>
+                    </tr>
+                </table>                        
+            </form>
+        </div>
+            
+        <div class="my-12">
+            <h1 class="bg-gradient-to-r from-indigo-400 my-4 p-2 text-white">Available Courses</h1>            
+            <% if(!courses) { %>
+                <p>Something went wrong..</p>
+            <% } else { %>
+            <% let courseArr = Object.values(courses) %>
+            <div class="flex-1 relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left text-blue-600 dark:text-blue-100">
+                    <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">Course name</th>
+                            <th scope="col" class="px-6 py-3">Duration</th>
+                            <th scope="col" class="px-6 py-3">Fees</th>
+                            <th scope="col" class="px-6 py-3">Update</th>
+                            <th scope="col" class="px-6 py-3">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <% courseArr.forEach(e => { %>
+                        <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">                
+                            <td class="px-6 py-4">
+                                <span id="coursename">
+                                    <%= e.courseName %>
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span id="courseduration">
+                                    <%= e.courseDuration %> months
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span id="coursefees">
+                                    <%= e.courseFees %>
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">      
+                                <a href="/ccet/course-management/<%= e._id %>">
+                                    <button type="submit">
+                                        <i class="fas fa-edit"></i></a>
+                                    </button>
+                                </a> 
+                            </td>
+                            <td class="px-6 py-4">
+                                <button class="deleteBtn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>                
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>            
+                <% } %>       
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../../../js/main.js"></script>    
 </body>
 </html>
