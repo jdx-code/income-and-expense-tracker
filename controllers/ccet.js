@@ -171,6 +171,7 @@ module.exports = {
             currentPage: page,
             totalPages,
             });
+
         } catch(err) {
             console.error(err)
             res.render('error/500')
@@ -382,39 +383,101 @@ module.exports = {
     },
 
     // Get fees data by filtered data (for ex: filter by `course`)
+    // getFeesMngFiltered: async (req, res) => {
+    //     try {
+    //         const courses = await Course.find();
+    //         const { courseName, session } = req.body;
+
+    //         let filterOptions = {};
+    //         if (courseName) {
+    //             filterOptions.courseEnrolled = courseName;
+    //         }
+
+    //         const perPage = 10;
+    //         const page = parseInt(req.query.page) || 1;
+
+    //         const students = await Student.find(filterOptions)
+    //             .populate('courseEnrolled')
+    //             .populate('fee')
+    //             .sort({ enrollmentDate: 'descending' })
+    //             .skip((page - 1) * perPage)
+    //             .limit(perPage);
+                    
+    //         const totalStudents = await Student.countDocuments(filterOptions);
+    //         const totalPages = Math.ceil(totalStudents / perPage);
+
+    //         res.render('admin/ccet/fees/index', {
+    //             courses,
+    //             students,
+    //             currentPage: page,
+    //             totalPages,
+    //         });
+    //     } catch (err) {
+    //         console.error(err);
+    //         res.render('error/500');
+    //     }
+    // },    
+
     getFeesMngFiltered: async (req, res) => {
         try {
             const courses = await Course.find();
-            const students = await Student.find({ courseEnrolled: req.body.courseId })
-                .populate('courseEnrolled')
-                .populate('fee');                     
-    
+            const { courseId, session } = req.body;
+
+            let filterOptions = {};
+            if (courseId) {
+                filterOptions.courseEnrolled = courseId;
+            }
+            // Add more filter conditions if needed (e.g., session)
+
+            const perPage = 10;
+            const page = parseInt(req.query.page) || 1;
+
+            const studentsArr = await Student.find(filterOptions)
+            .populate('courseEnrolled')
+            .populate('fee')
+            .sort({ enrollmentDate: 'descending' })
+            .skip((page - 1) * perPage)
+            .limit(perPage);
+
+            const totalStudents = await Student.countDocuments(filterOptions);
+            const totalPages = Math.ceil(totalStudents / perPage);
+
+            const students = studentsArr.map(student => ({
+            ...student.toObject(),
+            enrollmentDate: moment(student.enrollmentDate).format('DD-MM-YYYY'),
+            }));
+
             res.render('admin/ccet/fees/index', {
-                courses,
-                students
-            });
+            courses,
+            students,
+            currentPage: page,
+            totalPages,
+        });
+
         } catch (err) {
-            console.error(err);
-            res.render('error/500');
+          console.error(err);
+          res.render('error/500');
         }
-    },    
+      },
+      
+      
 
     // Get fees information of a particular student by student_id
-    getFeesMngById: async (req, res) => {
-        // console.log(req.params.id)
-        try{            
-            const students = await Student.find({ _id: req.params.id })
-                .populate('courseEnrolled')
-                .populate('fee')
+    // getFeesMngById: async (req, res) => {
+    //     // console.log(req.params.id)
+    //     try{            
+    //         const students = await Student.find({ _id: req.params.id })
+    //             .populate('courseEnrolled')
+    //             .populate('fee')
             
-            res.render('admin/ccet/fees/recordPayment', {                
-                students,            
-            })
-        } catch(err){
-            console.error(err)
-            res.render('error/500')
-        }        
-    },    
+    //         res.render('admin/ccet/fees/recordPayment', {                
+    //             students,            
+    //         })
+    //     } catch(err){
+    //         console.error(err)
+    //         res.render('error/500')
+    //     }        
+    // },    
 
     // Get fees details of a student
     getFeesHistory: async (req, res) => {
@@ -455,6 +518,41 @@ module.exports = {
     //       console.error(err);
     //       res.render('error/500');
     //     }        
-    // }          
+    // }    
+    
+    getFeesMngView: async (req, res) => {
+        try{
+
+            const courses = await Course.find();
+            const currentPage = parseInt(req.query.page) || 1; // Current page number
+
+            const totalStudents = await Student.countDocuments();
+            const totalPages = Math.ceil(totalStudents / ITEMS_PER_PAGE);
+
+            // Fetch students data based on pagination
+            const students = await Student.find()
+                .populate('courseEnrolled')
+                .populate('fee')
+                .sort({ enrollmentDate: 'descending' })
+                .skip((currentPage - 1) * ITEMS_PER_PAGE)
+                .limit(ITEMS_PER_PAGE);
+
+            const formattedStudents = students.map(student => ({
+                ...student.toObject(),
+                enrollmentDate: moment(student.enrollmentDate).format('DD-MM-YYYY')
+            }));
+
+            res.render('admin/ccet/fees/index', {
+                courses,
+                students: formattedStudents,
+                currentPage,
+                totalPages
+            });
+
+        } catch(err) {
+            console.error(err)
+            res.render('error/500')
+        }
+    },
 }
 
