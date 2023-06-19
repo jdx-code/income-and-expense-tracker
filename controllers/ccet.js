@@ -16,7 +16,7 @@ module.exports = {
     },
     
     // Get course information
-    getCourseMng: async (req, res) => {
+    getAllCourses: async (req, res) => {
         try{
             const courses = await Course.find()
             res.render('admin/ccet/courses/index', {
