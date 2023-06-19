@@ -4,23 +4,24 @@ const ccetController = require('../controllers/ccet')
 
 router.get('/', ccetController.getIndex)
 
+// Routes for student management
+router.get('/student-management', ccetController.getAllStudents)
+router.post('/student-management/filter-view', ccetController.viewFilteredStudents)
+router.get('/student-management/add', ccetController.getStudentForm)
+router.post('/add-student', ccetController.addStudentProcess)
 // router.get('/student-management', ccetController.getStudentMng)
-router.get('/student-management/add', ccetController.getStudentAddForm)
 // router.get('/student-management/:id', ccetController.getStudentMngById)
 // router.post('/student-management', ccetController.getStudentMngFiltered)
-router.post('/add-student', ccetController.addStudent)
-router.get('/student-management/view', ccetController.getStudentViewStudents)
-router.post('/student-management/filter-view', ccetController.getStudentFilterView)
 
-
-router.get('/fees-management', ccetController.getFeesMng)
-router.get('/fees-management/add', ccetController.getFeesAddForm)
-router.post('/fees-management', ccetController.getFeesMngFiltered)
-// router.get('/fees-management/:id', ccetController.getFeesMngById)
+// Routes for fees management
+router.get('/fees-management', ccetController.getAllFeesInfo)
+router.post('/fees-management/filter-view', ccetController.viewFilteredFeesInfo)
+router.get('/fees-management/add', ccetController.getFeesForm)
 router.get('/fees-management/fees-history/:id', ccetController.getFeesHistory)
-router.get('/fees-management/view', ccetController.getFeesMngView)
+// router.get('/fees-management/:id', ccetController.getFeesMngById)
 // router.post('/add-fees', ccetController.addFees)
 
+// Routes for course management
 router.get('/course-management', ccetController.getCourseMng)
 // router.get('/course-management/:id', ccetController.getCourseById)
 router.post('/add-course', ccetController.addCourse)

@@ -2,7 +2,6 @@ const express = require('express')
 const methodOverride = require('method-override')
 const connectDB = require('./config/database')
 const homeRoutes = require('./routes/home')
-const courseRoutes = require('./routes/course')
 const ccetRoutes = require('./routes/ccet')
 
 const app = express()
@@ -32,7 +31,6 @@ app.use(express.static('public'));
 
 // Use the following route when user hits the root '/'
 app.use('/', homeRoutes)
-app.use('/course', courseRoutes)
 app.use('/ccet', ccetRoutes)
 
 
