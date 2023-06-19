@@ -9,28 +9,26 @@
                 
                 <label class="flex items-center">
                     <span class="mr-2">Filter your search</span>
-                    <select name="courseName">
+                    <select name="courseId">
                         <option value="">Select Course</option>
                         <% courses.forEach(course => { %>
-                          <option value="<%= course._id %>" <%= course._id.toString() === locals.courseName ? 'selected' : '' %>>
+                          <option value="<%= course._id %>" <%= course._id.toString() === locals.courseId ? 'selected' : '' %>>
                             <%= course.courseName %>
                           </option>
                         <% }) %>
-                    </select>
-                      
+                    </select>                      
                 </label>
-
+                    
                 <div>
-                    <select name="session">
+                    <select name="courseSession">
                         <option value="">Select Session</option>
                         <% const years = [2021, 2022, 2023]; %>
                         <% years.forEach(year => { %>
-                          <option value="<%= year %>" <%= year.toString() === locals.session ? 'selected' : '' %>>
+                          <option value="<%= year %>" <%= year.toString() === locals.courseSession ? 'selected' : '' %>>
                             <%= year %>
                           </option>
                         <% }) %>
-                    </select>
-                      
+                    </select>                      
                 </div>
 
                 <div>

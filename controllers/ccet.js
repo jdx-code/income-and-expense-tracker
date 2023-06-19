@@ -128,11 +128,14 @@ module.exports = {
             enrollmentDate: moment(student.enrollmentDate).format('DD-MM-YYYY')
             }));
 
+            let filterApplied
+
             res.render('admin/ccet/students/viewStudents', {
             courses,
             students: formattedStudents,
             currentPage,
-            totalPages
+            totalPages,
+            filterApplied,
             });
 
         } catch(err){
@@ -144,16 +147,16 @@ module.exports = {
     viewFilteredStudents: async (req, res) => {
         try {
           const courses = await Course.find();
-          const { courseName, session } = req.body;
+          const { courseId, courseSession } = req.body;
 
           let filterOptions = {};
 
-          if (courseName) {
-            filterOptions['courseEnrolled'] = courseName;
+          if (courseId) {
+            filterOptions['courseEnrolled'] = courseId;
           }
 
-          if (session) {
-            const sessionYear = parseInt(session);
+          if (courseSession) {
+            const sessionYear = parseInt(courseSession);
             const startDate = new Date(sessionYear, 0, 1);
             const endDate = new Date(sessionYear + 1, 0, 1);
             filterOptions.enrollmentDate = { $gte: startDate, $lt: endDate };
@@ -185,8 +188,8 @@ module.exports = {
             students,
             currentPage: page,
             totalPages,
-            courseName: courseName, // Pass courseName to pre-select the filter in the view
-            session: session, // Pass session to pre-select the filter in the view
+            courseId: courseId, // Pass courseName to pre-select the filter in the view
+            courseSession: courseSession, // Pass session to pre-select the filter in the view            
           }); 
         } catch (err) {
           console.error(err);
