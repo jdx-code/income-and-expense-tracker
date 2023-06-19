@@ -442,38 +442,56 @@ module.exports = {
     viewFilteredFeesInfo: async (req, res) => {
         try {
             const courses = await Course.find();
-            const { courseId, session } = req.body;
+            const { courseId, courseSession } = req.body;
 
             let filterOptions = {};
+
             if (courseId) {
-                filterOptions.courseEnrolled = courseId;
+              filterOptions['courseEnrolled'] = courseId;
             }
-            // Add more filter conditions if needed (e.g., session)
+
+            if (courseSession) {
+              const sessionYear = parseInt(courseSession);
+              const startDate = new Date(sessionYear, 0, 1);
+              const endDate = new Date(sessionYear + 1, 0, 1);
+              filterOptions.enrollmentDate = { $gte: startDate, $lt: endDate };
+            }
+
 
             const perPage = 10;
-            const page = parseInt(req.query.page) || 1;
+          const page = parseInt(req.query.page) || 1;
 
-            const studentsArr = await Student.find(filterOptions)
+          const studentsQuery = Student.find(filterOptions)
             .populate('courseEnrolled')
             .populate('fee')
-            .sort({ enrollmentDate: 'descending' })
-            .skip((page - 1) * perPage)
-            .limit(perPage);
+            .sort({ enrollmentDate: 'descending' });
 
-            const totalStudents = await Student.countDocuments(filterOptions);
-            const totalPages = Math.ceil(totalStudents / perPage);
+          const totalStudentsQuery = Student.countDocuments(filterOptions);
 
-            const students = studentsArr.map(student => ({
+          const [studentsArr, totalStudents] = await Promise.all([
+            studentsQuery.skip((page - 1) * perPage).limit(perPage).exec(),
+            totalStudentsQuery.exec()
+          ]);
+
+          const totalPages = Math.ceil(totalStudents / perPage);
+
+          const students = studentsArr.map(student => ({
             ...student.toObject(),
             enrollmentDate: moment(student.enrollmentDate).format('DD-MM-YYYY'),
-            }));
+          }));
 
-            res.render('admin/ccet/fees/index', {
+          res.render('admin/ccet/fees/index', {
             courses,
             students,
             currentPage: page,
             totalPages,
-        });
+            courseId: courseId, // Pass courseName to pre-select the filter in the view
+            courseSession: courseSession, // Pass session to pre-select the filter in the view            
+          }); 
+
+
+
+       
 
         } catch (err) {
           console.error(err);

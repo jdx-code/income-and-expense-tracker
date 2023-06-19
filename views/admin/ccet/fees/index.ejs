@@ -10,22 +10,25 @@
                     Course : 
                 </label>
                 <select name="courseId">
-                    <option value=""> Select Course</option>
+                    <option value="">Select Course</option>
                     <% courses.forEach(course => { %>
-                        <option value="<%= course._id %>">
-                            <%= course.courseName %>
-                        </option>
+                      <option value="<%= course._id %>" <%= course._id.toString() === locals.courseId ? 'selected' : '' %>>
+                        <%= course.courseName %>
+                      </option>
                     <% }) %>
                 </select>
                 <label>
                     Session
                 </label>
-                <select name="courseSession">            
-                    <option value=""> Select Session</option>
-                    <option value="2021">2021</option>            
-                    <option value="2022">2022</option>
-                    <option value="2023">2023</option>
-                </select>
+                <select name="courseSession">
+                    <option value="">Select Session</option>
+                    <% const years = [2021, 2022, 2023]; %>
+                    <% years.forEach(year => { %>
+                      <option value="<%= year %>" <%= year.toString() === locals.courseSession ? 'selected' : '' %>>
+                        <%= year %>
+                      </option>
+                    <% }) %>
+                </select>  
                 <label>
                     Student ID/ Name 
                 </label>
