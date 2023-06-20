@@ -18,10 +18,22 @@ module.exports = {
     // Get course information
     getAllCourses: async (req, res) => {
         try{
-            const courses = await Course.find()
-            res.render('admin/ccet/courses/index', {
-                courses,
-            })
+
+          const perPage = 5;
+          const currentPage = parseInt(req.query.page) || 1;
+
+          const totalStudents = await Course.countDocuments();
+          const totalPages = Math.ceil(totalStudents / perPage);
+
+          const courses = await Course.find()
+            .skip((currentPage - 1) * perPage)
+            .limit(perPage);
+
+          res.render('admin/ccet/courses/index', {
+              courses,
+              currentPage,
+              totalPages,
+          })
 
         } catch (err) {
             console.error(err)
@@ -440,25 +452,25 @@ module.exports = {
     // },    
 
     viewFilteredFeesInfo: async (req, res) => {
-        try {
-            const courses = await Course.find();
-            const { courseId, courseSession } = req.body;
+      try {
+          const courses = await Course.find();
+          const { courseId, courseSession } = req.body;
 
-            let filterOptions = {};
+          let filterOptions = {};
 
-            if (courseId) {
-              filterOptions['courseEnrolled'] = courseId;
-            }
+          if (courseId) {
+            filterOptions['courseEnrolled'] = courseId;
+          }
 
-            if (courseSession) {
-              const sessionYear = parseInt(courseSession);
-              const startDate = new Date(sessionYear, 0, 1);
-              const endDate = new Date(sessionYear + 1, 0, 1);
-              filterOptions.enrollmentDate = { $gte: startDate, $lt: endDate };
-            }
+          if (courseSession) {
+            const sessionYear = parseInt(courseSession);
+            const startDate = new Date(sessionYear, 0, 1);
+            const endDate = new Date(sessionYear + 1, 0, 1);
+            filterOptions.enrollmentDate = { $gte: startDate, $lt: endDate };
+          }
 
 
-            const perPage = 10;
+          const perPage = 10;
           const page = parseInt(req.query.page) || 1;
 
           const studentsQuery = Student.find(filterOptions)
@@ -488,10 +500,6 @@ module.exports = {
             courseId: courseId, // Pass courseName to pre-select the filter in the view
             courseSession: courseSession, // Pass session to pre-select the filter in the view            
           }); 
-
-
-
-       
 
         } catch (err) {
           console.error(err);
