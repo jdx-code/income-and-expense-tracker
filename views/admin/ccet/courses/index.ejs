@@ -98,17 +98,19 @@
         </div>
 
         <!-- Pagination links goes here -->
-        <nav class="flex items-center justify-center m-8" aria-label="Page navigation">
-            <% if (currentPage > 1) { %>
-            <a class="mr-2 px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" href="/ccet/course-management/?page=<%= currentPage - 1 %>">Previous</a>
-            <% } %>
-            <% for (let i = 1; i <= totalPages; i++) { %>
-            <a class="mr-2 px-3 py-2 bg-blue-200 text-blue-800 rounded hover:bg-blue-500 hover:text-white <% if (i === currentPage) { %>bg-blue-500 text-white<% } %>" href="/ccet/course-management/?page=<%= i %>"><%= i %></a>
-            <% } %>
-            <% if (currentPage < totalPages) { %>
-            <a class="mr-2 px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" href="/ccet/course-management/?page=<%= currentPage + 1 %>">Next</a>
-            <% } %>
-        </nav>
+        <% if (totalPages > 1) { %> <!-- Check if totalPages is greater than 1 -->
+            <nav class="flex items-center justify-center m-8" aria-label="Page navigation">
+              <% if (currentPage > 1) { %>
+                <a class="mr-2 px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" href="/ccet/course-management/?page=<%= currentPage - 1 %>">Previous</a>
+              <% } %>
+              <% for (let i = 1; i <= totalPages; i++) { %>
+                <a class="mr-2 px-3 py-2 bg-blue-200 text-blue-800 rounded hover:bg-blue-500 hover:text-white <% if (i === currentPage) { %>bg-blue-500 text-white<% } %>" href="/ccet/course-management/?page=<%= i %>"><%= i %></a>
+              <% } %>
+              <% if (currentPage < totalPages) { %>
+                <a class="mr-2 px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" href="/ccet/course-management/?page=<%= currentPage + 1 %>">Next</a>
+              <% } %>
+            </nav>
+        <% } %>
 
     </div>
 </div>
