@@ -59,6 +59,9 @@
                             <th scope="col" class="px-6 py-3">Delete</th>
                         </tr>
                     </thead>
+
+                    <% if(courseArr && courseArr.length > 0) { %>                        
+
                     <tbody>
                     <% courseArr.forEach(e => { %>
                         <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">                
@@ -92,6 +95,17 @@
                         </tr>
                         <% }) %>
                     </tbody>
+
+                    <% } else { %>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p class="my-8 mx-2 text-gray-600">No records..</p>
+                                </td>
+                            </tr>
+                        </tbody>                    
+                    <% } %>
+
                 </table>            
                 <% } %>       
             </div>

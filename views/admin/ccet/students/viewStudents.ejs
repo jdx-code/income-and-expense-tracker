@@ -55,8 +55,10 @@
                         </th>
                         <th scope="col" class="px-6 py-3">Form</th>                        
                     </tr>            
-                </thead>               
+                </thead>     
+
                 <% if(students && students.length > 0) { %>
+                    
                 <tbody>                
                     <% students.forEach(student => { %>
                                 
@@ -84,16 +86,16 @@
                         </tr>    
                     <% }) %>  
                 </tbody>  
+
                 <% } else { %>
                     <tbody>
                         <tr>
                             <td>
-                                <h3>No records..</h3>
+                                <p class="my-8 mx-2 text-gray-600">No records..</p>
                             </td>
                         </tr>
                     </tbody>                    
-                <% } %>
-                
+                <% } %>                
                 
             </table>
         </div>
