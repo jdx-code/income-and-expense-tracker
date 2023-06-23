@@ -2,9 +2,14 @@ const passport = require('passport')
 const validator = require('validator')
 const User = require('../models/User')
 
+
+exports.getDashboard = (req, res) => {
+  res.render('admin/dashboard')
+}
+
  exports.getLogin = (req, res) => {
     if (req.user) {
-      return res.redirect('/ccet')
+      return res.redirect('/dashboard')
     }
     res.render('admin/login', {
       title: 'Login'
@@ -31,7 +36,7 @@ const User = require('../models/User')
       req.logIn(user, (err) => {
         if (err) { return next(err) }
         req.flash('success', { msg: 'Success! You are logged in.' })
-        res.redirect(req.session.returnTo || '/ccet')
+        res.redirect(req.session.returnTo || '/dashboard')
       })
     })(req, res, next)
   }
@@ -94,7 +99,7 @@ const User = require('../models/User')
         if (err) {
           return next(err);
         }
-        res.redirect('/ccet');
+        res.redirect('/dashboard');
       });
     } catch (error) {
       next(error);
