@@ -1,51 +1,62 @@
-<%- include('../../../partials/adminTemplate.ejs') %>
-    
-    <div class="fixed top-0 left-64 w-full h-full bg-white">
-        <h3>Search by filters</h3>
-        
-        <% students.forEach(student => { %>
-            <form action="/ccet/add-fees" method="POST">
-                <label>
-                    Student Name
-                </label>
-                <input type="text" name="studentName" value="<%= student.studentName %>">
-                <input type="text" name="studentId" value="<%= student._id %>">
-                <label>
-                    Course Enrolled
-                </label>
-                <input type="text" name="courseEnrolled" value="<%= student.courseEnrolled.courseName %>">
-                <label>
-                    Amount Received
-                </label>
-                <input type="text" name="amountReceived" value="">
-                <button type="submit">Save</button>            
-            </form>
-        <% }) %>
-    
-    
-        <table>
-            <thead>
-                <tr>
-                    <th>Student Name</th>
-                    <th>Course Enrolled</th>
-                    <th>Total Fees Received</th>
-                </tr>
-                <tr>
-                    <% students.forEach(student => { %>
-                    <td><%= student.studentName %></td>
-                    <td><%= student.courseEnrolled.courseName %></td>
-                    <td><% if (Array.isArray(student.fee.totalFeesPaid)) { %>
-                        <%= Object.values(student.fee.totalFeesPaid).reduce((acc, val) => acc + val, 0) %>
-                      <% } else { %>
-                        <p>Object</p>
-                      <% } %> %></td>
-                    <% }) %>
-                </tr>
-            </thead>
-        </table>
-
+<div class="flex h-screen">    
+    <div class="w-64 bg-[#4d44b5]">        
+        <%- include('../../../partials/adminTemplate.ejs') %>
     </div>
-    
+
+    <div class="flex-1 flex items-center bg-white">        
+
+        <div class="w-[100%] mx-36 p-8 flex flex-col items-center bg-[#d7eaf8]">            
+            <h1 class="w-[60%] bg-gradient-to-r from-indigo-400 my-4 p-2 text-white">Record Fees</h1>            
+
+            <% students.forEach(student => { %>
+            <form action="/ccet/add-fees" method="POST">
+                <table>
+                    <tr>
+                        <input type="text" name="studentId" value="<%= student._id %>">
+                        <td>
+                            <label>
+                                Student Name
+                            </label>                    
+                        </td>
+                        <td>                            
+                            <input class="my-3" type="text" name="studentName" value="<%= student.studentName %>">                            
+                        </td>                        
+                    </tr>   
+                    <tr>
+                        <td>
+                            <label>
+                                Course Enrolled
+                            </label>                    
+                        </td>
+                        <td>
+                            <input class="my-3" type="text" name="courseEnrolled" value="<%= student.courseEnrolled.courseName %>">
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td>
+                            <label>
+                                Amount Received
+                            </label>
+                        </td>
+                        <td>
+                            <input class="my-3" type="text" name="amountReceived" value="">
+                        </td>
+                    </tr>                       
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td>
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
 </body>
 
 </html>

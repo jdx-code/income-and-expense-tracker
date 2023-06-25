@@ -506,25 +506,23 @@ module.exports = {
           res.render('error/500');
         }
       },
-      
-      
 
     // Get fees information of a particular student by student_id
-    // getFeesMngById: async (req, res) => {
-    //     // console.log(req.params.id)
-    //     try{            
-    //         const students = await Student.find({ _id: req.params.id })
-    //             .populate('courseEnrolled')
-    //             .populate('fee')
+    getFeesMngById: async (req, res) => {
+        // console.log(req.params.id)
+        try{            
+            const students = await Student.find({ _id: req.params.id })
+                .populate('courseEnrolled')
+                .populate('fee')
             
-    //         res.render('admin/ccet/fees/recordPayment', {                
-    //             students,            
-    //         })
-    //     } catch(err){
-    //         console.error(err)
-    //         res.render('error/500')
-    //     }        
-    // },    
+            res.render('admin/ccet/fees/recordPayment', {                
+                students,            
+            })
+        } catch(err){
+            console.error(err)
+            res.render('error/500')
+        }        
+    },    
 
     // Get fees details of a student
     getFeesHistory: async (req, res) => {
