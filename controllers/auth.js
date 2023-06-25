@@ -3,13 +3,13 @@ const validator = require('validator')
 const User = require('../models/User')
 
 
-exports.getDashboard = (req, res) => {
-  res.render('admin/dashboard')
+exports.getAdminPanel = (req, res) => {
+  res.render('admin/admin-panel')
 }
 
  exports.getLogin = (req, res) => {
     if (req.user) {
-      return res.redirect('/dashboard')
+      return res.redirect('/admin-panel')
     }
     res.render('admin/login', {
       title: 'Login'
@@ -36,7 +36,7 @@ exports.getDashboard = (req, res) => {
       req.logIn(user, (err) => {
         if (err) { return next(err) }
         req.flash('success', { msg: 'Success! You are logged in.' })
-        res.redirect(req.session.returnTo || '/dashboard')
+        res.redirect(req.session.returnTo || '/admin-panel')
       })
     })(req, res, next)
   }
@@ -99,7 +99,7 @@ exports.getDashboard = (req, res) => {
         if (err) {
           return next(err);
         }
-        res.redirect('/dashboard');
+        res.redirect('/admin-panel');
       });
     } catch (error) {
       next(error);

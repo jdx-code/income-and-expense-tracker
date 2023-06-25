@@ -6,39 +6,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../../dist/output.css">    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Document</title>
+    <title>DLSDS-Admin Panel</title>
 </head>
 <body>
 
 <div class="fixed top-0 left-0 h-full bg-[#43379d]">
-    
-    <div class="flex items-center justify-center py-4">
-        <img src="../../images/logo.png" alt="Company Logo" class="w-24 h-16">
+
+    <div class="flex items-center justify-center py-4 border-b-4 border-blue-100">
+        <div class="flex items-center">
+            <a href="/admin-panel" class="mr-auto px-2 py-1 text-white">
+                <i class="fa fa-arrow-circle-left fa-2x" aria-hidden="true"></i>
+            </a>
+        </div>
+        <div class="flex items-center flex-1 ml-8">
+            <img src="../../images/ccet-logo.png" alt="Company Logo" class="w-24 h-16">
+        </div>
     </div>
+    
+    
+    
+    
+    
+    
     
 
     <ul class="sidenavClass flex flex-col p-4 text-[#adbef5]">
-        <li class="my-6">
-            <a href="/dashboard" class="block px-4 py-2 rounded-md hover:bg-blue-200  hover:text-blue-800">Dashboard</a>
+        <li class="my-4">
+            <a href="/ccet" class="block px-4 py-2 rounded-md hover:bg-blue-200  hover:text-blue-800">Dashboard</a>
         </li>        
-        <li class="my-6">
+        <li class="my-4">
             <a href="/ccet/student-management/" class="block px-4 py-2 rounded-md hover:bg-blue-200  hover:text-blue-800">Student Management</a>
             <ul class="ml-6 mt-2">
                 <li>
-                    <a href="/ccet/student-management/add" class="block px-2 py-1 rounded-md hover:bg-blue-200  hover:text-blue-800">Add Student</a>
+                    <a href="/ccet/student-management/add" class="block px-2 py-1 rounded-md hover:bg-blue-200 text-sm hover:text-blue-800">Add Student</a>
                 </li>
                 <li>
-                    <a href="/ccet/student-management/" class="block px-2 py-1 rounded-md hover:bg-blue-200  hover:text-blue-800">View Students</a>
+                    <a href="/ccet/student-management/" class="block px-2 py-1 rounded-md hover:bg-blue-200 text-sm hover:text-blue-800">View Students</a>
                 </li>
             </ul>
         </li>
-        <li class="my-6">
+        <li class="my-4">
             <a href="/ccet/fees-management/" class="block px-4 py-2 rounded-md hover:bg-blue-200  hover:text-blue-800">Fees Management</a>            
         </li>
-        <li class="my-6">
+        <li class="my-4">
             <a href="/ccet/course-management/" class="block px-4 py-2 rounded-md hover:bg-blue-200  hover:text-blue-800">Course Management</a>            
         </li>
-        <li class="my-6">
+        <li class="my-4">
+            <a href="/ccet/branch-management/" class="block px-4 py-2 rounded-md hover:bg-blue-200  hover:text-blue-800">Branch Management</a>            
+        </li>
+        <li class="my-4">
             <a href="/logout" class="block px-4 py-2 rounded-md hover:bg-blue-200  hover:text-blue-800">Logout</a>            
         </li>
     </ul>

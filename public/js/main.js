@@ -52,3 +52,24 @@ function toggleImgView() {
       
     console.log(student)
 }
+
+
+// Function to toggle the mobile menu
+function toggleMobileMenu() {
+    var mobileMenu = document.getElementById('mobile-menu');
+    mobileMenu.classList.toggle('hidden');
+}
+
+// Function to close the mobile menu
+function closeMobileMenu() {
+    var mobileMenu = document.getElementById('mobile-menu');
+    mobileMenu.classList.add('hidden');
+}
+
+// Add event listener to the menu button
+var menuButton = document.querySelector('.menu-button');
+menuButton.addEventListener('click', toggleMobileMenu);
+
+// Add event listener to the close button
+var closeButton = document.querySelector('.menu-close-button');
+closeButton.addEventListener('click', closeMobileMenu);

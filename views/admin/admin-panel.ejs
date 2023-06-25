@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../dist/output.css"> 
-    <title>Document</title>
+    <title>DLSDS - Admin Panel</title>
 </head>
 <body> 
 
@@ -14,7 +14,7 @@
         <div class="flex lg:flex-1">
         <a href="#" class="-m-1.5 p-1.5">
             <span class="sr-only">Your Company</span>
-            <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="">
+            <img class="h-20 w-auto" src="../../images/dlsds-logo.png" alt="dlsds-logo">
         </a>
         </div>
         <div class="flex lg:hidden">
@@ -84,30 +84,34 @@
 <div class="bg-white py-24 sm:py-32">
     <div class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3">
         <div class="max-w-2xl">
-        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Dashboard</h2>
-        <p class="mt-6 text-lg leading-8 text-gray-600">Welcome to the Admin Dashboard! Here, you can manage a wide range of activities carried out by the Digital Literacy & Skill Development Society.</p>
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">DLSDS Admin Panel</h2>
+        <p class="mt-6 text-lg leading-8 text-gray-600">Welcome to the Admin Panel. Here, you can manage a wide range of activities carried out by the Digital Literacy & Skill Development Society.</p>
         </div>
         <ul role="list" class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2">
         <li>
             <div class="flex items-center gap-x-6">
-            <img class="h-16 w-16 rounded-full" src="../../images/logo.png" alt="">
+            <img class="h-16 w-16 rounded-full" src="../../images/ccet-logo.png" alt="ccet-logo">
             <div>
+              <a href="ccet/">
                 <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">
-                <a href="ccet/">CCET</a> 
+                CCET
                 </h3>
                 <p class="text-sm font-semibold leading-6 text-indigo-600">Computer Center</p>
+              </a>
             </div>
             </div>
         </li>
 
         <li>
             <div class="flex items-center gap-x-6">
-                <img class="h-16 w-16 rounded-full" src="../../images/settings.png" alt="">
+                <img class="h-16 w-16 rounded-full" src="../../images/settings.png" alt="logo">
                 <div>
-                <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">
-                    <a href="#">Internships & Trainings</a>
-                </h3>
-                <p class="text-sm font-semibold leading-6 text-indigo-600">Training Wing</p>
+                <a href="#">
+                  <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">
+                      Internships & Trainings
+                  </h3>
+                  <p class="text-sm font-semibold leading-6 text-indigo-600">Training Wing</p>
+                </a>
                 </div>
             </div>
         </li>
@@ -116,10 +120,12 @@
             <div class="flex items-center gap-x-6">
                 <img class="h-16 w-16 rounded-full" src="../../images/settings.png" alt="">
                 <div>
-                <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">
-                    <a href="#">Others</a>
-                </h3>
-                <p class="text-sm font-semibold leading-6 text-indigo-600">Other Activities</p>
+                <a href="#">
+                  <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-900">
+                      Others
+                  </h3>
+                  <p class="text-sm font-semibold leading-6 text-indigo-600">Other Activities</p>
+                </a>
                 </div>
             </div>
         </li>
@@ -129,29 +135,7 @@
     </div>
 </div>
 
-<script>
-    // Function to toggle the mobile menu
-    function toggleMobileMenu() {
-      var mobileMenu = document.getElementById('mobile-menu');
-      mobileMenu.classList.toggle('hidden');
-    }
-  
-    // Function to close the mobile menu
-    function closeMobileMenu() {
-      var mobileMenu = document.getElementById('mobile-menu');
-      mobileMenu.classList.add('hidden');
-    }
-  
-    // Add event listener to the menu button
-    var menuButton = document.querySelector('.menu-button');
-    menuButton.addEventListener('click', toggleMobileMenu);
-  
-    // Add event listener to the close button
-    var closeButton = document.querySelector('.menu-close-button');
-    closeButton.addEventListener('click', closeMobileMenu);
-</script>
-  
-  
+<script src="js/main.js"></script>
 
 </body>
 </html>

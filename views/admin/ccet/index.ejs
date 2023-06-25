@@ -1,24 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../../dist/output.css">    
-    <title>Document</title>
-</head>
-<body>
-    
-    <%- include('../../partials/adminTemplate.ejs') %>    
-                
-    <div class="fixed top-0 left-64 w-full h-full bg-blue-200">
-        <a href="">Add Student</a>
-        <a href="">View Students</a>
-        <a href="">Manage Students</a>
-        <a href="">View Application Forms</a>
+<div class="flex h-screen">    
+    <div class="w-64 bg-[#4d44b5]">        
+        <%- include('../../partials/adminTemplate.ejs') %>
     </div>
+
+    <div class="flex-1 flex items-center bg-white">        
+
+        <div class="w-[100%] flex flex-wrap items-center">            
+            <div class="w-[25%] mx-8 my-4 p-16 border-4 border-slate-400 rounded-md text-gray-500 hover:border-slate-500">
+                <p>Total Students</p>
+            </div>            
+            <div class="w-[25%] mx-8 my-4 p-16 border-4 border-slate-400 rounded-md text-gray-500 hover:border-slate-500">
+                <p>Add New Student</p>
+            </div>            
+            <div class="w-[25%] mx-8 my-4 p-16 border-4 border-slate-400 rounded-md text-gray-500 hover:border-slate-500">
+                <p>Add New Student</p>
+            </div>            
+            <div class="w-[25%] mx-8 my-4 p-16 border-2 border-slate-400 rounded-md text-gray-500 hover:border-slate-500">
+                <p>Add New Student</p>
+            </div>
+            <div class="w-[25%] mx-8 my-4 p-16 border-2 border-slate-400 rounded-md text-gray-500 hover:border-slate-500">
+                <p>Add New Student</p>
+            </div>
+            <div class="w-[25%] mx-8 my-4 p-16 border-2 border-slate-400 rounded-md text-gray-500 hover:border-slate-500">
+                <p>Add New Student</p>
+            </div>            
+            <!-- <form action="/ccet/add-student" method="POST" enctype="multipart/form-data">
+                <table>
+                    <tr>
+                        <td>
+                            <label>
+                                Student Name
+                            </label>                    
+                        </td>
+                        <td>
+                            <input type="text" name="studentName" class="my-3">
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td>
+                            <label>
+                                Last Exam Passed
+                            </label>                    
+                        </td>
+                        <td>
+                            <select name="lastExamPassed" class="my-3">
+                                <option value="hslc">HSLC</option>
+                                <option value="hs">HS</option>
+                                <option value="graduation">Graduation</option>
+                                <option value="post graduation">Post Graduation</option>
+                            </select>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td>
+                            <label>
+                                Course enrolled
+                            </label>
+                        </td>
+                        <td>
+                            <select name="courseEnrolled" class="my-3">
+                                
+                                    <option value="">
+                                
+                                    </option>            
+                                
+                            </select>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td>
+                            <label>Upload Admission Form  </label>
+                        </td>
+                        <td>
+                            <input type="file" name="image" value="" class="my-3">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td>
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+        
+                
+                
+            </form> -->
+        </div>
+    </div>
+</div>
 
     <script src="../../../../js/main.js"></script>
     
 </body>
 </html>
+
