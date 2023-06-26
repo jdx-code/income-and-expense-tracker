@@ -5,16 +5,16 @@
 
     <div class="flex-1 flex items-center bg-white">        
 
-        <div class="w-[100%] mx-36 p-8 flex flex-col items-center bg-[#d7eaf8]">            
-            <h1 class="w-[60%] bg-gradient-to-r from-indigo-400 my-4 p-2 text-white">Fees History</h1>            
+        <div class="w-[75%] mx-36 p-8 flex flex-col items-center bg-[#d7eaf8]">                                    
+            <h1 class="w-[70%] bg-gradient-to-r from-indigo-400 mb-2 p-2 text-white">Fees History of <%=students[0].studentName%> (<%=students[0].courseEnrolled.courseName%>)</h1>            
 
-            <table class="w-full text-sm text-left text-blue-600 dark:text-blue-100">
+            <table class="w-[70%] text-sm text-left text-blue-600 dark:text-blue-100">
                 <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
                     <tr>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-2 py-3">
                             Installment #
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-2 py-3">
                             Amount (in Rupees)
                         </th>
                     </tr>
@@ -26,13 +26,25 @@
                         <% student.fee.totalFeesPaid.forEach((item, index) => { %>
                             <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">
                                 <% if(index>0){ %>
-                                <td>Installment <%= index %></td>
-                                <td><%= item %></td>
+                                <td class="px-2">Installment <%= index %></td>
+                                <td class="px-2"><%= item %></td>
                                 <% } %>
                             </tr>                
                         <% }) %>        
-        
+                            
+                            <tr>
+                                <td class="px-2"> Total Fees Paid : </td>
+                                <td class="px-2">
+                                    <% if (Array.isArray(student.fee.totalFeesPaid)) { %>
+                                        <%= Object.values(student.fee.totalFeesPaid).reduce((acc, val) => acc + val, 0) %>
+                                    <% } else { %>
+                                        <p>Object</p>
+                                    <% } %>
+                                </td>                                
+                            </tr>
+
                     <% }) %>
+                            
                 </tbody>                
             </table>
             
