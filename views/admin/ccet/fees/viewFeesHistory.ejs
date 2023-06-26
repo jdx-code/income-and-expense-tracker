@@ -1,20 +1,45 @@
-<%- include('../../../partials/adminTemplate.ejs') %>
-    
-    <div class="fixed top-0 left-64 w-full h-full bg-white">
-        <table>
-            <% students.forEach(student => { %>
+<div class="flex h-screen">    
+    <div class="w-64 bg-[#4d44b5]">        
+        <%- include('../../../partials/adminTemplate.ejs') %>
+    </div>
 
-                <% student.fee.totalFeesPaid.forEach((item, index) => { %>
+    <div class="flex-1 flex items-center bg-white">        
+
+        <div class="w-[100%] mx-36 p-8 flex flex-col items-center bg-[#d7eaf8]">            
+            <h1 class="w-[60%] bg-gradient-to-r from-indigo-400 my-4 p-2 text-white">Fees History</h1>            
+
+            <table class="w-full text-sm text-left text-blue-600 dark:text-blue-100">
+                <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
                     <tr>
-                        <% if(index>0){ %>
-                        <td>Installment <%= index %></td>
-                        <td><%= item %></td>
-                        <% } %>
-                    </tr>                
-                <% }) %>        
+                        <th scope="col" class="px-6 py-3">
+                            Installment #
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Amount (in Rupees)
+                        </th>
+                    </tr>
+                </thead>
 
-            <% }) %>
-        </table>
-    </div>    
+                <tbody>
+                    <% students.forEach(student => { %>
+    
+                        <% student.fee.totalFeesPaid.forEach((item, index) => { %>
+                            <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">
+                                <% if(index>0){ %>
+                                <td>Installment <%= index %></td>
+                                <td><%= item %></td>
+                                <% } %>
+                            </tr>                
+                        <% }) %>        
+        
+                    <% }) %>
+                </tbody>                
+            </table>
+            
+        </div>
+    </div>
+</div>
+
 </body>
+
 </html>
