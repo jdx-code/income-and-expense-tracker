@@ -353,7 +353,7 @@ module.exports = {
                 ).populate('fee');
       
                 console.log('Student data added');
-                res.redirect('/ccet/student-management/view');
+                res.redirect('/ccet/student-management');
               } catch (err) {
                 console.error(err);
                 res.render('error/500');
@@ -530,9 +530,22 @@ module.exports = {
             const students = await Student.find({ _id: req.params.id })
                 .populate('courseEnrolled')
                 .populate('fee')
-            
+
+            const formattedStudents = students.map(student => {
+              const formattedPaymentDates = student.fee.paymentDates.map(date => 
+                moment(date).format('DD-MM-YYYY')
+              )
+              return {
+                ...student.toObject(),
+                fee: {
+                  ...student.fee.toObject(),
+                  paymentDates: formattedPaymentDates,
+                }
+              }
+            })              
+
             res.render('admin/ccet/fees/viewFeesHistory', {                
-                students,            
+                students: formattedStudents,            
             })
         } catch (err) {
           console.error(err);
@@ -540,28 +553,29 @@ module.exports = {
         }        
       },      
 
-    // // Add fees 
-    // addFees: async (req, res) => {
-    //     try {
-    //       const fees = await Fee.find({ studentInfo: req.body.studentId }).populate('studentInfo');
-    //       const fee = fees[0];
-    //       const updatedFees = await Fee.findByIdAndUpdate(
-    //         fee._id,
-    //         { $push: { totalFeesPaid: Number(req.body.amountReceived) } }
-    //       );
+    // Add fees 
+    addFees: async (req, res) => {
+        try {
+          const fees = await Fee.find({ studentInfo: req.body.studentId }).populate('studentInfo');
+          const fee = fees[0];
+          const currentDate = new Date();
+          const updatedFees = await Fee.findByIdAndUpdate(
+            fee._id,
+            { $push: { totalFeesPaid: Number(req.body.amountReceived), paymentDates: currentDate } }
+          );
 
-    //       const courses = await Course.find();
-    //       const students = await Student.find({ _id: fee.studentInfo })
-    //         .populate('courseEnrolled')            
-    //         .populate('fee')            
+          const courses = await Course.find();
+          const students = await Student.find({ _id: fee.studentInfo })
+            .populate('courseEnrolled')            
+            .populate('fee')            
 
-    //         res.render('admin/ccet/fees/recordPayment', {                                
-    //             students,                                          
-    //         })
+            res.render('admin/ccet/fees/recordPayment', {                                
+                students,                                          
+            })
          
-    //     } catch (err) {
-    //       console.error(err);
-    //       res.render('error/500');
-    //     }        
-    // }    
+        } catch (err) {
+          console.error(err);
+          res.render('error/500');
+        }        
+    }    
 }

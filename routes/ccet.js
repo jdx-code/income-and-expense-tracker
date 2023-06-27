@@ -19,7 +19,7 @@ router.post('/fees-management/filter-view', ccetController.viewFilteredFeesInfo)
 router.get('/fees-management/add', ccetController.getFeesForm)
 router.get('/fees-management/record-fees/:id', ccetController.getFeesMngById)
 router.get('/fees-management/fees-history/:id', ccetController.getFeesHistory)
-// router.post('/add-fees', ccetController.addFees)
+router.post('/add-fees', ccetController.addFees)
 
 // Routes for course management
 router.get('/course-management', ccetController.getAllCourses)
