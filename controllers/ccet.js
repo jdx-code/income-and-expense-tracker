@@ -6,6 +6,7 @@ const Course = require('../models/Course')
 const Student = require('../models/Student')
 const Fee = require('../models/Fee')
 const mongoose = require('mongoose');
+const Branch = require('../models/Branch');
 const ObjectId = mongoose.Types.ObjectId;
 
 const ITEMS_PER_PAGE = 10; // Number of students per page
@@ -575,7 +576,39 @@ module.exports = {
          
         } catch (err) {
           console.error(err);
-          res.render('error/500');
+          res.render('error/500')
         }        
-    }    
+    },
+    
+    // Branch functions
+    getBranch: async(req, res) => {
+      try{
+        const branches = await Branch.find()
+        res.render('admin/ccet/branches/index', {
+          branches,
+        })
+      } catch(err){
+        console.error(err)
+        res.render('error/500')
+      }
+    },
+
+    addBranch: async(req, res) => {
+      try{  
+        const startDate = new Date()  
+        await Branch.create({
+            branchName: req.body.branch_name, 
+            branchAddress: req.body.branch_address, 
+            centerInCharge: req.body.center_in_charge,
+            contactNumber: req.body.contact_number, 
+            email: req.body.email,
+            startDate,
+        })
+          console.log('New Branch Added')
+          res.redirect('/ccet/branch-management/')
+      } catch(err) {
+        console.error(err)
+        res.render('error/500')
+      }
+    }
 }

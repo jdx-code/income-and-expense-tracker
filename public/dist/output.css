@@ -1084,12 +1084,11 @@ select {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
-.px-8 {
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
 .pl-3 {
   padding-left: 0.75rem;
+}
+.pr-1 {
+  padding-right: 0.25rem;
 }
 .pr-2 {
   padding-right: 0.5rem;
@@ -1099,12 +1098,6 @@ select {
 }
 .pr-3\.5 {
   padding-right: 0.875rem;
-}
-.pr-4 {
-  padding-right: 1rem;
-}
-.pr-1 {
-  padding-right: 0.25rem;
 }
 .text-left {
   text-align: left;

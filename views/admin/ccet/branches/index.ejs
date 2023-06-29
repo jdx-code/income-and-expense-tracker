@@ -1,0 +1,138 @@
+<div class="flex h-screen">
+    <div class="w-64 bg-[#4d44b5]">
+        <%- include('../../../partials/adminTemplate.ejs') %>
+    </div>
+    
+    <div class="flex-1 flex flex-col p-4">
+        <div>
+            <h1 class="bg-gradient-to-r from-indigo-400 mb-4 p-2 text-white">New Branch</h1>            
+            <form action="/ccet/add-branch" method="POST">
+                <table>
+                    <tr>
+                        <td>
+                            <label>Branch Name : </label>
+                        </td>
+                        <td>
+                            <input type="text" name="branch_name" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Branch Address : </label>
+                        </td>
+                        <td>
+                            <input type="text" name="branch_address" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Center in Charge : </label>
+                        </td>
+                        <td>
+                            <input type="text" name="center_in_charge" value="">
+                        </td>
+                    </tr>            
+                    <tr>
+                        <td>
+                            <label>Contact Number : </label>
+                        </td>
+                        <td>
+                            <input type="text" name="contact_number" value="">
+                        </td>
+                    </tr>            
+                    <tr>
+                        <td>
+                            <label>Email : </label>
+                        </td>
+                        <td>
+                            <input type="email" name="email" value="">
+                        </td>
+                    </tr>            
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Add Branch</button>
+                        </td>
+                    </tr>
+                </table>                        
+            </form>
+        </div>
+            
+        <div class="my-8">
+            
+            <div class="flex-1 relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left text-blue-600 dark:text-blue-100">
+                    <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">Branch</th>                                                                                    
+                            <th scope="col" class="px-6 py-3">Center-in-charge</th>
+                            <th scope="col" class="px-6 py-3">Contact</th>                            
+                            <th scope="col" class="px-6 py-3">Action</th>                            
+                            <th scope="col" class="px-6 py-3">Action</th>                            
+                        </tr>
+                    </thead>
+
+                    <% if(branches && branches.length > 0) { %>   
+                        
+                    <tbody>
+                        <% branches.forEach(branch => { %>
+                        <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">                
+                            <td class="px-6 py-4">
+                                <span id="coursename">
+                                    <%= branch.branchName %>
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span id="coursename">
+                                    <%= branch.centerInCharge %>                                    
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span id="coursename">
+                                    <%= branch.contactNumber %>
+                                </span>
+                            </td>                            
+                            <td class="px-6 py-4">      
+                                <a href="/ccet/branch-management/<%= branch._id %>">
+                                    <button type="submit">
+                                        <i class="fas fa-edit"></i></a>
+                                    </button>
+                                </a> 
+                            </td>               
+                            <td class="px-6 py-4">
+                                <button class="deleteBtn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>                
+                        </tr>
+                        <% }) %>
+                        
+                    </tbody>
+
+                    <% } else { %>
+                    
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p class="my-8 mx-2 text-gray-600">No records..</p>
+                            </td>
+                        </tr>
+                    </tbody>                    
+                    
+                    <% } %>
+
+                </table>            
+                
+            </div>
+            
+        </div>
+
+        <!-- Pagination links goes here -->
+        
+
+    </div>
+</div>
+
+<script src="../../../../js/main.js"></script>    
+</body>
+</html>

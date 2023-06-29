@@ -28,4 +28,7 @@ router.post('/add-course', ccetController.addCourse)
 // router.put('/edit-course/:id', ccetController.editCourse)
 // router.delete('/delete-course', ccetController.deleteCourse)
 
+router.get('/branch-management', ccetController.getBranch)
+router.post('/add-branch', ccetController.addBranch)
+
 module.exports = router
