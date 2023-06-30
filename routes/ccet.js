@@ -3,6 +3,7 @@ const router = express.Router()
 const ccetController = require('../controllers/ccet')
 const { ensureAuth, ensureGuest } = require('../middleware/auth')
 
+// Route for ccet dashboard
 router.get('/', ensureAuth, ccetController.getIndex)
 
 // Routes for student management
@@ -10,10 +11,10 @@ router.get('/student-management', ensureAuth, ccetController.getAllStudents)
 router.post('/student-management/filter-view', ccetController.viewFilteredStudents)
 router.get('/student-management/add', ensureAuth, ccetController.getStudentForm)
 router.post('/add-student', ccetController.addStudentProcess)
-router.get('/student-management/:id', ccetController.getStudentById)
+router.get('/student-management/:id', ensureAuth, ccetController.getStudentById)
 // router.get('/student-management', ccetController.getStudentMng)
-
 // router.post('/student-management', ccetController.getStudentMngFiltered)
+
 
 // Routes for fees management
 router.get('/fees-management', ensureAuth, ccetController.getAllFeesInfo)
@@ -22,6 +23,7 @@ router.get('/fees-management/add', ensureAuth, ccetController.getFeesForm)
 router.get('/fees-management/record-fees/:id', ensureAuth, ccetController.getFeesMngById)
 router.get('/fees-management/fees-history/:id', ensureAuth, ccetController.getFeesHistory)
 router.post('/add-fees', ccetController.addFees)
+
 
 // Routes for course management
 router.get('/course-management', ensureAuth, ccetController.getAllCourses)
