@@ -98,9 +98,11 @@
                                 </a>  
                             </td>               
                             <td class="px-6 py-4">
-                                <button class="deleteBtn">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                <form action="/ccet/branch-management/<%= branch._id %>" method="POST">
+                                    <button class="deleteBtn">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>                                
                             </td>                
                         </tr>
                         <% }) %>

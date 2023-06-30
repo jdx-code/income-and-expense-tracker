@@ -29,13 +29,13 @@
                         <% student.fee.totalFeesPaid.forEach((s, i) => { %>                            
                         <tr class="border border-t-2 border-b-gray-500">
                             <% if(i>0){ %>
-                                <td class="px-2">
+                                <td class="p-2">
                                     <%= i %>
                                 </td>
-                                <td class="px-2">
+                                <td class="p-2">
                                     <%= s %>
                                 </td>
-                                <td class="px-2">
+                                <td class="p-2">
                                     <%= student.fee.paymentDates[i-1] %>
                                 </td>
                             <% } %>
@@ -43,8 +43,8 @@
                         <% }) %>
                             
                         <tr>
-                            <td class="px-2"> Total Fees Paid : </td>
-                            <td class="px-2">
+                            <td class="px-2 font-bold"> Total Fees Paid : </td>
+                            <td class="px-2 font-bold">
                                 <% if (Array.isArray(student.fee.totalFeesPaid)) { %>
                                     <%= Object.values(student.fee.totalFeesPaid).reduce((acc, val) => acc + val, 0) %>
                                 <% } else { %>

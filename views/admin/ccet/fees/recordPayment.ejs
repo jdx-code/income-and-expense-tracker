@@ -12,14 +12,14 @@
             <form action="/ccet/add-fees" method="POST">
                 <table>
                     <tr>
-                        <input type="text" name="studentId" value="<%= student._id %>">
+                        <input type="hidden" name="studentId" value="<%= student._id %>">
                         <td>
                             <label>
                                 Student Name
                             </label>                    
                         </td>
                         <td>                            
-                            <input class="my-3" type="text" name="studentName" value="<%= student.studentName %>">                            
+                            <input class="my-3" type="text" name="studentName" value="<%= student.studentName %>" disabled>                            
                         </td>                        
                     </tr>   
                     <tr>
@@ -29,7 +29,7 @@
                             </label>                    
                         </td>
                         <td>
-                            <input class="my-3" type="text" name="courseEnrolled" value="<%= student.courseEnrolled.courseName %>">
+                            <input class="my-3" type="text" name="courseEnrolled" value="<%= student.courseEnrolled.courseName %>" disabled>
                         </td>
                     </tr>   
                     <tr>

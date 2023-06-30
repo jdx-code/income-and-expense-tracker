@@ -583,9 +583,7 @@ module.exports = {
             .populate('courseEnrolled')            
             .populate('fee')            
 
-            res.render('admin/ccet/fees/recordPayment', {                                
-                students,                                          
-            })
+            res.redirect('/ccet/fees-management')
          
         } catch (err) {
           console.error(err);
@@ -668,6 +666,22 @@ module.exports = {
       } catch (err) {
           console.error(err)
           res.render('error/500')
+      }
+    },
+
+    deleteBranch: async(req, res) => {
+      try{
+        let branch = await Branch.findById(req.params.id)
+
+        if(!branch){
+            return res.render('error/404')
+        } else {
+            branch = await Branch.findOneAndDelete({ _id: req.params.id })
+            res.redirect('/ccet/branch-management')
+        }
+      } catch(err){
+        console.error(err)
+        res.render('error/500')
       }
     },
    
