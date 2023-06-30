@@ -247,19 +247,19 @@ module.exports = {
     //     }
     // },
 
-    // getStudentMngById: async (req, res) => {
-    //     try{
-    //         const studentInfo = await Student.findById({ _id: req.params.id })
-    //             .populate('courseEnrolled')
+    getStudentById: async (req, res) => {
+        try{
+            const studentInfo = await Student.findById({ _id: req.params.id })
+                .populate('courseEnrolled')
 
-    //         res.render('admin/ccet/students/studentInfo', {
-    //             studentInfo,
-    //         })
-    //     } catch(err){
-    //         console.error(err)
-    //         res.render('error/500')
-    //     }
-    // },
+            res.render('admin/ccet/students/studentInfo', {
+                studentInfo,
+            })
+        } catch(err){
+            console.error(err)
+            res.render('error/500')
+        }
+    },
 
     // // Get students data by filtered data (for ex: filter by `course`)
     // getStudentMngFiltered: async (req, res) => {              
