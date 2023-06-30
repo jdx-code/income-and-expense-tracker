@@ -24,8 +24,8 @@ router.post('/add-fees', ccetController.addFees)
 // Routes for course management
 router.get('/course-management', ccetController.getAllCourses)
 router.post('/add-course', ccetController.addCourse)
-// router.get('/course-management/:id', ccetController.getCourseById)
-// router.put('/edit-course/:id', ccetController.editCourse)
+router.get('/course-management/:id', ccetController.getCourseById)
+router.put('/edit-course/:id', ccetController.editCourse)
 // router.delete('/delete-course', ccetController.deleteCourse)
 
 router.get('/branch-management', ccetController.getBranch)

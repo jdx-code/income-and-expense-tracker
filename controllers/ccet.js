@@ -42,42 +42,55 @@ module.exports = {
         }
     },
 
-    // // Get particular course info by Id
-    // getCourseById: async (req, res) => {
-    //     try{            
-    //         const course = await Course.findById({ _id: req.params.id })
+    // Get particular course info by Id
+    getCourseById: async (req, res) => {
+        try{       
             
-    //         res.render('admin/ccet/courses/editCourse', {
-    //             course,
-    //         })
+            const perPage = 5;
+            const currentPage = parseInt(req.query.page) || 1;
 
-    //     } catch(err) {
-    //         console.error(err)
-    //         res.render('error/500')
-    //     }
-    // },
+            const totalStudents = await Course.countDocuments();
+            const totalPages = Math.ceil(totalStudents / perPage);
 
-    // // Edit selected course info
-    // editCourse: async (req, res) => {        
-    //     try{          
-    //            let course = await Course.findById(req.params.id)               
+            const course = await Course.findById({ _id: req.params.id })
+            const courses = await Course.find()
+              .skip((currentPage - 1) * perPage)
+              .limit(perPage);
 
-    //            if(!course){
-    //                 return res.render('error/404')
-    //            } else {
-    //                 course = await Course.findOneAndUpdate({ _id : req.params.id }, req.body, {
-    //                     new : true,
-    //                     runValidators : true,
-    //                 })
+            res.render('admin/ccet/courses/editCourse', {
+                course,
+                courses,
+                currentPage,
+                totalPages,
+            })
 
-    //                 res.redirect('/ccet/course-management')
-    //            }
+        } catch(err) {
+            console.error(err)
+            res.render('error/500')
+        }
+    },
 
-    //     } catch (err) {
-    //         console.error(err)
-    //         res.render('error/500')
-    //     }
-    // },
+    // Edit selected course info
+    editCourse: async (req, res) => {        
+        try{          
+               let course = await Course.findById(req.params.id)               
+
+               if(!course){
+                    return res.render('error/404')
+               } else {
+                    course = await Course.findOneAndUpdate({ _id : req.params.id }, req.body, {
+                        new : true,
+                        runValidators : true,
+                    })
+
+                    res.redirect('/ccet/course-management')
+               }
+
+        } catch (err) {
+            console.error(err)
+            res.render('error/500')
+        }
+    },
 
     // Add course 
     addCourse: async(req, res) => {
