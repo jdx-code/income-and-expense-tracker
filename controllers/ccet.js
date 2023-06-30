@@ -610,8 +610,7 @@ module.exports = {
       try{  
         const startDate = new Date()  
         await Branch.create({
-            branchName: req.body.branch_name, 
-            branchAddress: req.body.branch_address, 
+            branchName: req.body.branch_name,             
             centerInCharge: req.body.center_in_charge,
             contactNumber: req.body.contact_number, 
             email: req.body.email,
@@ -623,5 +622,53 @@ module.exports = {
         console.error(err)
         res.render('error/500')
       }
-    }
+    },
+
+    getBranchById: async(req, res) => {
+        try{       
+              
+          const perPage = 5;
+          const currentPage = parseInt(req.query.page) || 1;
+
+          const totalStudents = await Course.countDocuments();
+          const totalPages = Math.ceil(totalStudents / perPage);
+
+          const branch = await Branch.findById({ _id: req.params.id })
+          const branches = await Branch.find()
+            .skip((currentPage - 1) * perPage)
+            .limit(perPage);
+
+          res.render('admin/ccet/branches/editBranch', {
+              branch,
+              branches,
+              currentPage,
+              totalPages,
+          })
+
+      } catch(err) {
+          console.error(err)
+          res.render('error/500')
+      }
+    },
+
+    editBranch: async(req, res) => {
+      try{          
+          let branch = await Branch.findById(req.params.id)               
+
+          if(!branch){
+              return res.render('error/404')
+          } else {
+              branch = await Branch.findOneAndUpdate({ _id : req.params.id }, req.body, {
+                  new : true,
+                  runValidators : true,
+              })
+
+              res.redirect('/ccet/branch-management')
+          }
+      } catch (err) {
+          console.error(err)
+          res.render('error/500')
+      }
+    },
+   
 }

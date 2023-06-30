@@ -28,7 +28,12 @@ router.get('/course-management/:id', ccetController.getCourseById)
 router.put('/edit-course/:id', ccetController.editCourse)
 // router.delete('/delete-course', ccetController.deleteCourse)
 
+
+// Routes for branch management
 router.get('/branch-management', ccetController.getBranch)
 router.post('/add-branch', ccetController.addBranch)
+router.get('/branch-management/:id', ccetController.getBranchById)
+router.put('/edit-branch/:id', ccetController.editBranch)
+
 
 module.exports = router

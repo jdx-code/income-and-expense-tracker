@@ -1,0 +1,152 @@
+<div class="flex h-screen">
+    <div class="w-64 bg-[#4d44b5]">
+        <%- include('../../../partials/adminTemplate.ejs') %>
+    </div>
+    
+    <div class="flex-1 flex flex-col p-4">
+        <div>
+            <h1 class="bg-gradient-to-r from-indigo-400 mb-4 p-2 text-white">Edit Branch Information</h1>            
+            <form action="/ccet/edit-branch/<%= branch._id %>" method="POST">
+                <input type="hidden" name="_method" value="PUT">                
+                <table>
+                    <tr>
+                        <td>
+                            <label>Branch Name : </label>
+                        </td>
+                        <td>
+                            <input type="text" name="branchName" value="<%= branch.branchName %>">
+                        </td>
+                    </tr>                    
+                    <tr>
+                        <td>
+                            <label>Center-in-charge : </label>
+                        </td>
+                        <td>
+                            <input type="text" name="centerInCharge" value="<%= branch.centerInCharge %>">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Phone : </label>
+                        </td>
+                        <td>
+                            <input type="text" name="contactNumber" value="<%= branch.contactNumber %>">
+                        </td>
+                    </tr>                        
+                    <tr>
+                        <td>
+                            <label>Email : </label>
+                        </td>
+                        <td>
+                            <input type="email" name="email" value="<%= branch.email %>">
+                        </td>
+                    </tr>            
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Update Course</button>
+                        </td>
+                    </tr>
+                </table>                        
+            </form>
+
+        </div>
+            
+        <div class="my-8">
+            <h1 class="bg-gradient-to-r from-indigo-400 my-4 p-2 text-white">Our branches</h1>            
+            <% if(!branches) { %>
+                <p>Something went wrong..</p>
+            <% } else { %>
+            <% let branchArr = Object.values(branches) %>
+            <div class="flex-1 relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left text-blue-600 dark:text-blue-100">
+                    <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">Branch name</th>
+                            <th scope="col" class="px-6 py-3">Center-in-charge</th>
+                            <th scope="col" class="px-6 py-3">Phone</th>
+                            <th scope="col" class="px-6 py-3">Email</th>
+                            <th scope="col" class="px-6 py-3">Update</th>
+                            <th scope="col" class="px-6 py-3">Delete</th>
+                        </tr>
+                    </thead>
+
+                    <% if(branchArr && branchArr.length > 0) { %>                        
+
+                    <tbody>
+                    <% branchArr.forEach(branch => { %>
+                        <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">                
+                            <td class="px-6 py-4">
+                                <span id="coursename">
+                                    <%= branch.branchName %>
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span id="coursename">
+                                    <%= branch.centerInCharge %>
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span id="coursename">
+                                    <%= branch.contactNumber %>
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span id="coursename">
+                                    <%= branch.email %>
+                                </span>
+                            </td>
+                            <td class="px-6 py-4">      
+                                <a href="/ccet/branch-management/<%= branch._id %>">
+                                    <button type="submit">
+                                        <i class="fas fa-edit"></i></a>
+                                    </button>
+                                </a> 
+                            </td>               
+                            <td class="px-6 py-4">
+                                <a href="/ccet/branch-management-delete/<%= branch._id %>"></a>
+                                    <button class="deleteBtn">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                            </td>
+                                           
+                        </tr>
+                        <% }) %>
+                    </tbody>
+
+                    <% } else { %>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p class="my-8 mx-2 text-gray-600">No records..</p>
+                                </td>
+                            </tr>
+                        </tbody>                    
+                    <% } %>
+
+                </table>            
+                <% } %>       
+            </div>
+        </div>
+
+        <!-- Pagination links goes here -->
+        <% if (totalPages > 1) { %> <!-- Check if totalPages is greater than 1 -->
+            <nav class="flex items-center justify-center m-8" aria-label="Page navigation">
+              <% if (currentPage > 1) { %>
+                <a class="mr-2 px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" href="/ccet/course-management/?page=<%= currentPage - 1 %>">Previous</a>
+              <% } %>
+              <% for (let i = 1; i <= totalPages; i++) { %>
+                <a class="mr-2 px-3 py-2 bg-blue-200 text-blue-800 rounded hover:bg-blue-500 hover:text-white <% if (i === currentPage) { %>bg-blue-500 text-white<% } %>" href="/ccet/course-management/?page=<%= i %>"><%= i %></a>
+              <% } %>
+              <% if (currentPage < totalPages) { %>
+                <a class="mr-2 px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" href="/ccet/course-management/?page=<%= currentPage + 1 %>">Next</a>
+              <% } %>
+            </nav>
+        <% } %>
+
+    </div>
+</div>
+
+<script src="../../../../js/main.js"></script>    
+</body>
+</html>

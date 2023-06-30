@@ -4,11 +4,7 @@ const BranchSchema = new mongoose.Schema({
     branchName: {
         type: String,
         required: true,
-    }, 
-    branchAddress: {
-        type: String,
-        required: true,
-    },
+    },    
     centerInCharge: {
         type: String,
         required: true,
