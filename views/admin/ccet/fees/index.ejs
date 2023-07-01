@@ -1,62 +1,60 @@
 <div class="flex h-screen">
-    <div class="w-64 bg-[#4d44b5]">
-        <%- include('../../../partials/adminTemplate.ejs') %>
-    </div>
+    <%- include('../../../partials/adminTemplate.ejs') %>
 
-    <div class="flex-1 flex flex-col p-4">
-        <div class="flex bg-white justify-end p-4">
-            <form action="/ccet/fees-management/filter-view" method="POST">
-                <label>
-                    Course : 
-                </label>
-                <select name="courseId">
-                    <option value="">Select Course</option>
-                    <% courses.forEach(course => { %>
-                      <option value="<%= course._id %>" <%= course._id.toString() === locals.courseId ? 'selected' : '' %>>
-                        <%= course.courseName %>
-                      </option>
-                    <% }) %>
-                </select>
-                <label>
-                    Session
-                </label>
-                <select name="courseSession">
-                    <option value="">Select Session</option>
-                    <% const years = [2021, 2022, 2023]; %>
-                    <% years.forEach(year => { %>
-                      <option value="<%= year %>" <%= year.toString() === locals.courseSession ? 'selected' : '' %>>
-                        <%= year %>
-                      </option>
-                    <% }) %>
-                </select>  
-                <label>
-                    Student ID/ Name 
-                </label>
-                <input type="text" name="studentName">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Check Record</button>
+    <div class="flex-1 flex flex-col">
+        <div class="w-[98%] md:w-full text-xs flex justify-end bg-white py-4">
+            <form class="flex gap-2" action="/ccet/fees-management/filter-view" method="POST">
+                <div>
+                    <select name="courseId" class="w-28 h-8">
+                        <option value="">Course</option>
+                        <% courses.forEach(course => { %>
+                          <option value="<%= course._id %>" <%= course._id.toString() === locals.courseId ? 'selected' : '' %>>
+                            <%= course.courseName %>
+                          </option>
+                        <% }) %>
+                    </select>
+                </div>
+                
+                <div>
+                    <select name="courseSession" class="w-28 h-8">
+                        <option value="">Session</option>
+                        <% const years = [2021, 2022, 2023]; %>
+                        <% years.forEach(year => { %>
+                          <option value="<%= year %>" <%= year.toString() === locals.courseSession ? 'selected' : '' %>>
+                            <%= year %>
+                          </option>
+                        <% }) %>
+                    </select>  
+                </div>                
+                
+                <input type="text" name="studentName" class="w-28 h-8" placeholder="Id/Name">
+                <div>
+                    <button class="h-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                </div>
             </form> 
         </div>
-        <% if(students && students.length > 0) { %>
-        <div class="flex-1 relative overflow-x-auto shadow-md sm:rounded-lg">            
-            <table class="w-full text-sm text-left text-blue-600 dark:text-blue-100">
-                <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
+                   
+            <table class="w-[98%] md:w-full text-xs text-left text-blue-600 dark:text-blue-100">
+                <thead class="text-white uppercase bg-blue-600 dark:text-white">
                     <tr>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="md:px-4 md:py-2">
                             Student name
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="md:px-4 md:py-2">
                             Course Enrolled
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="md:px-4 md:py-2">
                             Fees paid on admission (excl.)
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="md:px-4 md:py-2">
                             Course fees paid
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="md:px-4 md:py-2">
                             Action
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="md:px-4 md:py-2">
                             Action
                         </th>
                     </tr>
@@ -67,28 +65,28 @@
                 <tbody>
                     <% students.forEach(student => { %>
                         <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">
-                            <td class="px-6 py-4">
+                            <td class="md:px-4 md:py-2">
                                 <%= student.studentName %>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="md:px-4 md:py-2">
                                 <%= student.courseEnrolled.courseName %>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="md:px-4 md:py-2">
                                 <%= student.fee.admissionFeesAmount %>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="md:px-4 md:py-2">
                                 <% if (Array.isArray(student.fee.totalFeesPaid)) { %>
                                     <%= Object.values(student.fee.totalFeesPaid).reduce((acc, val) => acc + val, 0) %>
                                 <% } else { %>
                                     <p>Object</p>
                                 <% } %>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="md:px-4 md:py-2">
                                 <a href="/ccet/fees-management/record-fees/<%= student._id %>">
                                     <button type="submit">Record Payment</button>
                                 </a>                        
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="md:px-4 md:py-2">
                                 <a href="/ccet/fees-management/fees-history/<%= student._id %>">
                                     <button type="submit">view Fees History</button>
                                 </a>                        
@@ -108,75 +106,6 @@
                 <% } %> 
                 
             </table>
-        </div>
-        <% } else { %>
-            <div class="flex-1 relative overflow-x-auto shadow-md sm:rounded-lg">            
-                <table class="w-full text-sm text-left text-blue-600 dark:text-blue-100">
-                    <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">
-                                Student name
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Course Enrolled
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Fees paid on admission (excl.)
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Course fees paid
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Action
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Action
-                            </th>
-                        </tr>
-                    </thead>
-                    
-                    <% if(students && students.length > 0) { %>
-                        
-                    <tbody>
-                        <% students.forEach(student => { %>
-                            <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">
-                                <td class="px-6 py-4">
-                                    <%= student.studentName %>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <%= student.courseEnrolled.courseName %>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <%= student.fee.admissionFeesAmount %>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <%= student.fee.admissionFeesAmount %>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <%= student.fee.lastPaymentDate %>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <a href="/ccet/fees-management/fees-history/<%= student._id %>">
-                                        <button type="submit">view Fees History</button>
-                                    </a>                        
-                                </td>
-                            </tr>
-                        <% }) %>
-                    </tbody> 
-                    
-                    <% } else { %>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <p class="my-8 mx-2 text-gray-600">No records..</p>
-                                </td>
-                            </tr>
-                        </tbody>                    
-                    <% } %>
-
-                </table>
-            </div>
-        <% } %>
 
         <!-- Pagination links goes here -->
         <% if (totalPages > 1) { %> <!-- Check if totalPages is greater than 1 -->

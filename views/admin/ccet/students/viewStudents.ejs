@@ -6,8 +6,7 @@
         <div class="w-[98%] md:w-full text-xs flex justify-end bg-white py-4">
             <form class="flex gap-4" action="/ccet/student-management/filter-view" method="POST">
                 <span class="py-2">Filter search</span>
-                <label class="flex items-center">
-                    
+                <div>                    
                     <select name="courseId" class="w-28 h-8">
                         <option value="">Course</option>
                         <% courses.forEach(course => { %>
@@ -16,7 +15,7 @@
                           </option>
                         <% }) %>
                     </select>                      
-                </label>
+                </div>
                     
                 <div>
                     <select name="courseSession" class="w-28 h-8">

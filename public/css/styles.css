@@ -16,3 +16,6 @@
 th{
     font-size: 9px;
 }
+select > option {
+    font-size: 12px;
+}
