@@ -1,16 +1,15 @@
 <div class="flex h-screen">
-    <div class="w-64 bg-[#4d44b5]">
-        <%- include('../../../partials/adminTemplate.ejs') %>
-    </div>
-
-    <div class="flex-1 flex flex-col p-4">
-        <div class="flex bg-white justify-end p-4">
+    
+    <%- include('../../../partials/adminTemplate.ejs') %>
+    
+    <div class="flex-1 flex flex-col">
+        <div class="w-[98%] md:w-full text-xs flex justify-end bg-white py-4">
             <form class="flex gap-4" action="/ccet/student-management/filter-view" method="POST">
-                
+                <span class="py-2">Filter search</span>
                 <label class="flex items-center">
-                    <span class="mr-2">Filter your search</span>
-                    <select name="courseId">
-                        <option value="">Select Course</option>
+                    
+                    <select name="courseId" class="w-28 h-8">
+                        <option value="">Course</option>
                         <% courses.forEach(course => { %>
                           <option value="<%= course._id %>" <%= course._id.toString() === locals.courseId ? 'selected' : '' %>>
                             <%= course.courseName %>
@@ -20,8 +19,8 @@
                 </label>
                     
                 <div>
-                    <select name="courseSession">
-                        <option value="">Select Session</option>
+                    <select name="courseSession" class="w-28 h-8">
+                        <option value="">Session</option>
                         <% const years = [2021, 2022, 2023]; %>
                         <% years.forEach(year => { %>
                           <option value="<%= year %>" <%= year.toString() === locals.courseSession ? 'selected' : '' %>>
@@ -32,28 +31,30 @@
                 </div>
 
                 <div>
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Search</button>
+                    <button class="h-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
                 </div>
             </form>
         </div>
 
         <!-- <div class="flex-1 relative overflow-x-auto shadow-md sm:rounded-lg"> -->
-            <table class="w-full text-sm text-left text-blue-600 dark:text-blue-100">
-                <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
+            <table class="w-[98%] md:w-full text-xs text-left text-blue-600 dark:text-blue-100">
+                <thead class="text-white uppercase bg-blue-600 dark:text-white">
                     <tr>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="md:px-4 md:py-2">
                             Name
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="md:px-4 md:py-2">
                             Education
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="md:px-4 md:py-2">
                             Course Enrolled
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="md:px-4 md:py-2">
                             Date of admission
                         </th>
-                        <th scope="col" class="px-6 py-3">Form</th>                        
+                        <th scope="col" class="md:px-4 md:py-2">Admission Form</th>                        
                     </tr>            
                 </thead>     
 
@@ -63,25 +64,25 @@
                     <% students.forEach(student => { %>
                                 
                         <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">
-                            <td style="display:none" class="px-6 py-4">                
+                            <td style="display:none" class="md:px-4 md:py-2">                
                                 <%= student._id %>                
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="md:px-4 md:py-2">
                                 <%= student.studentName %>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="md:px-4 md:py-2">
                                 <%= student.lastExamPassed %>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="md:px-4 md:py-2">
                                 <%= student.courseEnrolled.courseName %>
                             </td>
-                            <td class="px-6 py-4">                
+                            <td class="md:px-4 md:py-2">                
                                 <%= student.enrollmentDate %>                
                             </td>
                             
-                            <td class="px-6 py-4">             
+                            <td class="md:px-4 md:py-2">             
                                 <a href="/ccet/student-management/<%= student._id %>" target="popup" onclick="window.open('/ccet/student-management/<%= student._id %>','name','width=900,height=750')">                    
-                                    <button type="submit">View Admission Form</button>
+                                    View
                                 </a>
                             </td>                                  
                         </tr>    
@@ -120,5 +121,7 @@
 
 <script src="../../../../js/main.js"></script>
     
+
+
 </body>
 </html>

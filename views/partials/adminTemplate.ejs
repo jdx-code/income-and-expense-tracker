@@ -9,70 +9,115 @@
     <title>DLSDS-Admin Panel</title>
 </head>
 <body>
+<div id="sidenav" class="w-64 bg-[#4d44b5] hidden md:block">
+    <div class="fixed top-0 left-0 w-64 h-full text-sm bg-[#43379d]">
 
-<div class="fixed top-0 left-0 w-64 h-full text-sm bg-[#43379d]">
-
-    <div class="flex items-center justify-center py-4 border-b-4 border-blue-100">
-        <div class="flex items-center">
-            <a href="/admin-panel" class="mr-auto px-2 py-1 text-white">
-                <i class="fa fa-arrow-circle-left fa-2x" aria-hidden="true"></i>
-            </a>
+        <div class="flex items-center justify-center py-4 border-b-4 border-blue-100">
+            <div class="flex items-center">
+                <a href="/admin-panel" class="mr-auto px-2 py-1 text-white">
+                    <i class="fa fa-arrow-circle-left fa-2x" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="flex items-center flex-1 ml-8">
+                <img src="../../../images/ccet-logo.png" alt="Company Logo" class="w-24 h-16">
+            </div>
         </div>
-        <div class="flex items-center flex-1 ml-8">
-            <img src="../../../images/ccet-logo.png" alt="Company Logo" class="w-24 h-16">
-        </div>
+        
+        <ul class="sidenavClass flex flex-col p-4 text-[#adbef5]">
+            <li class="my-2">
+                <a href="/ccet" class="block px-4 py-2 rounded-md hover:bg-[#362f78]  hover:text-white">
+                    <i class="fa fa-home pr-2" aria-hidden="true"></i>
+                    Dashboard
+                </a>
+            </li>        
+            <li class="my-2">
+                <a href="/ccet/student-management/" class="block px-4 py-2 rounded-md hover:bg-[#362f78]  hover:text-white">
+                    <i class="fa fa-users pr-2" aria-hidden="true"></i>
+                    Student Management
+                </a>
+                <ul class="ml-6 mt-2">
+                    <li>
+                        <a href="/ccet/student-management/add" class="block px-2 py-1 rounded-md hover:bg-[#362f78]  hover:text-white">
+                            <i class="fa fa-user-plus pr-2" aria-hidden="true"></i>
+                            Add Student
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/ccet/student-management/" class="block px-2 py-1 rounded-md hover:bg-[#362f78]  hover:text-white">
+                            <i class="fa fa-id-card pr-2" aria-hidden="true"></i>
+                            View Students
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="my-2">
+                <a href="/ccet/fees-management/" class="block px-4 py-2 rounded-md hover:bg-[#362f78]  hover:text-white">
+                    <i class="fa fa-inr pr-3" aria-hidden="true"></i>
+                    Fees Management
+                </a>            
+            </li>
+            <li class="my-2">
+                <a href="/ccet/course-management/" class="block px-4 py-2 rounded-md hover:bg-[#362f78]  hover:text-white">
+                    <i class="fa fa-graduation-cap pr-1" aria-hidden="true"></i>
+                    Course Management
+                </a>            
+            </li>
+            <li class="my-2">
+                <a href="/ccet/branch-management/" class="block px-4 py-2 rounded-md hover:bg-[#362f78]  hover:text-white">
+                    <i class="fa fa-cubes pr-2" aria-hidden="true"></i>
+                    Branch Management
+                </a>            
+            </li>
+            <li class="my-2">
+                <a href="/logout" class="block px-4 py-2 rounded-md hover:bg-[#362f78]  hover:text-white">
+                    <i class="fa fa-power-off pr-2" aria-hidden="true"></i>
+                    Logout
+                </a>            
+            </li>
+        </ul>
     </div>
-    
-    <ul class="sidenavClass flex flex-col p-4 text-[#adbef5]">
-        <li class="my-2">
-            <a href="/ccet" class="block px-4 py-2 rounded-md hover:bg-[#362f78]  hover:text-white">
-                <i class="fa fa-home pr-2" aria-hidden="true"></i>
-                Dashboard
-            </a>
-        </li>        
-        <li class="my-2">
-            <a href="/ccet/student-management/" class="block px-4 py-2 rounded-md hover:bg-[#362f78]  hover:text-white">
-                <i class="fa fa-users pr-2" aria-hidden="true"></i>
-                Student Management
-            </a>
-            <ul class="ml-6 mt-2">
-                <li>
-                    <a href="/ccet/student-management/add" class="block px-2 py-1 rounded-md hover:bg-[#362f78]  hover:text-white">
-                        <i class="fa fa-user-plus pr-2" aria-hidden="true"></i>
-                        Add Student
-                    </a>
-                </li>
-                <li>
-                    <a href="/ccet/student-management/" class="block px-2 py-1 rounded-md hover:bg-[#362f78]  hover:text-white">
-                        <i class="fa fa-id-card pr-2" aria-hidden="true"></i>
-                        View Students
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="my-2">
-            <a href="/ccet/fees-management/" class="block px-4 py-2 rounded-md hover:bg-[#362f78]  hover:text-white">
-                <i class="fa fa-inr pr-3" aria-hidden="true"></i>
-                Fees Management
-            </a>            
-        </li>
-        <li class="my-2">
-            <a href="/ccet/course-management/" class="block px-4 py-2 rounded-md hover:bg-[#362f78]  hover:text-white">
-                <i class="fa fa-graduation-cap pr-1" aria-hidden="true"></i>
-                Course Management
-            </a>            
-        </li>
-        <li class="my-2">
-            <a href="/ccet/branch-management/" class="block px-4 py-2 rounded-md hover:bg-[#362f78]  hover:text-white">
-                <i class="fa fa-cubes pr-2" aria-hidden="true"></i>
-                Branch Management
-            </a>            
-        </li>
-        <li class="my-2">
-            <a href="/logout" class="block px-4 py-2 rounded-md hover:bg-[#362f78]  hover:text-white">
-                <i class="fa fa-power-off pr-2" aria-hidden="true"></i>
-                Logout
-            </a>            
-        </li>
-    </ul>
+
+    <!-- Close button inside the sidenav -->
+    <button id="closeButton" type="button" class="hidden absolute top-2 right-2 text-gray-600 hover:text-gray-700 focus:text-gray-700 focus:outline-none md:hidden">
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+    </button>
 </div>
+
+<div class="md:hidden">
+    <button id="hamburger" type="button" class="block text-gray-600 hover:text-gray-700 focus:text-gray-700 focus:outline-none">
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+    </button>
+</div>
+
+<script>
+    var sidenav = document.getElementById('sidenav');
+    var closeButton = document.getElementById('closeButton');
+    var hamburger = document.getElementById('hamburger');
+
+    closeButton.addEventListener('click', function() {
+        sidenav.classList.add('hidden');
+        closeButton.classList.add('hidden');
+    });
+
+    hamburger.addEventListener('click', function() {
+        sidenav.classList.remove('hidden');
+        closeButton.classList.remove('hidden');
+    });
+
+    function checkScreenSize() {
+        if (window.innerWidth >= 768) {
+            closeButton.classList.add('hidden');
+        } else {
+            if (!sidenav.classList.contains('hidden')) {
+                closeButton.classList.remove('hidden');
+            }
+        }
+    }
+
+    window.addEventListener('resize', checkScreenSize);
+    checkScreenSize();
+</script>
