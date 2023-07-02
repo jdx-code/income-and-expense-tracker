@@ -1,7 +1,6 @@
 <div class="flex h-screen">
-    <div class="w-64 bg-[#4d44b5]">
-        <%- include('../../../partials/adminTemplate.ejs') %>
-    </div>
+    
+    <%- include('../../../partials/adminTemplate.ejs') %>    
     
     <div class="flex-1 flex flex-col p-4">
         <div>
@@ -50,18 +49,18 @@
             </form>
         </div>
             
-        <div class="my-8">
+        
             
-            <div class="flex-1 relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-left text-blue-600 dark:text-blue-100">
-                    <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
+            
+                <table class="w-[98%] md:w-full text-xs sm:text-base text-center text-blue-600 dark:text-blue-100">
+                    <thead class="text-white uppercase bg-blue-600 dark:text-white">
                         <tr>
-                            <th scope="col" class="px-6 py-3">Branch</th>                                                                                    
-                            <th scope="col" class="px-6 py-3">Center-in-charge</th>
-                            <th scope="col" class="px-6 py-3">Phone</th>                            
-                            <th scope="col" class="px-6 py-3">Email</th>  
-                            <th scope="col" class="px-6 py-3">Update</th>                            
-                            <th scope="col" class="px-6 py-3">Delete</th>                            
+                            <th scope="col" class="sm:text-sm sm:p-2 md:px-4 md:py-2">Branch</th>                                                                                    
+                            <th scope="col" class="sm:text-sm sm:p-2 md:px-4 md:py-2">Center-in-charge</th>
+                            <th scope="col" class="sm:text-sm sm:p-2 md:px-4 md:py-2">Phone</th>                            
+                            <th scope="col" class="sm:text-sm sm:p-2 md:px-4 md:py-2">Email</th>  
+                            <th scope="col" class="sm:text-sm sm:p-2 md:px-4 md:py-2">Update</th>                            
+                            <th scope="col" class="sm:text-sm sm:p-2 md:px-4 md:py-2">Delete</th>                            
                         </tr>
                     </thead>
 
@@ -70,34 +69,34 @@
                     <tbody>
                         <% branches.forEach(branch => { %>
                         <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">                
-                            <td class="px-6 py-4">
+                            <td class="md:px-4 md:py-2">
                                 <span id="coursename">
                                     <%= branch.branchName %>
                                 </span>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="md:px-4 md:py-2">
                                 <span id="coursename">
                                     <%= branch.centerInCharge %>                                    
                                 </span>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="md:px-4 md:py-2">
                                 <span id="coursename">
                                     <%= branch.contactNumber %>
                                 </span>
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="md:px-4 md:py-2">
                                 <span id="coursename">
                                     <%= branch.email %>
                                 </span>
                             </td>                            
-                            <td class="px-6 py-4">      
+                            <td class="md:px-4 md:py-2">      
                                 <a href="/ccet/branch-management/<%= branch._id %>">
                                     <button type="submit">
                                         <i class="fas fa-edit"></i></a>
                                     </button>
                                 </a>  
                             </td>               
-                            <td class="px-6 py-4">
+                            <td class="md:px-4 md:py-2">
                                 <form action="/ccet/branch-management/<%= branch._id %>" method="POST">
                                     <button class="deleteBtn">
                                         <i class="fas fa-trash"></i>
@@ -123,9 +122,9 @@
 
                 </table>            
                 
-            </div>
             
-        </div>
+            
+        
 
         <!-- Pagination links goes here -->
         

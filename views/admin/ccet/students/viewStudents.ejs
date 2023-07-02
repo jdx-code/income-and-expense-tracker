@@ -2,12 +2,12 @@
     
     <%- include('../../../partials/adminTemplate.ejs') %>
     
-    <div class="flex-1 flex flex-col">
-        <div class="w-[98%] md:w-full text-xs flex justify-end bg-white py-4">
+    <div class="flex-1 flex flex-col sm:p-2">
+        <div class="w-[98%] sm:w-full text-xs sm:text-sm flex justify-end bg-white py-4">
             <form class="flex gap-4" action="/ccet/student-management/filter-view" method="POST">
                 <span class="py-2">Filter search</span>
                 <div>                    
-                    <select name="courseId" class="w-28 h-8">
+                    <select name="courseId" class="w-28 h-8 sm:w-40 sm:h-9">
                         <option value="">Course</option>
                         <% courses.forEach(course => { %>
                           <option value="<%= course._id %>" <%= course._id.toString() === locals.courseId ? 'selected' : '' %>>
@@ -18,7 +18,7 @@
                 </div>
                     
                 <div>
-                    <select name="courseSession" class="w-28 h-8">
+                    <select name="courseSession" class="w-28 h-8 sm:w-40 sm:h-9">
                         <option value="">Session</option>
                         <% const years = [2021, 2022, 2023]; %>
                         <% years.forEach(year => { %>
@@ -30,7 +30,7 @@
                 </div>
 
                 <div>
-                    <button class="h-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
+                    <button class="h-8 sm:h-9 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -38,22 +38,22 @@
         </div>
 
         <!-- <div class="flex-1 relative overflow-x-auto shadow-md sm:rounded-lg"> -->
-            <table class="w-[98%] md:w-full text-xs text-left text-blue-600 dark:text-blue-100">
+            <table class="w-[98%] sm:w-full text-xs lg:text-base text-center text-blue-600 dark:text-blue-100">
                 <thead class="text-white uppercase bg-blue-600 dark:text-white">
                     <tr>
-                        <th scope="col" class="md:px-4 md:py-2">
+                        <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">
                             Name
                         </th>
-                        <th scope="col" class="md:px-4 md:py-2">
+                        <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">
                             Education
                         </th>
-                        <th scope="col" class="md:px-4 md:py-2">
+                        <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">
                             Course Enrolled
                         </th>
-                        <th scope="col" class="md:px-4 md:py-2">
+                        <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">
                             Date of admission
                         </th>
-                        <th scope="col" class="md:px-4 md:py-2">Admission Form</th>                        
+                        <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Admission Form</th>                        
                     </tr>            
                 </thead>     
 
