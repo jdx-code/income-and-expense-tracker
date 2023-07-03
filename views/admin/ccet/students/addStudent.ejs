@@ -1,11 +1,10 @@
 <div class="flex h-screen">    
-    <div class="w-64 bg-[#4d44b5]">        
-        <%- include('../../../partials/adminTemplate.ejs') %>
-    </div>
+           
+    <%- include('../../../partials/adminTemplate.ejs') %>    
 
     <div class="flex-1 flex items-center bg-white">        
 
-        <div class="w-[100%] mx-36 p-8 flex flex-col items-center bg-[#d7eaf8]">            
+        <div class="w-[95%] lg:mx-36 sm:mx-8 p-8 flex flex-col lg:items-center bg-[#d7eaf8]">            
             <h1 class="w-[60%] bg-gradient-to-r from-indigo-400 my-4 p-2 text-white">Add New Student</h1>            
             <form action="/ccet/add-student" method="POST" enctype="multipart/form-data">
                 <table>
@@ -16,7 +15,7 @@
                             </label>                    
                         </td>
                         <td>
-                            <input type="text" name="studentName" class="my-3">
+                            <input class="my-3" type="text" name="studentName">
                         </td>
                     </tr>   
                     <tr>
@@ -26,7 +25,7 @@
                             </label>                    
                         </td>
                         <td>
-                            <select name="lastExamPassed" class="my-3">
+                            <select class="my-3" name="lastExamPassed">
                                 <option value="hslc">HSLC</option>
                                 <option value="hs">HS</option>
                                 <option value="graduation">Graduation</option>
@@ -41,7 +40,7 @@
                             </label>
                         </td>
                         <td>
-                            <select name="courseEnrolled" class="my-3">
+                            <select class="my-3" name="courseEnrolled">
                                 <% courses.forEach(course => { %>
                                     <option value="<%= course._id %>">
                                         <%= course.courseName %>
@@ -55,7 +54,7 @@
                             <label>Upload Admission Form  </label>
                         </td>
                         <td>
-                            <input type="file" name="image" value="" class="my-3">
+                            <input class="my-3" type="file" name="image" value="">
                         </td>
                     </tr>
                     <tr>

@@ -1,11 +1,10 @@
-<div class="flex h-screen">    
-    <div class="w-64 bg-[#4d44b5]">        
-        <%- include('../../../partials/adminTemplate.ejs') %>
-    </div>
+<div class="flex h-screen">             
+
+    <%- include('../../../partials/adminTemplate.ejs') %>    
 
     <div class="flex-1 flex items-center bg-white">        
 
-        <div class="w-[100%] mx-36 p-8 flex flex-col items-center bg-[#d7eaf8]">            
+        <div class="w-[95%] lg:mx-36 sm:mx-8 p-8 flex flex-col lg:items-center bg-[#d7eaf8]">            
             <h1 class="w-[60%] bg-gradient-to-r from-indigo-400 my-4 p-2 text-white">Record Fees</h1>            
 
             <% students.forEach(student => { %>

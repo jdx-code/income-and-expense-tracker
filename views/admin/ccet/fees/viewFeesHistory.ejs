@@ -1,14 +1,13 @@
 <div class="flex h-screen">    
-    <div class="w-64 bg-[#4d44b5]">        
-        <%- include('../../../partials/adminTemplate.ejs') %>
-    </div>
+    
+    <%- include('../../../partials/adminTemplate.ejs') %>
 
-    <div class="flex-1 flex items-center bg-white">        
+    <div class="flex-1 flex items-center bg-white">
 
-        <div class="w-[75%] mx-36 p-8 flex flex-col items-center bg-[#d7eaf8]">                                    
+        <div class="w-[95%] lg:mx-36 sm:mx-8 p-8 flex flex-col lg:items-center bg-[#d7eaf8]">            
             <h1 class="w-[70%] bg-gradient-to-r from-indigo-400 mb-2 p-2 text-white">Fees History of <%=students[0].studentName%> (<%=students[0].courseEnrolled.courseName%>)</h1>            
 
-            <table class="w-[70%] text-sm text-left text-blue-600 dark:text-blue-100">
+            <table class="lg:w-[70%] text-sm text-left text-blue-600 dark:text-blue-100">
                 <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
                     <tr>
                         <th scope="col" class="px-2 py-3">
@@ -43,8 +42,8 @@
                         <% }) %>
                             
                         <tr>
-                            <td class="px-2 font-bold"> Total Fees Paid : </td>
-                            <td class="px-2 font-bold">
+                            <td class="p-1 font-medium md:font-bold "> Total Fees Paid : </td>
+                            <td class="p-1 font-medium md:font-bold">
                                 <% if (Array.isArray(student.fee.totalFeesPaid)) { %>
                                     <%= Object.values(student.fee.totalFeesPaid).reduce((acc, val) => acc + val, 0) %>
                                 <% } else { %>
