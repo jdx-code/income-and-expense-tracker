@@ -68,14 +68,14 @@
                 </a>            
             </li>
         </ul>
-    </div>
 
-    <!-- Close button inside the sidenav -->
-    <button id="closeButton" type="button" class="hidden absolute top-2 right-52 text-gray-100 hover:text-gray-300 focus:text-gray-700 focus:outline-none md:hidden">
-        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-    </button>
+        <!-- Close button inside the sidenav -->
+        <button id="closeButton" type="button" class="hidden absolute top-2 left-56 text-gray-100 hover:text-gray-300 focus:text-gray-700 focus:outline-none md:hidden">
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>    
 </div>
 
 <div class="md:hidden">
@@ -92,11 +92,13 @@
     var hamburger = document.getElementById('hamburger');
 
     closeButton.addEventListener('click', function() {
+        hamburger.classList.remove('hidden');
         sidenav.classList.add('hidden');
         closeButton.classList.add('hidden');
     });
 
     hamburger.addEventListener('click', function() {
+        hamburger.classList.add('hidden');
         sidenav.classList.remove('hidden');
         closeButton.classList.remove('hidden');
     });

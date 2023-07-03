@@ -49,14 +49,14 @@
             <% } else { %>
             <% let courseArr = Object.values(courses) %>
             
-            <table class="w-[98%] md:w-full text-xs sm:text-base text-center text-blue-600 dark:text-blue-100">
+            <table class="w-[98%] sm:w-full text-xs lg:text-base text-center text-blue-600 dark:text-blue-100">
                 <thead class="text-white uppercase bg-blue-600 dark:text-white">
                         <tr>
-                            <th scope="col" class="sm:text-sm sm:p-2 md:px-4 md:py-2">Course name</th>
-                            <th scope="col" class="sm:text-sm sm:p-2 md:px-4 md:py-2">Duration</th>
-                            <th scope="col" class="sm:text-sm sm:p-2 md:px-4 md:py-2">Fees</th>
-                            <th scope="col" class="sm:text-sm sm:p-2 md:px-4 md:py-2">Update</th>
-                            <th scope="col" class="sm:text-sm sm:p-2 md:px-4 md:py-2">Delete</th>
+                            <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Course name</th>
+                            <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Duration</th>
+                            <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Fees</th>
+                            <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Update</th>
+                            <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Delete</th>
                         </tr>
                     </thead>
 
@@ -65,29 +65,29 @@
                     <tbody>
                     <% courseArr.forEach(e => { %>
                         <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">                
-                            <td class="md:px-4 md:py-2">
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
                                 <span id="coursename">
                                     <%= e.courseName %>
                                 </span>
                             </td>
-                            <td class="md:px-4 md:py-2">
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
                                 <span id="courseduration">
                                     <%= e.courseDuration %> months
                                 </span>
                             </td>
-                            <td class="md:px-4 md:py-2">
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
                                 <span id="coursefees">
                                     <%= e.courseFees %>
                                 </span>
                             </td>
-                            <td class="md:px-4 md:py-2">      
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">      
                                 <a href="/ccet/course-management/<%= e._id %>">
                                     <button type="submit">
                                         <i class="fas fa-edit"></i></a>
                                     </button>
                                 </a> 
                             </td>
-                            <td class="md:px-4 md:py-2">
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
                                 <button class="deleteBtn">
                                     <i class="fas fa-trash"></i>
                                 </button>
