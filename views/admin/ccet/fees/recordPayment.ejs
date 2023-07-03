@@ -13,32 +13,32 @@
                     <tr>
                         <input type="hidden" name="studentId" value="<%= student._id %>">
                         <td>
-                            <label>
+                            <label class="text-sm sm:text-base">
                                 Student Name
                             </label>                    
                         </td>
                         <td>                            
-                            <input class="my-3" type="text" name="studentName" value="<%= student.studentName %>" disabled>                            
+                            <input class="my-3 w-52 sm:w-60 sm:h-10 rounded-md" type="text" name="studentName" value="<%= student.studentName %>" disabled>                            
                         </td>                        
                     </tr>   
                     <tr>
                         <td>
-                            <label>
+                            <label class="text-sm sm:text-base">
                                 Course Enrolled
                             </label>                    
                         </td>
                         <td>
-                            <input class="my-3" type="text" name="courseEnrolled" value="<%= student.courseEnrolled.courseName %>" disabled>
+                            <input class="my-3 w-52 sm:w-60 sm:h-10 rounded-md" type="text" name="courseEnrolled" value="<%= student.courseEnrolled.courseName %>" disabled>
                         </td>
                     </tr>   
                     <tr>
                         <td>
-                            <label>
+                            <label class="text-sm sm:text-base">
                                 Amount Received
                             </label>
                         </td>
                         <td>
-                            <input class="my-3" type="text" name="amountReceived" value="">
+                            <input class="my-3 w-52 sm:w-60 sm:h-10 rounded-md" type="text" name="amountReceived" value="">
                         </td>
                     </tr>                       
                     <tr>
