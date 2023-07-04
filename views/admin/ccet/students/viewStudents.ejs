@@ -63,23 +63,23 @@
                     <% students.forEach(student => { %>
                                 
                         <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">
-                            <td style="display:none" class="md:px-4 md:py-2">                
+                            <td style="display:none">                
                                 <%= student._id %>                
                             </td>
-                            <td class="md:px-4 md:py-2">
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
                                 <%= student.studentName %>
                             </td>
-                            <td class="md:px-4 md:py-2">
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
                                 <%= student.lastExamPassed %>
                             </td>
-                            <td class="md:px-4 md:py-2">
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
                                 <%= student.courseEnrolled.courseName %>
                             </td>
-                            <td class="md:px-4 md:py-2">                
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">                
                                 <%= student.enrollmentDate %>                
                             </td>
                             
-                            <td class="md:px-4 md:py-2">             
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">             
                                 <a href="/ccet/student-management/<%= student._id %>" target="popup" onclick="window.open('/ccet/student-management/<%= student._id %>','name','width=900,height=750')">                    
                                     View
                                 </a>
@@ -101,20 +101,9 @@
             </table>
         <!-- </div> -->
         
-        <!-- Pagination links goes here -->
-        <% if (totalPages > 1) { %> <!-- Check if totalPages is greater than 1 -->
-            <nav class="flex items-center justify-center m-8" aria-label="Page navigation">
-              <% if (currentPage > 1) { %>
-                <a class="mr-2 px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" href="/ccet/student-management/?page=<%= currentPage - 1 %>">Previous</a>
-              <% } %>
-              <% for (let i = 1; i <= totalPages; i++) { %>
-                <a class="mr-2 px-3 py-2 bg-blue-200 text-blue-800 rounded hover:bg-blue-500 hover:text-white <% if (i === currentPage) { %>bg-blue-500 text-white<% } %>" href="/ccet/student-management/?page=<%= i %>"><%= i %></a>
-              <% } %>
-              <% if (currentPage < totalPages) { %>
-                <a class="mr-2 px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" href="/ccet/student-management/?page=<%= currentPage + 1 %>">Next</a>
-              <% } %>
-            </nav>
-        <% } %>
+        <!-- Pagination -->
+        <%- include('../../../partials/pagination.ejs') %>
+        
     </div>
 </div>
 

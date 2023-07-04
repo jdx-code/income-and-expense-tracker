@@ -23,17 +23,24 @@ module.exports = {
           const perPage = 5;
           const currentPage = parseInt(req.query.page) || 1;
 
-          const totalStudents = await Course.countDocuments();
-          const totalPages = Math.ceil(totalStudents / perPage);
+          const totalData = await Course.countDocuments();
+          const totalPages = Math.ceil(totalData / perPage);
 
           const courses = await Course.find()
             .skip((currentPage - 1) * perPage)
             .limit(perPage);
+          
+          const currentRoute = req.path;
+          
+          console.log(currentRoute)
 
           res.render('admin/ccet/courses/index', {
               courses,
               currentPage,
               totalPages,
+              totalData,
+              perPage,
+              currentRoute,
           })
 
         } catch (err) {
@@ -49,19 +56,23 @@ module.exports = {
             const perPage = 5;
             const currentPage = parseInt(req.query.page) || 1;
 
-            const totalStudents = await Course.countDocuments();
-            const totalPages = Math.ceil(totalStudents / perPage);
+            const totalData = await Course.countDocuments();
+            const totalPages = Math.ceil(totalData / perPage);
 
             const course = await Course.findById({ _id: req.params.id })
             const courses = await Course.find()
               .skip((currentPage - 1) * perPage)
               .limit(perPage);
 
+            const currentRoute = req.originalUrl;
+
             res.render('admin/ccet/courses/editCourse', {
                 course,
                 courses,
                 currentPage,
                 totalPages,
+                totalData,
+                currentRoute,
             })
 
         } catch(err) {
@@ -137,22 +148,25 @@ module.exports = {
     // Render all students info in paginated view
     getAllStudents: async (req, res) => {
         try{
+            const perPage = 10;
             const courses = await Course.find();
             const currentPage = parseInt(req.query.page) || 1; // Current page number
 
-            const totalStudents = await Student.countDocuments();
-            const totalPages = Math.ceil(totalStudents / ITEMS_PER_PAGE);
+            const totalData = await Student.countDocuments();
+            const totalPages = Math.ceil(totalData / perPage);
 
             const students = await Student.find()
-            .populate('courseEnrolled')
-            .sort({ enrollmentDate: 'descending' })
-            .skip((currentPage - 1) * ITEMS_PER_PAGE)
-            .limit(ITEMS_PER_PAGE);
+              .populate('courseEnrolled')
+              .sort({ enrollmentDate: 'descending' })
+              .skip((currentPage - 1) * perPage)
+              .limit(perPage);
 
             const formattedStudents = students.map(student => ({
             ...student.toObject(),
             enrollmentDate: moment(student.enrollmentDate).format('DD-MM-YYYY')
             }));
+
+            const currentRoute = req.originalUrl;
 
             let filterApplied
 
@@ -161,7 +175,10 @@ module.exports = {
             students: formattedStudents,
             currentPage,
             totalPages,
+            perPage,
+            currentRoute,
             filterApplied,
+            totalData,
             });
 
         } catch(err){
@@ -197,23 +214,28 @@ module.exports = {
 
           const totalStudentsQuery = Student.countDocuments(filterOptions);
 
-          const [studentsArr, totalStudents] = await Promise.all([
+          const [studentsArr, totalData] = await Promise.all([
             studentsQuery.skip((page - 1) * perPage).limit(perPage).exec(),
             totalStudentsQuery.exec()
           ]);
 
-          const totalPages = Math.ceil(totalStudents / perPage);
+          const totalPages = Math.ceil(totalData / perPage);
 
           const students = studentsArr.map(student => ({
             ...student.toObject(),
             enrollmentDate: moment(student.enrollmentDate).format('DD-MM-YYYY'),
           }));
 
+          const currentRoute = req.originalUrl;
+
           res.render('admin/ccet/students/viewStudents', {
             courses,
             students,
             currentPage: page,
             totalPages,
+            perPage,
+            totalData,
+            currentRoute,
             courseId: courseId, // Pass courseName to pre-select the filter in the view
             courseSession: courseSession, // Pass session to pre-select the filter in the view            
           }); 
@@ -383,27 +405,31 @@ module.exports = {
     // Get fees data
     getAllFeesInfo: async (req, res) => {
         try{
+            const perPage = 10
             const courses = await Course.find()
 
             const currentPage = parseInt(req.query.page) || 1; // Current page number
 
-            const totalStudents = await Student.countDocuments();
-            const totalPages = Math.ceil(totalStudents / ITEMS_PER_PAGE);
+            const totalData = await Student.countDocuments();
+            const totalPages = Math.ceil(totalData / perPage);
 
             const students = await Student.find()                
                 .populate('courseEnrolled')
                 .populate('fee')    
                 .sort({ enrollmentDate: 'descending' })
-                .skip((currentPage - 1) * ITEMS_PER_PAGE)
-                .limit(ITEMS_PER_PAGE);
+                .skip((currentPage - 1) * perPage)
+                .limit(perPage);
 
-            console.log(students)                
+            const currentRoute = req.originalUrl;
 
             res.render('admin/ccet/fees/index', {
                 courses,
                 students,      
                 currentPage,
                 totalPages,
+                perPage,
+                totalData,
+                currentRoute,
             })
         } catch(err){
             console.error(err)
@@ -494,23 +520,28 @@ module.exports = {
 
           const totalStudentsQuery = Student.countDocuments(filterOptions);
 
-          const [studentsArr, totalStudents] = await Promise.all([
+          const [studentsArr, totalData] = await Promise.all([
             studentsQuery.skip((page - 1) * perPage).limit(perPage).exec(),
             totalStudentsQuery.exec()
           ]);
 
-          const totalPages = Math.ceil(totalStudents / perPage);
+          const totalPages = Math.ceil(totalData / perPage);
 
           const students = studentsArr.map(student => ({
             ...student.toObject(),
             enrollmentDate: moment(student.enrollmentDate).format('DD-MM-YYYY'),
           }));
 
+          const currentRoute = req.originalUrl;
+
           res.render('admin/ccet/fees/index', {
             courses,
             students,
             currentPage: page,
             totalPages,
+            perPage,
+            totalData,
+            currentRoute,
             courseId: courseId, // Pass courseName to pre-select the filter in the view
             courseSession: courseSession, // Pass session to pre-select the filter in the view            
           }); 
@@ -594,9 +625,26 @@ module.exports = {
     // Branch functions
     getBranch: async(req, res) => {
       try{
+
+        const perPage = 5
+        const currentPage = parseInt(req.query.page) || 1
+
+        const totalData = await Branch.countDocuments()
+        const totalPages = Math.ceil(totalData / perPage)
+
         const branches = await Branch.find()
+          .skip((currentPage - 1) * perPage)
+          .limit(perPage)
+
+        const currentRoute = req.originalUrl;
+        
         res.render('admin/ccet/branches/index', {
           branches,
+          currentPage,
+          totalPages,          
+          totalData,
+          perPage,
+          currentRoute,
         })
       } catch(err){
         console.error(err)
@@ -628,19 +676,24 @@ module.exports = {
           const perPage = 5;
           const currentPage = parseInt(req.query.page) || 1;
 
-          const totalStudents = await Course.countDocuments();
-          const totalPages = Math.ceil(totalStudents / perPage);
+          const totalData = await Branch.countDocuments();
+          const totalPages = Math.ceil(totalData / perPage);
 
           const branch = await Branch.findById({ _id: req.params.id })
           const branches = await Branch.find()
             .skip((currentPage - 1) * perPage)
             .limit(perPage);
 
+          const currentRoute = req.originalUrl;
+
           res.render('admin/ccet/branches/editBranch', {
               branch,
               branches,
               currentPage,
               totalPages,
+              totalData,
+              perPage,
+              currentRoute,
           })
 
       } catch(err) {

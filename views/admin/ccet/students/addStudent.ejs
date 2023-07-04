@@ -15,17 +15,18 @@
                             </label>                    
                         </td>
                         <td>
-                            <input class="my-3 w-52 sm:w-60 h-10 rounded-md" type="text" name="studentName">
+                            <input class="my-3 w-52 sm:w-60 h-10 rounded-md" type="text" name="studentName" required>
                         </td>
                     </tr>   
                     <tr>
                         <td>
                             <label class="text-sm sm:text-base">
-                                Last Exam Passed
+                                Qualification
                             </label>                    
                         </td>
                         <td>
-                            <select class="my-3 w-44 sm:w-60 h-10 rounded-md" name="lastExamPassed">
+                            <select class="my-3 w-44 sm:w-60 h-10 rounded-md" name="lastExamPassed" required>
+                                <option value="">Last Exam Passed</option>
                                 <option value="hslc">HSLC</option>
                                 <option value="hs">HS</option>
                                 <option value="graduation">Graduation</option>
@@ -40,7 +41,8 @@
                             </label>
                         </td>
                         <td>
-                            <select class="my-3 w-44 sm:w-60 h-10 rounded-md" name="courseEnrolled">
+                            <select class="my-3 w-44 sm:w-60 h-10 rounded-md" name="courseEnrolled" required>
+                                <option value="">Course</option>
                                 <% courses.forEach(course => { %>
                                     <option value="<%= course._id %>">
                                         <%= course.courseName %>
