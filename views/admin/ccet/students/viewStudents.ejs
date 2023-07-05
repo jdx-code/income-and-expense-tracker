@@ -4,7 +4,7 @@
     
     <div class="flex-1 flex flex-col sm:p-2">
         <div class="w-[98%] sm:w-full text-xs sm:text-sm flex justify-end bg-white py-4">
-            <form class="flex gap-2" action="/ccet/student-management/filter-view" method="POST">
+            <form class="flex gap-2" action="/ccet/student-management/filter-view" method="GET">
                 <span class="py-2">Filter search</span>
                 <div>                    
                     <select name="courseId" class="w-28 h-8 sm:w-40 sm:h-9">
@@ -101,6 +101,7 @@
             </table>
         <!-- </div> -->
         
+
         <!-- Pagination -->
         <%- include('../../../partials/pagination.ejs') %>
         

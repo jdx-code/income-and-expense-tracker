@@ -9,8 +9,6 @@ const mongoose = require('mongoose');
 const Branch = require('../models/Branch');
 const ObjectId = mongoose.Types.ObjectId;
 
-const ITEMS_PER_PAGE = 10; // Number of students per page
-
 module.exports = {
     getIndex: (req, res) => {
         res.render('admin/ccet/index.ejs')
@@ -30,7 +28,7 @@ module.exports = {
             .skip((currentPage - 1) * perPage)
             .limit(perPage);
           
-          const currentRoute = req.path;
+          const currentRoute = req.path
           
           console.log(currentRoute)
 
@@ -64,7 +62,7 @@ module.exports = {
               .skip((currentPage - 1) * perPage)
               .limit(perPage);
 
-            const currentRoute = req.originalUrl;
+            const currentRoute = req.path
 
             res.render('admin/ccet/courses/editCourse', {
                 course,
@@ -166,7 +164,7 @@ module.exports = {
             enrollmentDate: moment(student.enrollmentDate).format('DD-MM-YYYY')
             }));
 
-            const currentRoute = req.originalUrl;
+            const currentRoute = req.path
 
             let filterApplied
 
@@ -190,7 +188,7 @@ module.exports = {
     viewFilteredStudents: async (req, res) => {
         try {
           const courses = await Course.find();
-          const { courseId, courseSession } = req.body;
+          const { courseId, courseSession } = req.query;
 
           let filterOptions = {};
 
@@ -226,8 +224,9 @@ module.exports = {
             enrollmentDate: moment(student.enrollmentDate).format('DD-MM-YYYY'),
           }));
 
-          const currentRoute = req.originalUrl;
-
+          let currentRoute = req.path
+          // currentRoute = currentRoute.replace('/filter-view', '')
+          
           res.render('admin/ccet/students/viewStudents', {
             courses,
             students,
@@ -238,6 +237,10 @@ module.exports = {
             currentRoute,
             courseId: courseId, // Pass courseName to pre-select the filter in the view
             courseSession: courseSession, // Pass session to pre-select the filter in the view            
+            locals: {
+              courseId,
+              courseSession
+            }
           }); 
         } catch (err) {
           console.error(err);
@@ -420,7 +423,7 @@ module.exports = {
                 .skip((currentPage - 1) * perPage)
                 .limit(perPage);
 
-            const currentRoute = req.originalUrl;
+            const currentRoute = req.path
 
             res.render('admin/ccet/fees/index', {
                 courses,
@@ -494,7 +497,7 @@ module.exports = {
     viewFilteredFeesInfo: async (req, res) => {
       try {
           const courses = await Course.find();
-          const { courseId, courseSession } = req.body;
+          const { courseId, courseSession } = req.query;
 
           let filterOptions = {};
 
@@ -532,7 +535,7 @@ module.exports = {
             enrollmentDate: moment(student.enrollmentDate).format('DD-MM-YYYY'),
           }));
 
-          const currentRoute = req.originalUrl;
+          const currentRoute = req.path
 
           res.render('admin/ccet/fees/index', {
             courses,
@@ -544,6 +547,10 @@ module.exports = {
             currentRoute,
             courseId: courseId, // Pass courseName to pre-select the filter in the view
             courseSession: courseSession, // Pass session to pre-select the filter in the view            
+            locals: {
+              courseId,
+              courseSession
+            }
           }); 
 
         } catch (err) {
@@ -636,7 +643,7 @@ module.exports = {
           .skip((currentPage - 1) * perPage)
           .limit(perPage)
 
-        const currentRoute = req.originalUrl;
+        const currentRoute = req.path
         
         res.render('admin/ccet/branches/index', {
           branches,
@@ -684,7 +691,7 @@ module.exports = {
             .skip((currentPage - 1) * perPage)
             .limit(perPage);
 
-          const currentRoute = req.originalUrl;
+          const currentRoute = req.path
 
           res.render('admin/ccet/branches/editBranch', {
               branch,
