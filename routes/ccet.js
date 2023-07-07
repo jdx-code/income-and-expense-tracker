@@ -39,6 +39,6 @@ router.get('/branch-management', ensureAuth, ccetController.getBranch)
 router.post('/add-branch', ccetController.addBranch)
 router.get('/branch-management/:id', ensureAuth, ccetController.getBranchById)
 router.put('/edit-branch/:id', ccetController.editBranch)
-router.post('/branch-management/:id', ccetController.deleteBranch)
+router.delete('/delete-branch/:id', ccetController.deleteBranch)
 
 module.exports = router

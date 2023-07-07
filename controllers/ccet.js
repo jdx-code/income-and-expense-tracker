@@ -733,20 +733,16 @@ module.exports = {
       }
     },
 
-    deleteBranch: async(req, res) => {
-      try{
-        let branch = await Branch.findById(req.params.id)
-
-        if(!branch){
-            return res.render('error/404')
-        } else {
-            branch = await Branch.findOneAndDelete({ _id: req.params.id })
-            res.redirect('/ccet/branch-management')
-        }
-      } catch(err){
-        console.error(err)
-        res.render('error/500')
+    // Delete course
+    deleteBranch: async (req, res) => {
+      try{            
+          await Branch.deleteOne({ _id: req.params.id })
+          console.log('Deleted branch')            
+          res.redirect('/ccet/branch-management/')
+      } catch (err){
+          console.error(err)
+          res.render('error/500')
       }
-    },
+  },
    
 }

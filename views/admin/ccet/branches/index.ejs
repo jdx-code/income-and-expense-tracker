@@ -98,8 +98,8 @@
                                 </a>                                                                     
                             </td>               
                             <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
-                                <form class="my-4" action="/ccet/branch-management/<%= branch._id %>" method="POST">                                   
-                                        <button class="deleteBtn">
+                                <form class="my-4" action="/ccet/delete-branch/<%= branch.id %>?_method=DELETE" method="POST">                                   
+                                        <button type="submit">
                                             <i class="fas fa-trash"></i>
                                         </button>                                   
                                 </form>                                
