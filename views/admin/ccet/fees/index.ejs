@@ -6,7 +6,7 @@
             <form class="flex gap-2" action="/ccet/fees-management/filter-view" method="GET">
                 <span class="py-2 hidden sm:block lg:text-sm">Filter search</span>
                 <div>
-                    <select name="courseId" class="w-28 h-8 lg:w-40 lg:h-9">
+                    <select name="courseId" class="w-28 h-8 lg:w-40 lg:h-9 text-xs md:text-sm">
                         <option value="">Course</option>
                         <% courses.forEach(course => { %>
                           <option value="<%= course._id %>" <%= course._id.toString() === locals.courseId ? 'selected' : '' %>>
@@ -17,7 +17,7 @@
                 </div>
                 
                 <div>
-                    <select name="courseSession" class="w-28 h-8 lg:w-40 lg:h-9">
+                    <select name="courseSession" class="w-28 h-8 lg:w-40 lg:h-9 text-xs md:text-sm">
                         <option value="">Session</option>
                         <% const years = [2021, 2022, 2023]; %>
                         <% years.forEach(year => { %>
@@ -28,7 +28,7 @@
                     </select>  
                 </div>                
                 
-                <input type="text" name="studentInfo" class="w-28 h-8 sm:w-44 md:w-48 lg:h-9" placeholder="Id/Name">
+                <input type="text" name="studentName" class="w-28 h-8 sm:w-32 lg:w-52 lg:h-9 text-xs lg:text-sm" placeholder="Student Name">
                 <div>
                     <button class="h-8 lg:h-9 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
                         <i class="fa fa-search" aria-hidden="true"></i>

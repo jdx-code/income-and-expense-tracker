@@ -118,17 +118,17 @@ module.exports = {
         }
     },
 
-    // // Delete course
-    // deleteCourse: async (req, res) => {
-    //     try{
-    //         await Course.findOneAndDelete({ courseName: req.body.courseToBeDeleted })
-    //         console.log('Deleted course')            
-    //         res.redirect('/ccet/course-management/')
-    //     } catch (err){
-    //         console.error(err)
-    //         res.render('error/500')
-    //     }
-    // },
+    // Delete course
+    deleteCourse: async (req, res) => {
+        try{            
+            await Course.deleteOne({ _id: req.params.id })
+            console.log('Deleted course')            
+            res.redirect('/ccet/course-management/')
+        } catch (err){
+            console.error(err)
+            res.render('error/500')
+        }
+    },
 
     // Render add student form
     getStudentForm: async (req, res) => {
@@ -497,7 +497,7 @@ module.exports = {
     viewFilteredFeesInfo: async (req, res) => {
       try {
           const courses = await Course.find();
-          const { courseId, courseSession } = req.query;
+          const { courseId, courseSession, studentName } = req.query;
 
           let filterOptions = {};
 
@@ -512,6 +512,10 @@ module.exports = {
             filterOptions.enrollmentDate = { $gte: startDate, $lt: endDate };
           }
 
+          if (studentName) {
+            // filterOptions['studentName'] = studentName
+            filterOptions['studentName'] = { $regex: new RegExp(studentName, 'i') };
+          }
 
           const perPage = 10;
           const page = parseInt(req.query.page) || 1;
