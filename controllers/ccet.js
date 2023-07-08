@@ -48,7 +48,7 @@ module.exports = {
     },
 
     // Get particular course info by Id
-    getCourseById: async (req, res) => {
+    courseInfoById: async (req, res) => {
         try{       
             
             const perPage = 5;
@@ -681,7 +681,7 @@ module.exports = {
       }
     },
 
-    getBranchById: async(req, res) => {
+    branchInfoById: async(req, res) => {
         try{       
               
           const perPage = 5;
@@ -713,7 +713,7 @@ module.exports = {
       }
     },
 
-    editBranch: async(req, res) => {
+    updateBranch: async(req, res) => {
       try{          
           let branch = await Branch.findById(req.params.id)               
 

@@ -29,7 +29,7 @@ router.post('/add-fees', ccetController.addFees)
 // Routes for course management
 router.get('/course-management', ensureAuth, ccetController.getAllCourses)
 router.post('/add-course', ccetController.addCourse)
-router.get('/course-management/:id', ensureAuth, ccetController.getCourseById)
+router.post('/course-management/:id', ensureAuth, ccetController.courseInfoById)
 router.put('/update-course/:id', ccetController.updateCourse)
 router.delete('/delete-course/:id', ccetController.deleteCourse)
 
@@ -37,8 +37,8 @@ router.delete('/delete-course/:id', ccetController.deleteCourse)
 // Routes for branch management
 router.get('/branch-management', ensureAuth, ccetController.getBranch)
 router.post('/add-branch', ccetController.addBranch)
-router.get('/branch-management/:id', ensureAuth, ccetController.getBranchById)
-router.put('/edit-branch/:id', ccetController.editBranch)
+router.post('/branch-management/:id', ensureAuth, ccetController.branchInfoById)
+router.put('/update-branch/:id', ccetController.updateBranch)
 router.delete('/delete-branch/:id', ccetController.deleteBranch)
 
 module.exports = router
