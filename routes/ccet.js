@@ -30,7 +30,7 @@ router.post('/add-fees', ccetController.addFees)
 router.get('/course-management', ensureAuth, ccetController.getAllCourses)
 router.post('/add-course', ccetController.addCourse)
 router.get('/course-management/:id', ensureAuth, ccetController.getCourseById)
-router.put('/edit-course/:id', ccetController.editCourse)
+router.put('/update-course/:id', ccetController.updateCourse)
 router.delete('/delete-course/:id', ccetController.deleteCourse)
 
 

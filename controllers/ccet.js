@@ -67,6 +67,7 @@ module.exports = {
             res.render('admin/ccet/courses/editCourse', {
                 course,
                 courses,
+                perPage,
                 currentPage,
                 totalPages,
                 totalData,
@@ -77,29 +78,7 @@ module.exports = {
             console.error(err)
             res.render('error/500')
         }
-    },
-
-    // Edit selected course info
-    editCourse: async (req, res) => {        
-        try{          
-               let course = await Course.findById(req.params.id)               
-
-               if(!course){
-                    return res.render('error/404')
-               } else {
-                    course = await Course.findOneAndUpdate({ _id : req.params.id }, req.body, {
-                        new : true,
-                        runValidators : true,
-                    })
-
-                    res.redirect('/ccet/course-management')
-               }
-
-        } catch (err) {
-            console.error(err)
-            res.render('error/500')
-        }
-    },
+    },    
 
     // Add course 
     addCourse: async(req, res) => {
@@ -117,6 +96,27 @@ module.exports = {
             res.render('error/500')
         }
     },
+
+    // Update selected course info
+    updateCourse: async (req, res) => {        
+      try{    
+          let course = await Course.findById(req.params.id)               
+
+          if(!course){
+              return res.render('error/404')
+          } else {
+              course = await Course.findOneAndUpdate({ _id : req.params.id }, req.body, {
+                  new : true,
+                  runValidators : true,
+              })
+
+              res.redirect('/ccet/course-management')
+          }
+      } catch (err) {
+          console.error(err)
+          res.render('error/500')
+      }
+  },
 
     // Delete course
     deleteCourse: async (req, res) => {

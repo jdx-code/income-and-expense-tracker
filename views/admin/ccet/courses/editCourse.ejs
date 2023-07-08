@@ -1,13 +1,11 @@
 <div class="flex h-screen">
-    <div class="w-64 bg-[#4d44b5]">
-        <%- include('../../../partials/adminTemplate.ejs') %>
-    </div>
+    
+    <%- include('../../../partials/adminTemplate.ejs') %>    
     
     <div class="flex-1 flex flex-col p-4">
         <div>
             <h1 class="bg-gradient-to-r from-indigo-400 mb-4 p-2 text-white">Edit Course Information</h1>            
-            <form action="/ccet/edit-course/<%= course._id %>" method="POST">
-                <input type="hidden" name="_method" value="PUT">                
+            <form action="/ccet/update-course/<%= course.id %>?_method=PUT" method="POST">                     
                 <table>
                     <tr>
                         <td>
@@ -41,7 +39,6 @@
                     </tr>
                 </table>                        
             </form>
-
         </div>
             
         <div class="my-8">
@@ -109,13 +106,14 @@
                     <% } %>
 
                 </table>            
-                <% } %>       
+                <% } %>    
+                
+                <!-- Pagination -->
+                <%- include('../../../partials/pagination.ejs') %>
+                
             </div>
         </div>
-
-        <!-- Pagination -->
-        <%- include('../../../partials/pagination.ejs') %>
-
+        
     </div>
 </div>
 
