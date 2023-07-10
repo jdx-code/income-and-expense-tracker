@@ -1,6 +1,5 @@
 const { request } = require('express')
 const cloudinary = require("../middleware/cloudinary");
-const upload = require("../utils/multer");
 const moment = require("moment")
 const Course = require('../models/Course')
 const Student = require('../models/Student')
@@ -356,7 +355,9 @@ module.exports = {
           const status = 1;      
           
           // Upload the file to Cloudinary
-          const result = await cloudinary.uploader.upload(req.file.path)
+          const result = await cloudinary.uploader.upload(req.file.path, {
+            folder: "dlsds"
+          })
           const imageUrl = result.secure_url
           const cloudinaryId = result.public_id
 
@@ -366,7 +367,7 @@ module.exports = {
             courseEnrolled,                  
             status,
             admission_form_img: imageUrl, // Save the Cloudinary image URL in the student document
-            cloudinary_id: cloudinaryId,
+            cloudinaryId: cloudinaryId,
           });
 
           const newStudentId = newStudent._id;
@@ -394,6 +395,21 @@ module.exports = {
           res.render('error/500');
       }
     },        
+
+    deleteStudent: async(req, res) => {
+        try{
+            let student = await Student.findById({ _id: req.params.id })
+            await cloudinary.uploader.destroy(student.cloudinaryId)
+
+            await Student.deleteOne({ _id: req.params.id })
+            console.log('Deleted branch')            
+            res.redirect('/ccet/student-management/')
+
+        } catch(err) {
+          console.error(err)
+          res.render('error/500')
+        }
+    },
       
 
     // Get fees data

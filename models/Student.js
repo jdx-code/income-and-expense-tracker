@@ -27,7 +27,7 @@ const StudentSchema = new mongoose.Schema({
     admission_form_img: {
         type: String,
     },
-    cloudinary_id: {
+    cloudinaryId: {
         type: String,
     }    
 })

@@ -14,6 +14,7 @@ router.get('/student-management/filter-view', ccetController.viewFilteredStudent
 router.get('/student-management/add', ensureAuth, ccetController.getStudentForm)
 router.post('/add-student', upload.single("file"), ccetController.addStudentProcess)
 router.get('/student-management/:id', ensureAuth, ccetController.getStudentById)
+router.delete('delete-student/:id', ccetController.deleteStudent)
 // router.get('/student-management', ccetController.getStudentMng)
 // router.post('/student-management', ccetController.getStudentMngFiltered)
 

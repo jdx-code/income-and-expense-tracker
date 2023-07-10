@@ -53,7 +53,13 @@
                         <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">
                             Date of admission
                         </th>
-                        <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Admission Form</th>                        
+                        <!-- <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Admission Form</th>                         -->
+                        <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                            Update
+                        </th>
+                        <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                            Delete
+                        </th>
                     </tr>            
                 </thead>     
 
@@ -79,11 +85,26 @@
                                 <%= student.enrollmentDate %>                
                             </td>
                             
-                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">             
+                            <!-- <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">             
                                 <a href="/ccet/student-management/<%= student._id %>" target="popup" onclick="window.open('/ccet/student-management/<%= student._id %>','name','width=900,height=750')">                    
                                     View
                                 </a>
-                            </td>                                  
+                            </td>  -->
+                            
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2"> 
+                                <form class="mt-2" action="/ccet/course-management/<%= student.id %>" method="POST">
+                                    <button type="submit">
+                                        <i class="fas fa-edit"></i></a>
+                                    </button>
+                                </form>
+                            </td>
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                                <form class="mt-2" action="/ccet/delete-student/<%= student.id %>?_method=DELETE" method="POST">
+                                    <button type="submit">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>                                
+                            </td>   
                         </tr>    
                     <% }) %>  
                 </tbody>  
