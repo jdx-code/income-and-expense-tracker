@@ -1,0 +1,119 @@
+<div class="flex h-screen">
+    
+    <%- include('../../../partials/adminTemplate.ejs') %>
+    
+    <div class="flex-1 flex flex-col sm:p-2">
+        <div class="w-[98%] sm:w-full text-xs sm:text-sm flex justify-end bg-white py-4">
+            <form class="flex gap-2" action="/ccet/student-management/admissionForms/filter-view" method="GET">
+                <span class="py-2 hidden sm:block lg:text-sm">Filter search</span>
+                <div>                    
+                    <select name="courseId" class="w-28 h-8 sm:w-40 sm:h-9">
+                        <option value="">Course</option>
+                        <% courses.forEach(course => { %>
+                          <option value="<%= course._id %>" <%= course._id.toString() === locals.courseId ? 'selected' : '' %>>
+                            <%= course.courseName %>
+                          </option>
+                        <% }) %>
+                    </select>                      
+                </div>
+                    
+                <div>
+                    <select name="courseSession" class="w-28 h-8 sm:w-40 sm:h-9">
+                        <option value="">Session</option>
+                        <% const years = [2021, 2022, 2023]; %>
+                        <% years.forEach(year => { %>
+                          <option value="<%= year %>" <%= year.toString() === locals.courseSession ? 'selected' : '' %>>
+                            <%= year %>
+                          </option>
+                        <% }) %>
+                    </select>                      
+                </div>
+
+                <div>
+                    <button class="h-8 sm:h-9 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- <div class="flex-1 relative overflow-x-auto shadow-md sm:rounded-lg"> -->
+            <table class="w-[98%] sm:w-full text-xs lg:text-base text-center text-blue-600 dark:text-blue-100">
+                <thead class="text-white uppercase bg-blue-600 dark:text-white">
+                    <tr>
+                        <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                            Name
+                        </th>                        
+                        <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                            Course Enrolled
+                        </th>
+                        <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                            Date of admission
+                        </th>
+                        <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                            Admission Form
+                        </th>                                                
+                    </tr>            
+                </thead>     
+
+                <% if(students && students.length > 0) { %>
+                    
+                <tbody>                
+                    <% students.forEach(student => { %>
+                                
+                        <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">
+                            <td style="display:none">                
+                                <%= student._id %>                
+                            </td>
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                                <%= student.studentName %>
+                            </td>                            
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                                <%= student.courseEnrolled.courseName %>
+                            </td>
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">                
+                                <%= student.enrollmentDate %>                
+                            </td>                            
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">             
+                                <a href="/ccet/student-management/<%= student._id %>" onclick="openPopup(event, '/ccet/student-management/<%= student._id %>')">
+                                    View                                    
+                                </a>
+                            </td> 
+                        </tr>    
+                    <% }) %>  
+                </tbody>  
+
+                <% } else { %>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p class="my-8 mx-2 text-gray-600">No records..</p>
+                            </td>
+                        </tr>
+                    </tbody>                    
+                <% } %>                
+                
+            </table>
+        <!-- </div> -->
+        
+
+        <!-- Pagination -->
+        <%- include('../../../partials/pagination.ejs') %>
+        
+    </div>
+</div>
+
+<script src="../../../../js/main.js"></script>
+<script>
+    function openPopup(event, url) {
+        event.preventDefault(); // Prevents the default link behavior
+    
+        // Open the popup window
+        window.open(url, 'name', 'width=800,height=600');
+    }
+</script>
+    
+
+
+</body>
+</html>

@@ -9,8 +9,10 @@ router.get('/', ensureAuth, ccetController.getIndex)
 
 // Routes for student management
 router.get('/student-management', ensureAuth, ccetController.getAllStudents)
-router.post('/student-management/filter-view', ccetController.viewFilteredStudents)
+// router.post('/student-management/filter-view', ccetController.viewFilteredStudents)
 router.get('/student-management/filter-view', ccetController.viewFilteredStudents)
+router.get('/student-management/admissionForms', ensureAuth, ccetController.getAdmissionForms)
+router.get('/student-management/admissionForms/filter-view', ensureAuth, ccetController.viewFilteredAdmissionForms)
 router.get('/student-management/add', ensureAuth, ccetController.getStudentForm)
 router.post('/add-student', upload.single("file"), ccetController.addStudentProcess)
 router.get('/student-management/:id', ensureAuth, ccetController.getStudentById)
