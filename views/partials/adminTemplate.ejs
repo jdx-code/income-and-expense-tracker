@@ -63,8 +63,14 @@
             </li>
             <li class="my-2">
                 <a href="/ccet/branch-management/" class="block px-4 py-2 rounded-md hover:bg-[#362f78]  hover:text-white">
-                    <i class="fa fa-cubes pr-2" aria-hidden="true"></i>
+                    <i class="fa fa-cubes pr-1" aria-hidden="true"></i>
                     Branch Management
+                </a>            
+            </li>
+            <li class="my-2">
+                <a href="/logout" class="block px-4 py-2 rounded-md hover:bg-[#362f78]  hover:text-white">
+                    <i class="fa fa-cog pr-2" aria-hidden="true"></i>
+                    Account Settings
                 </a>            
             </li>
             <li class="my-2">
@@ -73,14 +79,24 @@
                     Logout
                 </a>            
             </li>
-        </ul>
-
+        </ul>    
+        
         <!-- Close button inside the sidenav -->
         <button id="closeButton" type="button" class="hidden absolute top-2 left-56 text-gray-100 hover:text-gray-300 focus:text-gray-700 focus:outline-none md:hidden">
             <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
-        </button>
+        </button>        
+    </div>  
+    
+    <!-- Footer for medium and larger screens -->
+    <div class="hidden sm:flex flex-col justify-center sm:fixed bottom-2 sm:w-64">
+        <div class="flex justify-center">
+            <img src="../../../images/zs.png"/>
+        </div>
+        <div class="flex justify-center text-xs text-blue-200">
+            <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> All Rights Reserved</p>
+        </div>
     </div>    
 </div>
 
@@ -91,6 +107,16 @@
         </svg>
     </button>
 </div>
+
+<!-- Footer for smaller screens -->
+<div class="md:hidden flex flex-col justify-center fixed bottom-0 w-full py-2 bg-[#43379d]">    
+    <div class="flex justify-center">
+        <img src="../../../images/zs.png"/>
+    </div>
+    <div class="flex justify-center text-xs text-blue-200">
+        <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> All Rights Reserved</p>
+    </div>
+</div>   
 
 <script>
     var sidenav = document.getElementById('sidenav');
