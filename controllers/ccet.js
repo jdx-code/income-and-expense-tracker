@@ -155,6 +155,7 @@ module.exports = {
           return res.status(404).send('File not found. The file might have not been uploaded or accidentally got removed.');
         }
         
+        res.redirect(student.admission_form_img)
       } catch (err) {
         console.error(err);
         res.status(500).render('error/500');
