@@ -394,15 +394,18 @@ module.exports = {
     // },
 
     studentInfoById: async (req, res) => {
-      try{       
-              
+      try{    
         const perPage = 5;
         const currentPage = parseInt(req.query.page) || 1;
 
         const totalData = await Student.countDocuments();
         const totalPages = Math.ceil(totalData / perPage);
 
-        const student = await Student.findById({ _id: req.params.id })
+        const student = await Student.findById( req.params.id )
+          .populate('courseEnrolled')
+
+        const courseEnrolledByStudent = student.courseEnrolled
+                
         const students = await Student.find()
           .populate('courseEnrolled')
           .skip((currentPage - 1) * perPage)
@@ -410,6 +413,11 @@ module.exports = {
         
         const courses = await Course.find()
         const branches = await Branch.find()
+
+        const newCourses = courses.filter(e => e.id !== courseEnrolledByStudent.id)
+
+        console.log(courseEnrolledByStudent)
+        console.log(newCourses)
 
         const formattedStudents = students.map(student => ({
           ...student.toObject(),
@@ -421,7 +429,7 @@ module.exports = {
         res.render('admin/ccet/students/editStudent', {
             student,
             students : formattedStudents,
-            courses,
+            newCourses,
             branches,
             currentPage,
             totalPages,

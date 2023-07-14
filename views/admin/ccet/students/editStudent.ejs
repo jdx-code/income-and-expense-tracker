@@ -34,9 +34,10 @@
                             <label>Course Enrolled : </label>
                         </td>
                         <td>
-                            <select class="w-48 h-7 sm:w-60 sm:h-9 rounded-md" name="courseEnrolled">                                
-                                <% courses.forEach(course => { %>
-                                    <option value="<%= course._id %>" <%= course._id === student.courseEnrolled ? 'selected' : '' %>>
+                            <select class="w-48 h-7 sm:w-60 sm:h-9 rounded-md" name="courseEnrolled">                                                                          
+                                <option value="<%= student.courseEnrolled %>"><%= student.courseEnrolled.courseName %></option>
+                                <% newCourses.forEach(course => { %>                                    
+                                    <option value="<%= course._id %>">
                                         <%= course.courseName %>
                                     </option>            
                                 <% }) %>
