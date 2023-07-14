@@ -15,7 +15,7 @@ router.get('/student-management/admissionForms', ensureAuth, ccetController.getA
 router.get('/student-management/admissionForms/filter-view', ensureAuth, ccetController.viewFilteredAdmissionForms)
 router.get('/student-management/add', ensureAuth, ccetController.getStudentForm)
 router.post('/add-student', upload.single("file"), ccetController.addStudentProcess)
-// router.get('/student-management/:id', ensureAuth, ccetController.getStudentById)
+router.get('/student-management/:id', ensureAuth, ccetController.getStudentById)
 router.post('/student-management/:id', ccetController.studentInfoById)
 router.delete('/delete-student/:id', ccetController.deleteStudent)
 // router.get('/student-management', ccetController.getStudentMng)

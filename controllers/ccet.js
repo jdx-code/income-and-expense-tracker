@@ -144,6 +144,23 @@ module.exports = {
         }        
     },
 
+    getStudentById: async (req, res) => {
+      try {
+        const student = await Student.findById(req.params.id)
+        if (!student) {
+          return res.status(404).send('Student not found');
+        }
+    
+        if (!student.admission_form_img) {
+          return res.status(404).send('File not found. The file might have not been uploaded or accidentally got removed.');
+        }
+        
+      } catch (err) {
+        console.error(err);
+        res.status(500).render('error/500');
+      }
+    },
+
     // Render all students info in paginated view
     getAllStudents: async (req, res) => {
         try{
