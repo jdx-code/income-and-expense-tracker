@@ -15,8 +15,9 @@ router.get('/student-management/admissionForms', ensureAuth, ccetController.getA
 router.get('/student-management/admissionForms/filter-view', ensureAuth, ccetController.viewFilteredAdmissionForms)
 router.get('/student-management/add', ensureAuth, ccetController.getStudentForm)
 router.post('/add-student', upload.single("file"), ccetController.addStudentProcess)
-router.get('/student-management/:id', ensureAuth, ccetController.getStudentById)
-router.delete('delete-student/:id', ccetController.deleteStudent)
+// router.get('/student-management/:id', ensureAuth, ccetController.getStudentById)
+router.post('/student-management/:id', ccetController.studentInfoById)
+router.delete('/delete-student/:id', ccetController.deleteStudent)
 // router.get('/student-management', ccetController.getStudentMng)
 // router.post('/student-management', ccetController.getStudentMngFiltered)
 
@@ -33,7 +34,7 @@ router.post('/add-fees', ccetController.addFees)
 // Routes for course management
 router.get('/course-management', ensureAuth, ccetController.getAllCourses)
 router.post('/add-course', ccetController.addCourse)
-router.post('/course-management/:id', ensureAuth, ccetController.courseInfoById)
+router.post('/course-management/:id', ccetController.courseInfoById)
 router.put('/update-course/:id', ccetController.updateCourse)
 router.delete('/delete-course/:id', ccetController.deleteCourse)
 

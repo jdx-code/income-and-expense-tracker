@@ -1,0 +1,156 @@
+<div class="flex h-screen">
+    
+    <%- include('../../../partials/adminTemplate.ejs') %>
+        
+    <div class="flex-1 flex flex-col sm:p-2">
+        <div>
+            <h1 class="bg-gradient-to-r from-indigo-400 mb-4 p-2 text-white">Edit student information</h1>            
+            <form action="" method="POST">                
+                <table>
+                    <tr>
+                        <td>
+                            <label>Student Name : </label>
+                        </td>
+                        <td>
+                            <input class="w-48 h-7 sm:w-60 sm:h-9 rounded-md" type="text" name="studentName" value="<%= student.studentName %>">
+                        </td>
+                    </tr>                    
+                    <tr>
+                        <td>
+                            <label>Qualification : </label>
+                        </td>
+                        <td>
+                            <select class="w-48 h-7 sm:w-60 sm:h-9 rounded-md" name="lastExamPassed">
+                                <option value="">Last Exam Passed</option>
+                                <option value="hslc">HSLC</option>
+                                <option value="hs">HS</option>
+                                <option value="graduation">Graduation</option>
+                                <option value="post graduation">Post Graduation</option>
+                            </select>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Course Enrolled : </label>
+                        </td>
+                        <td>
+                            <select class="w-48 h-7 sm:w-60 sm:h-9 rounded-md" name="courseEnrolled">                                
+                                <% courses.forEach(course => { %>
+                                    <option value="<%= course._id %>" <%= course._id === student.courseEnrolled ? 'selected' : '' %>>
+                                        <%= course.courseName %>
+                                    </option>            
+                                <% }) %>
+                            </select>
+                        </td>                        
+                    </tr>                        
+                    <tr>
+                        <td>
+                            <label>Branch : </label>
+                        </td>
+                        <td>
+                            <select class="w-48 h-7 sm:w-60 sm:h-9 rounded-md" name="branch">                                
+                                <% branches.forEach(branch => { %>
+                                    <option value="<%= branch._id %>" <%= branch._id === student.branch ? 'selected' : '' %>>
+                                        <%= branch.branchName %>
+                                    </option>            
+                                <% }) %>
+                            </select>
+                        </td>                        
+                    </tr>                                 
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Update Course</button>
+                        </td>
+                    </tr>
+                </table>                        
+            </form>
+
+        </div>
+            
+        <div>
+            <h1 class="bg-gradient-to-r from-indigo-400 my-4 p-2 text-white">Students list..</h1>            
+            <% if(!students) { %>
+                <p>Something went wrong..</p>
+            <% } else { %>
+            <% let studentArr = Object.values(students) %>
+            <div class="flex-1 relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-[98%] text-xs lg:text-base text-center text-blue-600 dark:text-blue-100">
+                    <thead class="text-white uppercase bg-blue-600 dark:text-white">
+                        <tr>
+                            <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Name</th>
+                            <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Education</th>
+                            <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Course Enrolled</th>
+                            <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2 hidden lg:block">Date of Admission</th>  
+                            <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Update</th>
+                            <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Delete</th>
+                        </tr>
+                    </thead>
+
+                    <% if(studentArr && studentArr.length > 0) { %>                        
+
+                    <tbody>
+                    <% studentArr.forEach(student => { %>
+                        <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">                
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                                <span id="coursename">
+                                    <%= student.studentName %>
+                                </span>
+                            </td>
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                                <span id="coursename">
+                                    <%= student.lastExamPassed %>
+                                </span>
+                            </td>
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                                <span id="coursename">
+                                    <%= student.courseEnrolled.courseName %>
+                                </span>
+                            </td>
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                                <span id="coursename">
+                                    <%= student.enrollmentDate %>
+                                </span>
+                            </td>
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">                                 
+                                <form class="mt-2" action="/ccet/student-management/<%= student._id %>" method="POST">
+                                    <button type="submit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </form>                                                                     
+                            </td>               
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                                <form class="mt-2" action="/ccet/delete-student/<%= student._id %>?_method=DELETE" method="POST">                                   
+                                        <button type="submit">
+                                            <i class="fas fa-trash"></i>
+                                        </button>                                   
+                                </form>                                
+                            </td>          
+                        </tr>
+                        <% }) %>
+                    </tbody>
+
+                    <% } else { %>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p class="my-8 mx-2 text-gray-600">No records..</p>
+                                </td>
+                            </tr>
+                        </tbody>                    
+                    <% } %>
+
+                </table>            
+                <% } %>       
+            </div>
+        </div>
+
+       <!-- Pagination -->       
+       <%- include('../../../partials/pagination.ejs') %>
+
+    </div>
+</div>
+
+<script src="../../../../js/main.js"></script>    
+</body>
+</html>

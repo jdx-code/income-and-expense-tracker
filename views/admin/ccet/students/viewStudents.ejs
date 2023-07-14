@@ -84,25 +84,18 @@
                             <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">                
                                 <%= student.enrollmentDate %>                
                             </td>
-                            
-                            <!-- <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">             
-                                <a href="/ccet/student-management/<%= student._id %>" target="popup" onclick="window.open('/ccet/student-management/<%= student._id %>','name','width=900,height=750')">                    
-                                    View
-                                </a>
-                            </td>  -->
-                            
-                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2"> 
-                                <form class="mt-2" action="/ccet/course-management/<%= student.id %>" method="POST">
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">                                 
+                                <form class="mt-2" action="/ccet/student-management/<%= student._id %>" method="POST">
                                     <button type="submit">
-                                        <i class="fas fa-edit"></i></a>
+                                        <i class="fas fa-edit"></i>
                                     </button>
-                                </form>
-                            </td>
+                                </form>                                                                     
+                            </td>               
                             <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
-                                <form class="mt-2" action="/ccet/delete-student/<%= student.id %>?_method=DELETE" method="POST">
-                                    <button type="submit">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
+                                <form class="mt-2" action="/ccet/delete-student/<%= student._id %>?_method=DELETE" method="POST">                                 
+                                        <button type="submit">
+                                            <i class="fas fa-trash"></i>
+                                        </button>                                   
                                 </form>                                
                             </td>   
                         </tr>    

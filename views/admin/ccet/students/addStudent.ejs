@@ -50,6 +50,23 @@
                                 <% }) %>
                             </select>
                         </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="text-sm sm:text-base">
+                                Branch
+                            </label>
+                        </td>
+                        <td>
+                            <select class="my-3 w-44 sm:w-60 h-10 rounded-md" name="branch" required>
+                                <option value="">Branch</option>
+                                <% branches.forEach(branch => { %>
+                                    <option value="<%= branch._id %>">
+                                        <%= branch.branchName %>
+                                    </option>            
+                                <% }) %>
+                            </select>
+                        </td>
                     </tr>   
                     <tr>
                         <td>

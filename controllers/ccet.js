@@ -133,8 +133,10 @@ module.exports = {
     getStudentForm: async (req, res) => {
         try{
             const courses = await Course.find()
+            const branches = await Branch.find()
             res.render('admin/ccet/students/addStudent', {
                 courses,
+                branches,
             })
         } catch(err) {
             console.error(err)
@@ -373,15 +375,43 @@ module.exports = {
     //     }
     // },
 
-    getStudentById: async (req, res) => {
-        try{
-            const studentInfo = await Student.findById({ _id: req.params.id })
-                .populate('courseEnrolled')
+    studentInfoById: async (req, res) => {
+      try{       
+              
+        const perPage = 5;
+        const currentPage = parseInt(req.query.page) || 1;
 
-            res.render('admin/ccet/students/studentInfo', {
-                studentInfo,
-            })
-        } catch(err){
+        const totalData = await Student.countDocuments();
+        const totalPages = Math.ceil(totalData / perPage);
+
+        const student = await Student.findById({ _id: req.params.id })
+        const students = await Student.find()
+          .populate('courseEnrolled')
+          .skip((currentPage - 1) * perPage)
+          .limit(perPage);
+        
+        const courses = await Course.find()
+        const branches = await Branch.find()
+
+        const formattedStudents = students.map(student => ({
+          ...student.toObject(),
+          enrollmentDate: moment(student.enrollmentDate).format('DD-MM-YYYY')
+          }));
+
+        const currentRoute = req.path
+
+        res.render('admin/ccet/students/editStudent', {
+            student,
+            students : formattedStudents,
+            courses,
+            branches,
+            currentPage,
+            totalPages,
+            totalData,
+            perPage,
+            currentRoute,
+        })
+    } catch(err){
             console.error(err)
             res.render('error/500')
         }
@@ -454,6 +484,7 @@ module.exports = {
           const studentName = req.body.studentName;
           const lastExamPassed = req.body.lastExamPassed;
           const courseEnrolled = req.body.courseEnrolled;
+          const branch = req.body.branch
           const status = 1;      
           
           // Upload the file to Cloudinary
@@ -466,7 +497,8 @@ module.exports = {
           const newStudent = await Student.create({
             studentName,
             lastExamPassed,
-            courseEnrolled,                  
+            courseEnrolled,             
+            branch,     
             status,
             admission_form_img: imageUrl, // Save the Cloudinary image URL in the student document
             cloudinaryId: cloudinaryId,
@@ -500,11 +532,12 @@ module.exports = {
 
     deleteStudent: async(req, res) => {
         try{
-            let student = await Student.findById({ _id: req.params.id })
+            let student = await Student.findById( req.params.id )
+            
             await cloudinary.uploader.destroy(student.cloudinaryId)
 
             await Student.deleteOne({ _id: req.params.id })
-            console.log('Deleted branch')            
+            console.log('Deleted student')            
             res.redirect('/ccet/student-management/')
 
         } catch(err) {
@@ -852,6 +885,5 @@ module.exports = {
           console.error(err)
           res.render('error/500')
       }
-  },
-   
+  },   
 }
