@@ -869,6 +869,9 @@ select {
 .w-full {
   width: 100%;
 }
+.w-\[80\%\] {
+  width: 80%;
+}
 .max-w-2xl {
   max-width: 42rem;
 }
@@ -886,6 +889,9 @@ select {
 }
 .flex-col {
   flex-direction: column;
+}
+.flex-wrap {
+  flex-wrap: wrap;
 }
 .items-center {
   align-items: center;
@@ -1563,6 +1569,16 @@ select > option {
     margin-bottom: 0.5rem;
   }
 
+  .lg\:mx-12 {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+
+  .lg\:mx-6 {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
   .lg\:block {
     display: block;
   }
@@ -1603,6 +1619,10 @@ select > option {
     flex-direction: row;
   }
 
+  .lg\:flex-wrap {
+    flex-wrap: wrap;
+  }
+
   .lg\:items-center {
     align-items: center;
   }
@@ -1623,6 +1643,11 @@ select > option {
   .lg\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+
+  .lg\:px-12 {
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 
   .lg\:text-base {

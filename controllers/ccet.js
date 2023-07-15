@@ -9,9 +9,35 @@ const Branch = require('../models/Branch');
 const ObjectId = mongoose.Types.ObjectId;
 
 module.exports = {
-    getIndex: (req, res) => {
-        res.render('admin/ccet/index.ejs')
-    },
+    // getIndex: async(req, res) => {
+    //     const totalStudents = await Student.countDocuments();
+    //     const branches = await Branch.find()
+        
+    //     res.render('admin/ccet/index.ejs', {
+    //       totalStudents,
+    //       branches,
+    //     })
+    // },
+
+    getIndex: async (req, res) => {
+      const branches = await Branch.find();
+      const branchesWithTotalStudents = [];
+  
+      for (const branch of branches) {
+          const totalStudents = await Student.countDocuments({ branch: branch._id });
+          branchesWithTotalStudents.push({
+              branchName: branch.branchName,
+              totalStudents: totalStudents,
+          });
+      }
+  
+      const totalStudents = await Student.countDocuments();
+  
+      res.render('admin/ccet/index.ejs', {
+          totalStudents,
+          branches: branchesWithTotalStudents,
+      });
+  },
     
     // Get course information
     getAllCourses: async (req, res) => {

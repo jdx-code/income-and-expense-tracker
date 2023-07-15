@@ -4,20 +4,20 @@
 
     <div class="flex-1 flex bg-white">        
 
-        <div class="w-[100%] h-32 my-4 flex flex-col items-center lg:flex-row lg:justify-evenly">            
+        <div class="w-[100%] h-32 my-4 flex flex-col items-center lg:flex-row lg:justify-evenly lg:flex-wrap lg:mx-12">            
             
-            <div class="w-[50%] lg:w-[25%] my-4 p-4 border-2 border-slate-400 rounded-md text-gray-700 font-bold hover:border-slate-500">
+            <div class="w-[50%] lg:w-[25%] lg:mx-6 my-4 p-4 border-2 border-slate-400 rounded-md text-gray-700 font-bold hover:border-slate-500">
                 <p>Total Students</p>
-                <p class="text-3xl">28</p>
+                <p class="text-3xl"><%= totalStudents < 10 ? `0${totalStudents}` : totalStudents %></p>
             </div>            
-            <div class="w-[50%] lg:w-[25%] my-4 p-4 to-[#7F53AC] border-2 border-slate-400 rounded-md text-gray-700 font-bold hover:border-slate-500">
-                <p>Chandmari Branch</p>
-                <p class="text-3xl">21</p>
-            </div>
-            <div class="w-[50%] lg:w-[25%] my-4 p-4 border-2 border-slate-400 rounded-md text-gray-700 font-bold hover:border-slate-500">
-                <p>Changsari Branch</p>
-                <p class="text-3xl">07</p>
-            </div>
+            <% if(branches) { %>
+                <% branches.forEach( b => { %>
+                <div class="w-[50%] lg:w-[25%] lg:mx-6 my-4 p-4 to-[#7F53AC] border-2 border-slate-400 rounded-md text-gray-700 font-bold hover:border-slate-500">
+                    <p><%= b.branchName %></p>
+                    <p class="text-3xl"><%= b.totalStudents < 10 ? `0${b.totalStudents}` : b.totalStudents %></p>                                        
+                </div>
+                <% }) %>
+            <% } %>
             
         </div>
 
@@ -28,4 +28,5 @@
     
 </body>
 </html>
+
 
