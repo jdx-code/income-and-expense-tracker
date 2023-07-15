@@ -593,8 +593,8 @@ module.exports = {
               let { studentName, lastExamPassed, courseEnrolled, branch } = req.body;
               
               let updatedStudentsInfo = {
-                // studentName : studentName || student.studentName,
-                // lastExamPassed : lastExamPassed || student.lastExamPassed, 
+                studentName : studentName || student.studentName,
+                lastExamPassed : lastExamPassed || student.lastExamPassed, 
               } 
 
               if(courseEnrolled) {
