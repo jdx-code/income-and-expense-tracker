@@ -5,7 +5,7 @@
     <div class="flex-1 flex flex-col sm:p-2">
         <div>
             <h1 class="bg-gradient-to-r from-indigo-400 mb-4 p-2 text-white">Edit student information</h1>            
-            <form action="" method="POST">                
+            <form action="/ccet/update-student/<%= student.id %>?_method=PUT" method="POST">                
                 <table>
                     <tr>
                         <td>
@@ -21,11 +21,12 @@
                         </td>
                         <td>
                             <select class="w-48 h-7 sm:w-60 sm:h-9 rounded-md" name="lastExamPassed">
-                                <option value="">Last Exam Passed</option>
-                                <option value="hslc">HSLC</option>
-                                <option value="hs">HS</option>
-                                <option value="graduation">Graduation</option>
-                                <option value="post graduation">Post Graduation</option>
+                                <option value="<%= student.lastExamPassed %>"><%= student.lastExamPassed.toUpperCase() %></option>
+                                <% filteredQualifications.forEach(qualification => { %>                                    
+                                    <option value="<%= qualification %>">
+                                        <%= qualification.toUpperCase() %>
+                                    </option>            
+                                <% }) %>
                             </select>
                         </td>                        
                     </tr>
@@ -35,8 +36,8 @@
                         </td>
                         <td>
                             <select class="w-48 h-7 sm:w-60 sm:h-9 rounded-md" name="courseEnrolled">                                                                          
-                                <option value="<%= student.courseEnrolled %>"><%= student.courseEnrolled.courseName %></option>
-                                <% newCourses.forEach(course => { %>                                    
+                                <option value="<%= selectedCourseId %>"><%= selectedCourseName %></option>
+                                <% filteredCourses.forEach(course => { %>                                    
                                     <option value="<%= course._id %>">
                                         <%= course.courseName %>
                                     </option>            
@@ -50,10 +51,11 @@
                         </td>
                         <td>
                             <select class="w-48 h-7 sm:w-60 sm:h-9 rounded-md" name="branch">                                
-                                <% branches.forEach(branch => { %>
-                                    <option value="<%= branch._id %>" <%= branch._id === student.branch ? 'selected' : '' %>>
+                                <option value="<%= selectedBranchId %>"><%= selectedBranchName %></option>
+                                <% filteredBranches.forEach(branch => { %>
+                                    <option value="<%= branch._id %>">
                                         <%= branch.branchName %>
-                                    </option>            
+                                    </option>             
                                 <% }) %>
                             </select>
                         </td>                        

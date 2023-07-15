@@ -53,6 +53,9 @@
                         <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">
                             Date of admission
                         </th>
+                        <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                            Branch
+                        </th>
                         <!-- <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Admission Form</th>                         -->
                         <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">
                             Update
@@ -83,6 +86,9 @@
                             </td>
                             <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">                
                                 <%= student.enrollmentDate %>                
+                            </td>
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">                
+                                <%= student.branch.branchName %>                
                             </td>
                             <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">                                 
                                 <form class="mt-2" action="/ccet/student-management/<%= student._id %>" method="POST">

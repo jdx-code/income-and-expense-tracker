@@ -174,6 +174,7 @@ module.exports = {
 
             const students = await Student.find()
               .populate('courseEnrolled')
+              .populate('branch')
               .sort({ enrollmentDate: 'descending' })
               .skip((currentPage - 1) * perPage)
               .limit(perPage);
@@ -403,8 +404,20 @@ module.exports = {
 
         const student = await Student.findById( req.params.id )
           .populate('courseEnrolled')
+          .populate('branch')
+
+        const qualificationList = [
+          "hslc",
+          "hs",
+          "graduation",
+          "post graduation"
+        ]
 
         const courseEnrolledByStudent = student.courseEnrolled
+        const branchOfStudent = student.branch
+        const lastExamPassed = student.lastExamPassed
+
+        console.log(lastExamPassed)
                 
         const students = await Student.find()
           .populate('courseEnrolled')
@@ -414,10 +427,18 @@ module.exports = {
         const courses = await Course.find()
         const branches = await Branch.find()
 
-        const newCourses = courses.filter(e => e.id !== courseEnrolledByStudent.id)
+        // const selectedCourse = courses
+        //     .filter(e => e.id == courseEnrolledByStudent.id) 
+        
+        const selectedCourseId = student.courseEnrolled.id
+        const selectedCourseName = student.courseEnrolled.courseName
 
-        console.log(courseEnrolledByStudent)
-        console.log(newCourses)
+        const selectedBranchId = student.branch.id
+        const selectedBranchName = student.branch.branchName
+
+        const filteredCourses = courses.filter(e => e.id !== courseEnrolledByStudent.id)
+        const filteredBranches = branches.filter(e => e.id !== branchOfStudent.id)
+        const filteredQualifications = qualificationList.filter(e => e !== lastExamPassed)
 
         const formattedStudents = students.map(student => ({
           ...student.toObject(),
@@ -429,8 +450,13 @@ module.exports = {
         res.render('admin/ccet/students/editStudent', {
             student,
             students : formattedStudents,
-            newCourses,
-            branches,
+            selectedCourseId,
+            selectedCourseName,
+            filteredCourses,
+            selectedBranchId,
+            selectedBranchName,
+            filteredBranches,
+            filteredQualifications,
             currentPage,
             totalPages,
             totalData,
@@ -554,7 +580,48 @@ module.exports = {
           console.error(err);
           res.render('error/500');
       }
-    },        
+    },   
+    
+    updateStudent: async(req, res) => {
+      try{        
+        
+        let student = await Student.findById(req.params.id)               
+
+          if(!student){
+              return res.render('error/404')
+          } else {
+              let { studentName, lastExamPassed, courseEnrolled, branch } = req.body;
+              
+              let updatedStudentsInfo = {
+                // studentName : studentName || student.studentName,
+                // lastExamPassed : lastExamPassed || student.lastExamPassed, 
+              } 
+
+              if(courseEnrolled) {
+                updatedStudentsInfo.courseEnrolled = new mongoose.Types.ObjectId(courseEnrolled)
+              } else {
+                updatedStudentsInfo.courseEnrolled = student.courseEnrolled
+              }
+
+              if(branch) {
+                updatedStudentsInfo.branch = new mongoose.Types.ObjectId(branch)                
+              } else {
+                updatedStudentsInfo.branch = student.branch
+              }
+            
+              student = await Student.findOneAndUpdate({ _id : req.params.id }, 
+                updatedStudentsInfo, {
+                  new : true,
+                  runValidators : true,
+              })
+
+              res.redirect('/ccet/student-management')
+          }
+      } catch(err){
+        console.error(err)
+        res.render('error/500')
+      }
+    },
 
     deleteStudent: async(req, res) => {
         try{
