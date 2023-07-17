@@ -1,11 +1,13 @@
 const { request } = require('express')
 const cloudinary = require("../middleware/cloudinary");
 const moment = require("moment")
+const mongoose = require('mongoose');
 const Course = require('../models/Course')
 const Student = require('../models/Student')
 const Fee = require('../models/Fee')
-const mongoose = require('mongoose');
 const Branch = require('../models/Branch');
+const User = require('../models/User')
+const { render } = require('ejs');
 const ObjectId = mongoose.Types.ObjectId;
 
 module.exports = {
@@ -1005,4 +1007,31 @@ module.exports = {
           res.render('error/500')
       }
   },   
+
+  // Account settings 
+  getSettings: async(req, res) => {
+    try{
+      const user = await User.find(req.user)
+      
+      res.render('admin/ccet/account/index', {
+        user
+      })
+    } catch(err){
+      console.error(err)
+      res.render('error/500')
+    }
+  },
+
+  updateUser: async(req, res) => {
+    try{
+      const user = await User.find(req.user)
+      
+      res.render('admin/ccet/account/editUser', {
+        user
+      })
+    } catch(err){
+      console.error(err)
+      res.render('error/500')    
+    }
+  },
 }

@@ -1,0 +1,70 @@
+<div class="flex h-screen">
+    
+    <%- include('../../../partials/adminTemplate.ejs') %>
+        
+    <div class="flex-1 flex items-center bg-white">        
+
+        <div class="w-[95%] lg:mx-36 sm:mx-8 p-8 flex flex-col lg:items-center bg-[#d7eaf8]">            
+            <h1 class="w-[60%] bg-gradient-to-r from-indigo-400 my-4 p-2 text-white">Update user information</h1>            
+            <form action="/ccet/add-student" method="POST"">
+                <table>
+                    <tr>
+                        <td>
+                            <label class="text-sm sm:text-base">
+                                Username
+                            </label>                    
+                        </td>
+                        <td>
+                            <input class="my-3 w-52 sm:w-60 h-10 rounded-md" type="text" name="userName" value="<%= user[0].userName %>">
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td>
+                            <label class="text-sm sm:text-base">
+                                Email
+                            </label>                    
+                        </td>
+                        <td>
+                            <input class="my-3 w-52 sm:w-60 h-10 rounded-md" type="email" name="email" value="<%= user[0].email %>"">                            
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td>
+                            <label class="text-sm sm:text-base">
+                                Password
+                            </label>
+                        </td>
+                        <td>
+                            <input class="my-3 w-52 sm:w-60 h-10 rounded-md" type="password" name="password" value="<%= user[0].password %>"">                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="text-sm sm:text-base">
+                                Confirm password
+                            </label>
+                        </td>
+                        <td>
+                            <input class="my-3 w-52 sm:w-60 h-10 rounded-md" type="password" name="confirmPassword" value="<%= user[0].password %>"">                            
+                        </td>
+                    </tr>                    
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td>
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+        
+                
+                
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="../../../../js/main.js"></script>    
+</body>
+</html>

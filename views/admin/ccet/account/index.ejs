@@ -1,0 +1,60 @@
+<div class="flex h-screen">
+    
+    <%- include('../../../partials/adminTemplate.ejs') %>    
+
+    <div class="flex-1 flex items-center bg-white">        
+        
+        <div class="w-[95%] lg:mx-36 sm:mx-8 p-8 flex flex-col lg:items-center bg-[#d7eaf8]">            
+            <h1 class="w-[60%] bg-gradient-to-r from-indigo-400 my-4 p-2 text-white">Logged in user information</h1>            
+                <table>
+                    <tr>
+                        <td>
+                            <label class="text-sm sm:text-base">
+                                Username
+                            </label>                    
+                        </td>
+                        <td>
+                            <%= user[0].userName %>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td>
+                            <label class="text-sm sm:text-base">
+                                Email
+                            </label>                    
+                        </td>
+                        <td>
+                            <%= user[0].email %>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td>
+                            <label class="text-sm sm:text-base">
+                                Password
+                            </label>
+                        </td>
+                        <td>
+                            <%= user[0].password %>
+                        </td>
+                    </tr>                    
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td>
+                            <form action="/ccet/update-user" method="GET">
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Update Info</button>    
+                            </form>                            
+                        </td>
+                    </tr>
+                </table>            
+        </div>
+    </div>
+ 
+</div>
+
+
+
+<script src="../../../../js/main.js"></script>    
+</body>
+</html>
