@@ -6,7 +6,12 @@
 
         <div class="w-[95%] lg:mx-36 sm:mx-8 p-8 flex flex-col lg:items-center bg-[#d7eaf8]">            
             <h1 class="w-[60%] bg-gradient-to-r from-indigo-400 my-4 p-2 text-white">Update user information</h1>            
-            <form action="/ccet/add-student" method="POST"">
+            <% if (locals.messages.errors) { %>
+                <% messages.errors.forEach( el => { %>
+                    <div class="alert alert-danger"><%= el.msg %></div>
+                <% }) %>    
+            <% } %>  
+            <form action="/ccet/update-user/<%= user[0].id %>?_method=PUT" method="POST"">
                 <table>
                     <tr>
                         <td>

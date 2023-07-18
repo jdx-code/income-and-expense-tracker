@@ -1,14 +1,18 @@
 const { request } = require('express')
-const cloudinary = require("../middleware/cloudinary");
+const cloudinary = require("../middleware/cloudinary")
 const moment = require("moment")
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
+const passport = require('passport')
+const bcrypt = require('bcrypt')
+const validator = require('validator')
 const Course = require('../models/Course')
 const Student = require('../models/Student')
 const Fee = require('../models/Fee')
-const Branch = require('../models/Branch');
+const Branch = require('../models/Branch')
 const User = require('../models/User')
 const { render } = require('ejs');
 const ObjectId = mongoose.Types.ObjectId;
+
 
 module.exports = {
     // getIndex: async(req, res) => {
@@ -1022,7 +1026,7 @@ module.exports = {
     }
   },
 
-  updateUser: async(req, res) => {
+  getUser: async(req, res) => {
     try{
       const user = await User.find(req.user)
       
@@ -1032,6 +1036,49 @@ module.exports = {
     } catch(err){
       console.error(err)
       res.render('error/500')    
+    }
+  },
+
+  updateUser: async(req, res) => {
+    try{
+      let user = await User.findById(req.params.id)                     
+      console.log(`User before update ${user}`) 
+      if(!user){
+          return res.render('error/404')
+      } else {
+
+        // Pulled from auth
+        const validationErrors = [];
+        if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' });
+        if (!validator.isLength(req.body.password, { min: 8 })) validationErrors.push({ msg: 'Password must be at least 8 characters long' });
+        if (req.body.password !== req.body.confirmPassword) validationErrors.push({ msg: 'Passwords do not match' });
+    
+        if (validationErrors.length) {
+          req.flash('errors', validationErrors);
+          return res.redirect(`/ccet/get-user`);
+        }
+        
+        // Password hash middleware.
+        if (req.body.password) {
+          console.log(`Inside the if block ==> ${req.body.password}`)
+          const salt = await bcrypt.genSalt(10);          
+          const hashedPassword = await bcrypt.hash(req.body.password, salt);
+          user.password = hashedPassword;
+          console.log(`Inside the if block ==> ${user.userName} ${user.email} ${user.password}`)
+        }
+        
+        console.log(`User after update: ${user}`);
+        
+        await User.findOneAndUpdate({ _id : req.params.id }, user, {
+          new : true,
+          runValidators : true,
+      })        
+        
+        res.redirect('/ccet/account-settings')
+      }
+    } catch(err){
+      console.error(err)
+      res.render('error/500')
     }
   },
 }
