@@ -1042,12 +1042,11 @@ module.exports = {
   updateUser: async(req, res) => {
     try{
       let user = await User.findById(req.params.id)                     
-      console.log(`User before update ${user}`) 
+      
       if(!user){
           return res.render('error/404')
       } else {
-
-        // Pulled from auth
+        
         const validationErrors = [];
         if (!validator.isEmail(req.body.email)) validationErrors.push({ msg: 'Please enter a valid email address.' });
         if (!validator.isLength(req.body.password, { min: 8 })) validationErrors.push({ msg: 'Password must be at least 8 characters long' });
@@ -1057,22 +1056,45 @@ module.exports = {
           req.flash('errors', validationErrors);
           return res.redirect(`/ccet/get-user`);
         }
+
+        // Username and Email validation starts
+        req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false });  
         
+        // Check for existing user by email or username, excluding the current user
+        const existingUser = await User.findOne({
+          _id: { $ne: req.params.id }, // Exclude the current user
+          $or: [
+            { email: req.body.email },
+            { userName: req.body.userName },
+          ],
+        });
+
+        if (existingUser) {
+          req.flash('errors', { msg: 'Account with that email address or username already exists.' });
+          return res.redirect('../signup');
+        }
+        // Username and Email validation ends
+
+        user.userName = req.body.userName
+        user.email = req.body.email
+
         // Password hash middleware.
-        if (req.body.password) {
-          console.log(`Inside the if block ==> ${req.body.password}`)
+        if (req.body.password !== user.password) {          
           const salt = await bcrypt.genSalt(10);          
           const hashedPassword = await bcrypt.hash(req.body.password, salt);
-          user.password = hashedPassword;
-          console.log(`Inside the if block ==> ${user.userName} ${user.email} ${user.password}`)
+          user.password = hashedPassword;          
         }
-        
-        console.log(`User after update: ${user}`);
-        
-        await User.findOneAndUpdate({ _id : req.params.id }, user, {
+
+        const updatedUser = {
+          userName: req.body.userName,
+          email: req.body.email,
+          password: user.password,
+        }
+
+        await User.findOneAndUpdate({ _id : req.params.id }, updatedUser, {
           new : true,
           runValidators : true,
-      })        
+      })      
         
         res.redirect('/ccet/account-settings')
       }
