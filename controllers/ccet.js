@@ -52,10 +52,10 @@ module.exports = {
           const perPage = 5;
           const currentPage = parseInt(req.query.page) || 1;
 
-          const totalData = await Course.countDocuments();
+          const totalData = await Course.countDocuments({ deleted: false });
           const totalPages = Math.ceil(totalData / perPage);
 
-          const courses = await Course.find()
+          const courses = await Course.find({ deleted: false })
             .skip((currentPage - 1) * perPage)
             .limit(perPage);
           
@@ -150,15 +150,39 @@ module.exports = {
   },
 
     // Delete course
-    deleteCourse: async (req, res) => {
-        try{            
-            await Course.deleteOne({ _id: req.params.id })
-            console.log('Deleted course')            
-            res.redirect('/ccet/course-management/')
-        } catch (err){
-            console.error(err)
-            res.render('error/500')
+    // deleteCourse: async (req, res) => {
+    //     try{            
+    //         await Course.deleteOne({ _id: req.params.id })
+    //         console.log('Deleted course')            
+    //         res.redirect('/ccet/course-management/')
+    //     } catch (err){
+    //         console.error(err)
+    //         res.render('error/500')
+    //     }
+    // },
+
+    // Update course status as deleted
+    updateCourseStatus: async (req, res) => {
+      try {
+        const courseId = req.params.id;
+        const course = await Course.findById(courseId);
+
+        if (!course) {
+          // Handle case when course is not found
+          return res.status(404).json({ error: 'Course not found' });
         }
+
+        // Mark the course as deleted
+        course.deleted = true;
+        await course.save();
+
+        // Redirect to the course management page
+        return res.redirect('/ccet/course-management');
+      } catch (err) {
+        // Handle error case
+        console.error(err);
+        return res.render('error/500');
+      }
     },
 
     // Render add student form
@@ -201,7 +225,7 @@ module.exports = {
             const courses = await Course.find();
             const currentPage = parseInt(req.query.page) || 1; // Current page number
 
-            const totalData = await Student.countDocuments();
+            const totalData = await Student.countDocuments({ courseEnrolled: { $exists: false } });
             const totalPages = Math.ceil(totalData / perPage);
 
             const students = await Student.find()
@@ -210,8 +234,8 @@ module.exports = {
               .sort({ enrollmentDate: 'descending' })
               .skip((currentPage - 1) * perPage)
               .limit(perPage);
-
-            const formattedStudents = students.map(student => ({
+            
+            const formattedStudents = students.filter(s => s.courseEnrolled).map(student => ({
             ...student.toObject(),
             enrollmentDate: moment(student.enrollmentDate).format('DD-MM-YYYY')
             }));
@@ -236,6 +260,7 @@ module.exports = {
             res.render('error/500')
         }
     },   
+
     // Render students by applying filtered search based on course and/or session
     viewFilteredStudents: async (req, res) => {
         try {
@@ -1016,9 +1041,14 @@ module.exports = {
   getSettings: async(req, res) => {
     try{
       const user = await User.find(req.user)
+
+      const otherUsers = await User.find({
+        _id: { $ne: user[0]._id }, // Exclude the current user
+      })
       
       res.render('admin/ccet/account/index', {
-        user
+        user, 
+        otherUsers,
       })
     } catch(err){
       console.error(err)

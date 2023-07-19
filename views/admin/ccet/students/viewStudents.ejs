@@ -65,12 +65,12 @@
                         </th>
                     </tr>            
                 </thead>     
-
+                
                 <% if(students && students.length > 0) { %>
                     
                 <tbody>                
                     <% students.forEach(student => { %>
-                                
+                                                        
                         <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">
                             <td style="display:none">                
                                 <%= student._id %>                
@@ -104,10 +104,10 @@
                                         </button>                                   
                                 </form>                                
                             </td>   
-                        </tr>    
+                        </tr> 
+                           
                     <% }) %>  
-                </tbody>  
-
+                </tbody> 
                 <% } else { %>
                     <tbody>
                         <tr>

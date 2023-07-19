@@ -37,7 +37,9 @@ router.get('/course-management', ensureAuth, ccetController.getAllCourses)
 router.post('/add-course', ccetController.addCourse)
 router.post('/course-management/:id', ccetController.courseInfoById)
 router.put('/update-course/:id', ccetController.updateCourse)
-router.delete('/delete-course/:id', ccetController.deleteCourse)
+// router.delete('/delete-course/:id', ccetController.deleteCourse)
+router.put('/delete-course/:id', ccetController.updateCourseStatus);
+
 
 
 // Routes for branch management

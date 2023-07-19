@@ -12,7 +12,7 @@
                             <label>Course Name : </label>
                         </td>
                         <td>
-                            <input type="text" name="courseName" value="<%= course.courseName %>">
+                            <input class="w-48 h-7 sm:w-60 sm:h-9 rounded-md" type="text" name="courseName" value="<%= course.courseName %>">
                         </td>
                     </tr>
                     <tr>
@@ -20,7 +20,7 @@
                             <label>Course Duration : </label>
                         </td>
                         <td>
-                            <input type="text" name="courseDuration" value="<%= course.courseDuration %>">
+                            <input class="w-48 h-7 sm:w-60 sm:h-9 rounded-md" type="text" name="courseDuration" value="<%= course.courseDuration %>">
                         </td>
                     </tr>
                     <tr>
@@ -28,90 +28,89 @@
                             <label>Course Fees : </label>
                         </td>
                         <td>
-                            <input type="text" name="courseFees" value="<%= course.courseFees %>">
+                            <input class="w-48 h-7 sm:w-60 sm:h-9 rounded-md" type="text" name="courseFees" value="<%= course.courseFees %>">
                         </td>
                     </tr>            
                     <tr>
                         <td></td>
                         <td>
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Update Course</button>
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-normal py-2 px-2 rounded" type="submit">Update Course</button>
                         </td>
                     </tr>
                 </table>                        
             </form>
-        </div>
-            
-        <div>
-            <h1 class="bg-gradient-to-r from-indigo-400 my-4 p-2 text-white">Available Courses</h1>            
-            <% if(!courses) { %>
-                <p>Something went wrong..</p>
-            <% } else { %>
-            <% let courseArr = Object.values(courses) %>
-            <div class="flex-1 relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-left text-blue-600 dark:text-blue-100">
-                    <thead class="text-xs text-white uppercase bg-blue-600 dark:text-white">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">Course name</th>
-                            <th scope="col" class="px-6 py-3">Duration</th>
-                            <th scope="col" class="px-6 py-3">Fees</th>
-                            <th scope="col" class="px-6 py-3">Update</th>
-                            <th scope="col" class="px-6 py-3">Delete</th>
-                        </tr>
-                    </thead>
+        </div>            
+        
+        <h1 class="bg-gradient-to-r from-indigo-400 my-4 p-2 text-white">Available Courses</h1>            
+        <% if(!courses) { %>
+            <p>Something went wrong..</p>
+        <% } else { %>
+        <% let courseArr = Object.values(courses) %>
+        
+        <table class="w-[98%] sm:w-full text-xs lg:text-base text-center text-blue-600 dark:text-blue-100">
+            <thead class="text-white uppercase bg-blue-600 dark:text-white">                
+                    <tr>
+                        <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Course name</th>
+                        <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Duration</th>
+                        <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Fees</th>
+                        <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Update</th>
+                        <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Delete</th>
+                    </tr>
+                </thead>
 
-                    <% if(courseArr && courseArr.length > 0) { %>                        
+                <% if(courseArr && courseArr.length > 0) { %>                        
 
-                    <tbody>
-                    <% courseArr.forEach(e => { %>
-                        <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">                
-                            <td class="px-6 py-4">
-                                <span id="coursename">
-                                    <%= e.courseName %>
-                                </span>
-                            </td>
-                            <td class="px-6 py-4">
-                                <span id="courseduration">
-                                    <%= e.courseDuration %> months
-                                </span>
-                            </td>
-                            <td class="px-6 py-4">
-                                <span id="coursefees">
-                                    <%= e.courseFees %>
-                                </span>
-                            </td>
-                            <td class="px-6 py-4">      
-                                <a href="/ccet/course-management/<%= e._id %>">
-                                    <button type="submit">
-                                        <i class="fas fa-edit"></i></a>
-                                    </button>
-                                </a> 
-                            </td>
-                            <td class="px-6 py-4">
-                                <button class="deleteBtn">
-                                    <i class="fas fa-trash"></i>
+                <tbody>
+                <% courseArr.forEach(e => { %>
+                    <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">
+                        <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                            <span id="coursename">
+                                <%= e.courseName %>
+                            </span>
+                        </td>
+                        <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                            <span id="courseduration">
+                                <%= e.courseDuration %> months
+                            </span>
+                        </td>
+                        <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                            <span id="coursefees">
+                                <%= e.courseFees %>
+                            </span>
+                        </td>
+                        <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">      
+                            <a href="/ccet/course-management/<%= e._id %>">
+                                <button type="submit">
+                                    <i class="fas fa-edit"></i></a>
                                 </button>
-                            </td>                
+                            </a> 
+                        </td>
+                        <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                            <button class="deleteBtn">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>                
+                    </tr>
+                    <% }) %>
+                </tbody>
+
+                <% } else { %>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p class="my-8 mx-2 text-gray-600">No records..</p>
+                            </td>
                         </tr>
-                        <% }) %>
-                    </tbody>
+                    </tbody>                    
+                <% } %>
 
-                    <% } else { %>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <p class="my-8 mx-2 text-gray-600">No records..</p>
-                                </td>
-                            </tr>
-                        </tbody>                    
-                    <% } %>
-
-                </table>            
-                <% } %>    
+            </table>            
+            <% } %>    
+            
+            <!-- Pagination -->
+            <%- include('../../../partials/pagination.ejs') %>
                 
-                <!-- Pagination -->
-                <%- include('../../../partials/pagination.ejs') %>
-                
-            </div>
+            
         </div>
         
     </div>

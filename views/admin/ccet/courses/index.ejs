@@ -1,7 +1,6 @@
 <div class="flex h-screen">
     
-    <%- include('../../../partials/adminTemplate.ejs') %>
-    
+    <%- include('../../../partials/adminTemplate.ejs') %>    
     
     <div class="flex-1 flex flex-col p-4">
         <div>
@@ -87,13 +86,21 @@
                                     </button>
                                 </form>
                             </td>
-                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                            <!-- <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
                                 <form class="mt-2" action="/ccet/delete-course/<%= e.id %>?_method=DELETE" method="POST">
                                     <button type="submit">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>                                
-                            </td>                
+                            </td> -->
+                            <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                                <form class="mt-2" action="/ccet/delete-course/<%= e.id %>?_method=PUT" method="POST">
+                                  <input type="hidden" name="_method" value="PUT">
+                                  <button type="submit">
+                                    <i class="fas fa-trash"></i>
+                                  </button>
+                                </form>
+                            </td>
                         </tr>
                         <% }) %>
                     </tbody>

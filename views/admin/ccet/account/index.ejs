@@ -10,7 +10,7 @@
                     <tr>
                         <td>
                             <label class="text-sm sm:text-base">
-                                Username
+                                Username : 
                             </label>                    
                         </td>
                         <td>
@@ -20,7 +20,7 @@
                     <tr>
                         <td>
                             <label class="text-sm sm:text-base">
-                                Email
+                                Email : 
                             </label>                    
                         </td>
                         <td>
@@ -30,11 +30,11 @@
                     <tr>
                         <td>
                             <label class="text-sm sm:text-base">
-                                Password
+                                Password : 
                             </label>
                         </td>
                         <td>
-                            <span>xxxxxxxxxxxxxxxxxxxxxxxxx</span>
+                            <span>***************</span>
                         </td>
                     </tr>                    
                     <tr>
@@ -48,7 +48,60 @@
                         </td>
                     </tr>
                 </table>            
+
+                <div>
+                    <h1 class="w-[60%] bg-gradient-to-r from-indigo-400 my-4 p-2 text-white">Other users</h1>                                
+        
+                    <div class="flex-1 relative overflow-x-auto shadow-md sm:rounded-lg">
+                        <table class="w-[98%] text-xs lg:text-base text-center text-blue-600 dark:text-blue-100">
+                            <thead class="text-white uppercase bg-blue-600 dark:text-white">
+                                <tr>
+                                    <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Username</th>                                                                                    
+                                    <th scope="col" class="lg:text-sm sm:p-2 md:px-4 md:py-2">Email</th>                                    
+                                </tr>
+                            </thead>
+                
+                            <% if(otherUsers && otherUsers.length > 0) { %>   
+                                
+                            <tbody>
+                                <% otherUsers.forEach(u => { %>
+                                <tr class="bg-blue-100 text-gray-700 border-b border-blue-300 hover:bg-blue-200 hover:text-gray-800">                
+                                    <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                                        <span id="coursename">
+                                            <%= u.userName %>
+                                        </span>
+                                    </td>
+                                    <td class="lg:text-sm sm:p-2 md:px-4 md:py-2">
+                                        <span id="coursename">
+                                            <%= u.email %>                                    
+                                        </span>
+                                    </td>
+                                    
+                                </tr>
+                                <% }) %>
+                                
+                            </tbody>
+                
+                            <% } else { %>
+                            
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p class="my-8 mx-2 text-gray-600">No records..</p>
+                                    </td>
+                                </tr>
+                            </tbody>                    
+                            
+                            <% } %>
+                
+                        </table>
+                    </div>
+        
+                </div> 
+
+
         </div>
+
     </div>
  
 </div>
